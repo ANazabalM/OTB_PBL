@@ -9,40 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/css/styles.css"> <!-- Incluir tus estilos personalizados aquí -->
 </head>
-<body>
-    <header class="bg-dark text-white text-center py-4">
-        <img src="/img/LOGO1.svg" alt="Outside the Books Logo" class="logo mb-3">
-        <h1>Outside the Books</h1>
-    </header>
+<body>    
 
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4a596d;">
-        <button class="navbar-toggler order-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 5px;">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand order-1" href="index.html">Menu</a>
-        <div class="collapse navbar-collapse order-2" id="navbarNav">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="tema.html?tema=Reciclaje">Reciclaje</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tema.html?tema=Tecnologia">Tecnología</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tema.html?tema=Limpieza del hogar">Limpieza del hogar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tema.html?tema=Cocinar">Cocinar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="tema.html?tema=Otros">Otros</a>
-                </li>
-            </ul>
-        </div>
-        <div class="ml-auto order-3">
-            <a class="nav-link text-white" href="iniciar_sesion.html"><i class="fas fa-user-circle fa-2x"></i></a>
-        </div>
-    </nav>
+    <div th:replace="fragments/header :: header"></div>
 
     <div class="container">
         <div class="card mx-auto" style="max-width: 400px; margin-bottom: 20px; margin-top: 40px;">
