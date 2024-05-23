@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTB - Registrarse</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header class="bg-dark text-white text-center py-4">
+        <img src="img/LOGO.png" alt="Outside the Books Logo" class="logo mb-3">
+        <h1>Outside the Books</h1>
+    </header>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4a596d;">
+        <button class="navbar-toggler order-0" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation" style="margin-right: 5px;">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand order-1" href="index.html">Menu</a>
+        <div class="collapse navbar-collapse order-2" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="tema.html?tema=Reciclaje">Reciclaje</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tema.html?tema=Tecnologia">Tecnología</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tema.html?tema=Limpieza del hogar">Limpieza del hogar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tema.html?tema=Cocinar">Cocinar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="tema.html?tema=Otros">Otros</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ml-auto order-3">
+            <a class="nav-link text-white" href="iniciar_sesion.html"><i class="fas fa-user-circle fa-2x"></i></a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card mx-auto" style="max-width: 400px; margin-bottom: 20px; margin-top: 40px;">
+            <div class="card-body text-center">
+                <i class="fas fa-user-plus fa-3x mb-3"></i>
+                <h5 class="card-title">Registrarse</h5>
+				<div th:if=${param.exito}>
+					<div class="alert alert-info">Se ha registrado exitosamente a
+						la aplicación</div>
+				</div>
+                <form th:action="@{/registro}" method="post" th:object="${usuario}">
+					<div class="form-group">
+						<label class="control-label" for="nombre">Nombre : </label> <input
+							id="nombre" type="text" class="form-control" th:field="*{nombre}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="apellido">Apellido : </label> <input
+							id="apellido" class="form-control" th:field="*{apellido}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="email">Email : </label> <input
+							id="email" type="email" class="form-control" th:field="*{email}"
+							required autofocus="autofocus">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label" for="password">Password : </label> <input
+							type="password" id="password" class="form-control" th:field="*{password}"
+							required autofocus="autofocus">
+					</div>
+
+                    <button type="submit" class="btn btn-primary btn-block" style="background-color: #4a596d;">Registrarse</button>
+                </form>
+                <p class="mt-3">¿Ya tienes una cuenta? <a href="iniciar_sesion.html">Inicia Sesión</a></p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p>Síguenos en nuestras redes sociales:</p>
+        <a href="https://facebook.com" class="text-white mx-2"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://twitter.com" class="text-white mx-2"><i class="fab fa-twitter"></i></a>
+        <a href="https://instagram.com" class="text-white mx-2"><i class="fab fa-instagram"></i></a>
+        <p>Creado por Eider, Paola, Ander, Ibai y Maialen.</p>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
