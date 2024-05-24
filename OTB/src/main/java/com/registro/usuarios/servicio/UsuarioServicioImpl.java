@@ -54,6 +54,15 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre())).collect(Collectors.toList());
 	}
 	
+	public Usuario getUsuario(String username)
+	{
+		Usuario usuario = usuarioRepositorio.findByUsername(username);
+		if(usuario == null) {
+			throw new UsernameNotFoundException("Usuario o password inválidos");
+		}
+		return new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getUsername(), usuario.getEmail());
+	}
+
 	@Override
 	public List<Usuario> listarUsuarios() {
 		return usuarioRepositorio.findAll();
