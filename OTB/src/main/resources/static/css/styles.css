@@ -45,3 +45,30 @@ footer a:hover {
     background-color: #4a596d;
     border-color: #4a596d;
 }
+
+/*INDEX ARTICULOS*/
+
+.row{
+    margin-top: 50px;
+}
+
+.badge-info {
+    background-color: #4a596d;
+}
+
+.star-icon {
+    color: #4a596d;
+}
+
+.card {
+    position: relative;
+}
+
+.card-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: #ff0000;
+    font-size: 1.5rem;
+    z-index: 1;
+}
