@@ -30,6 +30,7 @@ public class Usuario {
 	private String apellido;
 
 	private String email;
+	private String username;
 	private String password;
 	
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
@@ -39,6 +40,8 @@ public class Usuario {
 			inverseJoinColumns = @JoinColumn(name = "rol_id",referencedColumnName = "id")
 			)
 	private Collection<Rol> roles;
+
+
 
 	public Long getId() {
 		return id;
@@ -109,6 +112,22 @@ public class Usuario {
 
 	public Usuario() {
 		
+	}
+
+    public Usuario(String nombre, String apellido, String username, String correo) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.email = correo;
+		this.username = username;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

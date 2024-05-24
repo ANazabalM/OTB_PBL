@@ -32,17 +32,21 @@
                 </ul>
             </div>
 
-            <div th:if="${usuario != null}" class="ml-auto order-3">
-                <a class="nav-link text-white" th:href="@{/usuario/verFavoritos/2}"><i class="bi bi-heart-fill h4"></i></a>
-                <p>Favs</p>
-            </div>
-    
-            <div th:if="${usuario != null}" class="ml-auto order-4">
-                <a class="nav-link text-white" th:href="@{/usuario/ver/2}">Ver Perfil</a>
-            </div>
+            <button th:if="${username != null}" class="navbar-toggler ml-auto order-3" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fas fa-user-circle fa-2x"></i>
+                <div class="collapse navbar-collapse order-4" id="navbarToggleExternalContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Ver Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ver Lista de Favoritos</a>
+                        </li>
+                    </ul>
+            </button>
 
-            <div class="ml-auto order-3">
-                <a class="nav-link text-white" href="login"><i class="fas fa-user-circle fa-2x"></i></a>
+            <div class="ml-auto order-5">
+                <a class="nav-link text-white" href="/login"><i class="fas fa-user-circle fa-2x"></i></a>
             </div>
         </nav>
     </body>
