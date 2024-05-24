@@ -21,7 +21,19 @@ public class RegistroControlador {
 
 	
 	@GetMapping("/")
-	public String verPaginaDeInicio() {		
+	public String verPaginaDeInicio(Model model) {
+
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String email = auth.getName();
+
+		String a = "a";
+
+		if(!email.equals("anonymousUser"))
+		{
+			model.addAttribute("email", email);
+		}
+
 		return "index";
 	}
 }
