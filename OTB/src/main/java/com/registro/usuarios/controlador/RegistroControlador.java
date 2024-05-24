@@ -27,8 +27,6 @@ public class RegistroControlador {
 		
 		String email = auth.getName();
 
-		String a = "a";
-
 		if(!email.equals("anonymousUser"))
 		{
 			model.addAttribute("email", email);
