@@ -26,6 +26,8 @@ public class LoginControlador {
 		if(!email.equals("anonymousUser"))
 		{
 			model.addAttribute("email", email);
+		}else{
+			model.addAttribute("email", null);
 		}
 
 		return "index";

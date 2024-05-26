@@ -17,6 +17,10 @@
 
     <div th:replace="fragments/header :: nav"></div>
     
+    <div th:if="${param.logout}" class="p-3 pl-5 pr-5">
+        <div class="alert alert-info text-center card mx-auto">Ha cerrado sesión exitosamente
+        </div>
+    </div>
 
     <div class="container mt-5">
         <div class="row justify-content-center align-items-center">
@@ -91,6 +95,10 @@
 		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 		crossorigin="anonymous">
 	</script>
+
+	<!-- Meter iconos de fontawesome -->
+
+    <script src="https://kit.fontawesome.com/9b8027ff42.js" crossorigin="anonymous"></script>
 
 </body>
 </html>
