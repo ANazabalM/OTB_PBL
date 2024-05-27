@@ -42,7 +42,18 @@ public class CategoriaControlador {
         return "a";
     }
 
-    @GetMapping("/categoria/delete/{categoriaId}")
+    @GetMapping("/categoria/view/")
+    public String showCategorias(Model model){
+        /*
+            List<Categoria> categorias = categoriaServicio.cogerTodas();
+            model.addAtribute("categorias", categorias);
+            return "categorias";
+         */
+
+        return "a";
+    }
+
+    @PostMapping("/categoria/delete/{categoriaId}")
     public String eliminarCategoria(@PathVariable String categoriaId){
         
         /* 
