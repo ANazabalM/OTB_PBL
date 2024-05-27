@@ -76,6 +76,12 @@ public class CategoriaControlador {
         return "formularioCategoria";
     }
 
+    @GetMapping("/categoria")
+    public String a(){  
+        return "categorias";
+    }
+
+
     @PostMapping("/categoria/create")
     public String crearCategoria(Model model){
         /*

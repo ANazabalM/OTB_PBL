@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTB - Título del Artículo</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/styles.css"> <!-- Incluir tus estilos personalizados aquí -->
+    <style>
+        .category-icon {
+            font-size: 2em;
+            margin-right: 10px;
+        }
+        .category-title {
+            font-size: 1.5em;
+        }
+        .category-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #fff;
+        }
+        .recycle-icon {
+            color: #7BCF6F;
+        }
+        .tecnologia-icon{
+            color: #F77272;
+        }
+        .economia-icon{
+            color: #F9F568;
+        }
+        .limpieza-icon{
+            color: #9AD6EA;
+        }
+        .cocina-icon{
+            color: #FFBD5B;
+        }
+        .mecanica-icon{
+            color: #AAAA9E;
+        }
+        .deporte-icon{
+            color: #D07AF5;
+        }
+        .hogar-icon{
+            color: #98F5B8;
+        }
+        .animales-icon{
+            color: #C98769;
+        }
+        .sexo-icon{
+            color: #F590C9;
+        }
+    </style>
+</head>
+<body>
+    
+    <div th:replace="fragments/header :: header"></div>
+
+    <div th:replace="fragments/header :: nav"></div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-recycle category-icon recycle-icon"></i>
+                    <span class="category-title">Reciclaje</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-plug category-icon tecnologia-icon"></i>
+                    <span class="category-title">Tecnología</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-spray-can category-icon limpieza-icon"></i>
+                    <span class="category-title">Limpieza</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-kitchen-set category-icon cocina-icon"></i>
+                    <span class="category-title">Cocina</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-sack-dollar category-icon economia-icon"></i>
+                    <span class="category-title">Economía</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-car category-icon mecanica-icon"></i>
+                    <span class="category-title">Mecánica</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-futbol category-icon deporte-icon"></i>
+                    <span class="category-title">Deporte</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-house category-icon hogar-icon"></i>
+                    <span class="category-title">Hogar</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-paw category-icon animales-icon"></i>
+                    <span class="category-title">Animales Domésticos</span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="category-item">
+                    <i class="fa-solid fa-fire-flame-curved category-icon sexo-icon"></i>
+                    <span class="category-title">Educación Sexual</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/9b8027ff42.js" crossorigin="anonymous"></script>
+</body>
+</html>
