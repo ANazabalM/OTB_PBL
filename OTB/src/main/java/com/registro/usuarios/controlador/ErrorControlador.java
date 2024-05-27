@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/*@Controller*/
+
 public class ErrorControlador {
     
     @RequestMapping("/error")
@@ -22,7 +24,7 @@ public class ErrorControlador {
                 return "/error/error-500";
             }
         }
-    return "/error/error";
+    return "/error/error";  
 }
 
 }

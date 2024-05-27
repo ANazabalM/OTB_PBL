@@ -30,6 +30,12 @@ public class LoginControlador {
 			model.addAttribute("email", null);
 		}
 
+		/*
+
+		 * 	List<Articulo> articulos = articulosServicio.cogerMasVistos();
+			model.addAttribute("articulos", articulos)
+		 */
+
 		return "index";
 	}
 }
