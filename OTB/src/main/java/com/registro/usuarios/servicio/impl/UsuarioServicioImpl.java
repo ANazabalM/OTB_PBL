@@ -1,4 +1,4 @@
-package com.registro.usuarios.servicio;
+package com.registro.usuarios.servicio.impl;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -19,6 +19,7 @@ import com.registro.usuarios.controlador.dto.UsuarioRegistroDTO;
 import com.registro.usuarios.modelo.Rol;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.repositorio.UsuarioRepository;
+import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
