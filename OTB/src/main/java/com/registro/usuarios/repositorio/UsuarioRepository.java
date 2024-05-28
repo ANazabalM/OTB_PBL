@@ -1,5 +1,7 @@
 package com.registro.usuarios.repositorio;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +12,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
 	public Usuario findByEmail(String email);
 	public Usuario findByUsername(String username);
-
+	public Optional<Usuario> findById(Long id);
 }

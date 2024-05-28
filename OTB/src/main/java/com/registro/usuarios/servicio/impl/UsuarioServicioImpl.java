@@ -3,6 +3,7 @@ package com.registro.usuarios.servicio.impl;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,19 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	}
 
 	@Override
+	public Usuario cogerUsuarioId(Long id)
+	{
+		Optional<Usuario> usuario = usuarioRepositorio.findById(id);
+
+		if(usuario == null) {
+			throw new UsernameNotFoundException("Usuario o password inválidos");
+		}
+
+		return new Usuario();
+	}
+
+
+	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		Usuario usuario = usuarioRepositorio.findByEmail(username);
 		if(usuario == null) {
@@ -57,6 +71,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		return new User(usuario.getEmail(),usuario.getPassword(), mapearAutoridadesRoles(usuario.getRoles()));
 	}
 
+	
 	private Collection<? extends GrantedAuthority> mapearAutoridadesRoles(Collection<Rol> roles){
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre())).collect(Collectors.toList());
 	}
@@ -74,4 +89,5 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public List<Usuario> listarUsuarios() {
 		return usuarioRepositorio.findAll();
 	}
+
 }

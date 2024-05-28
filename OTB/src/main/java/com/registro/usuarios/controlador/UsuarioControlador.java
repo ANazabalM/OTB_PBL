@@ -1,51 +1,72 @@
 package com.registro.usuarios.controlador;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.registro.usuarios.modelo.Usuario;
+import com.registro.usuarios.servicio.UsuarioServicio;
+
 public class UsuarioControlador {
     
-    @GetMapping("/usuario/view/{usuarioId}")
-    public String visualizarPerfil(@PathVariable String usuarioId, Model model){
-        /*
-        Usuario usuario = usuarioServicio.cogerUsuario(Integer.parseInt(usuarioId));
-        if(usuario != null)
-        {
-            model.addAtribute("usuario", usuario);
-         * return "verPerfilUsuario";
-        }
+    UsuarioServicio usuarioServicio;
 
-        return "error";
-         * 
-         */
+    @GetMapping("/usuario/view/{username}")
+    public String visualizarPerfil(@PathVariable String username, Model model){
+        Usuario usuario = usuarioServicio.getUsuario(username);
+        Usuario usuarioRespuesta = null;
+        Boolean mismo = false;
 
-        return "a";
-    }
-    
-    @PostMapping("/usuario/delete/{usuarioId}")
-    public String eliminarPerfil(@PathVariable String usuarioId, Model model){
-        /*
-        Usuario usuario = usuarioServicio.cogerUsuario(Integer.parseInt(usuarioId));
-        if(usuario != null)
+        if(usuario != null )
         {
-            usuarioServicio.eliminarUsuario(Integer.parseInt(usuarioId));
+            String email = usuario.getEmail();
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		    String emailAuth = auth.getName();
+
+            if(emailAuth.equals(email))
+            {
+                mismo = true;
+                usuarioRespuesta = new Usuario(usuario.getNombre(), usuario.getApellido(),
+                                    usuario.getUsername(), usuario.getDescripcion());
+                
+
+            }else{
+                usuarioRespuesta = new Usuario(usuario.getNombre(), usuario.getApellido(),
+                                    usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername());
+            }
+            model.addAttribute("mismo", mismo);
+            model.addAttribute("usuario", usuarioRespuesta);
             return "index";
         }
 
         return "error";
-         * 
-         */
+    }
+    
+    @PostMapping("/usuario/delete/{username}")
+    public String eliminarPerfil(@PathVariable String usuarioId, Model model){
 
-        return "a";
+        Usuario usuario = usuarioServicio.cogerUsuarioId(Long.parseLong(usuarioId));
+        if(usuario != null)
+        {
+            //usuarioServicio.eliminarUsuario(Integer.parseInt(usuarioId));
+            return "index";
+        }
+
+        return "error";
     }
 
     @PostMapping("/usuario/edit/{usuarioId}")
     public String editarPerfil(@PathVariable String usuarioId, Model model){
         /*
         Usuario usuario = usuarioServicio.cogerUsuario(Integer.parseInt(usuarioId));
-        if(usuario != null)
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String email = auth.getName();        
+        if(usuario != null  && usuario.getEmai().equals(email))
         {
             usuarioServicio.eliminarUsuario(Integer.parseInt(usuarioId));
             return "index";
