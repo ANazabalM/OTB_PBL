@@ -18,6 +18,7 @@ public class UsuarioControlador {
     public String visualizarPerfil(@PathVariable String username, Model model){
         Usuario usuario = usuarioServicio.getUsuario(username);
         Usuario usuarioRespuesta = null;
+        Boolean mismo = false;
 
         if(usuario != null )
         {
@@ -28,14 +29,18 @@ public class UsuarioControlador {
 
             if(emailAuth.equals(email))
             {
-                usuarioRespuesta = new Usuario();
+                mismo = true;
+                usuarioRespuesta = new Usuario(usuario.getNombre(), usuario.getApellido(),
+                                    usuario.getUsername(), usuario.getDescripcion());
+                
 
             }else{
-                usuarioRespuesta = new Usuario();
+                usuarioRespuesta = new Usuario(usuario.getNombre(), usuario.getApellido(),
+                                    usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername());
             }
-            
+            model.addAttribute("mismo", mismo);
             model.addAttribute("usuario", usuarioRespuesta);
-            return "verPerfilUsuario";
+            return "index";
         }
 
         return "error";

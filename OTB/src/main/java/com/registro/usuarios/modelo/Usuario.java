@@ -40,6 +40,9 @@ public class Usuario {
 	@Column
 	private String password;
 
+	@Column
+	private String descripcion;
+
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuarios")
     private List<Articulo> usuariosArticulo;
 
@@ -145,12 +148,29 @@ public class Usuario {
 		
 	}
 
-    public Usuario(String nombre, String apellido, String username, String correo) {
+    public Usuario(String nombre, String apellido, String username, String descripcion) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.email = correo;
+		this.descripcion = descripcion;
 		this.username = username;
+	}
+
+	public Usuario(String nombre, String apellido, String descripcion, String email, String username) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.descripcion = descripcion;
+		this.email = email;
+		this.username = username;
+		
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
 	public String getUsername() {
