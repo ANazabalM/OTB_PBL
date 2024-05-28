@@ -12,8 +12,8 @@
     </head>
 <body>    
     <header th:insert="fragments/header :: header"></header>
-    <header th:insert="fragments/header :: nav"></header>
-    
+    <nav th:insert="fragments/header :: nav"></nav>
+
     <div th:if="${param.logout}" class="p-3 pl-5 pr-5">
         <div class="alert alert-info text-center card mx-auto">Ha cerrado sesión exitosamente
         </div>
