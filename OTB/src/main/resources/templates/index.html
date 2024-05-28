@@ -61,7 +61,7 @@
                         <img src="https://picsum.photos/300/200" class="card-img-top" alt="Artículo 3">
                         <div class="card-body">
                             <h5 class="card-title">Título del Artículo 3</h5>
-                            <p class="card-text">Autor - Fecha</p>
+                            <a href="/usuario/view/1" class="card-text">Autor - Fecha</a>
                             <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">2/5</span></p>
                         </div>
                     </div>
@@ -80,41 +80,10 @@
             </div>
         </div>
     
-        <div class="container mt-5">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="category-item">
-                        <i class="fa-solid fa-recycle category-icon"></i>
-                        <span class="category-title">Reciclaje</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="category-item">
-                        <i class="fa-solid fa-plug category-icon"></i>
-                        <span class="category-title">Tecnología</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="category-item">
-                        <i class="fa-solid fa-spray-can category-icon"></i>
-                        <span class="category-title">Limpieza</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="category-item">
-                        <i class="fa-solid fa-kitchen-set category-icon"></i>
-                        <span class="category-title">Cocina</span>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="category-item">
-                        <i class="fa-solid fa-ellipsis category-icon"></i>
-                        <span class="category-title">Otros</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+        <p th:if="${usuarioRespuesta != null}">
+            <p th:text="${usuarioRespuesta}">username</p>
+
+        </p>
 
     <footer th:insert="fragments/footer :: footer"></footer>
 

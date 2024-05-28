@@ -33,6 +33,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		return auth;
 	}
 	
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.authenticationProvider(authenticationProvider());
@@ -63,6 +64,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 		.logoutSuccessUrl("/?logout")
 		.permitAll();
 	}
+
+	/*public static String getAuthenticationEmail()
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		return auth.getName();
+	} */
+	
 }
 
 

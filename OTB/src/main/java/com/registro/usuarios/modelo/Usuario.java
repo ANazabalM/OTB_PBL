@@ -19,11 +19,9 @@ import javax.persistence.UniqueConstraint;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
 @Entity
 @Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Usuario {
@@ -138,22 +136,4 @@ public class Usuario {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
-
-	public Usuario(String nombre, String apellido, String descripcion, String email, String username) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.descripcion = descripcion;
-		this.email = email;
-		this.username = username;
-		
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 }

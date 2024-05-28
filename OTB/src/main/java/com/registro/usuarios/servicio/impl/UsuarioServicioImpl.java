@@ -49,18 +49,6 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		return usuarioRepositorio.save(usuario);
 	}
 
-	@Override
-	public Usuario cogerUsuarioId(Long id)
-	{
-		Optional<Usuario> usuario = usuarioRepositorio.findById(id);
-
-		if(usuario == null) {
-			throw new UsernameNotFoundException("Usuario o password inválidos");
-		}
-
-		return new Usuario();
-	}
-
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -76,17 +64,36 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getNombre())).collect(Collectors.toList());
 	}
 	
-	public Usuario getUsuario(String username)
+	public Usuario getUsuario(Long id)
 	{
-		Usuario usuario = usuarioRepositorio.findByUsername(username);
-		if(usuario == null) {
+		Optional<Usuario> usuario = usuarioRepositorio.findById(id);
+		Usuario usuario1 = null;
+
+		if(!usuario.isPresent()) {
+			
 			throw new UsernameNotFoundException("Usuario o password inválidos");
 		}
-		return new Usuario(usuario.getNombre(), usuario.getApellido(), usuario.getUsername(), usuario.getEmail());
+		else{
+			usuario1 = usuario.get();
+		}
+
+		return usuario1;
 	}
 
 	@Override
 	public List<Usuario> listarUsuarios() {
 		return usuarioRepositorio.findAll();
 	}
+
+	@Override
+	public void eliminarUsuario(long id) {
+		usuarioRepositorio.deleteById(id);
+	}
+
+	@Override
+	public void editarUsuario(Usuario usuario)
+	{
+		usuarioRepositorio.save(usuario);
+	}
+
 }

@@ -13,7 +13,10 @@ public interface UsuarioServicio extends UserDetailsService{
 
 	public List<Usuario> listarUsuarios();
 
-	public Usuario getUsuario(String username);
-	public Usuario cogerUsuarioId(Long id);
+	public Usuario getUsuario(Long id);
+
+	public void eliminarUsuario(long id);
+
+    public void editarUsuario(Usuario usuario);
 
 }
