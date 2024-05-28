@@ -17,18 +17,18 @@ import org.springframework.stereotype.Service;
 import com.registro.usuarios.controlador.dto.UsuarioRegistroDTO;
 import com.registro.usuarios.modelo.Rol;
 import com.registro.usuarios.modelo.Usuario;
-import com.registro.usuarios.repositorio.UsuarioRepositorio;
+import com.registro.usuarios.repositorio.UsuarioRepository;
 
 @Service
 public class UsuarioServicioImpl implements UsuarioServicio {
 
 	
-	private UsuarioRepositorio usuarioRepositorio;
+	private UsuarioRepository usuarioRepositorio;
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
-	public UsuarioServicioImpl(UsuarioRepositorio usuarioRepositorio) {
+	public UsuarioServicioImpl(UsuarioRepository usuarioRepositorio) {
 		super();
 		this.usuarioRepositorio = usuarioRepositorio;
 	}
