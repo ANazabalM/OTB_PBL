@@ -16,4 +16,6 @@ public interface UsuarioServicio extends UserDetailsService{
 
 	public Usuario getUsuario(String username);
 	
+	public Usuario cogerUsuarioId(Long id);
+
 }
