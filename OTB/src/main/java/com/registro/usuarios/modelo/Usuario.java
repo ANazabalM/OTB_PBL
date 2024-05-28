@@ -1,6 +1,7 @@
 package com.registro.usuarios.modelo;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -29,9 +31,38 @@ public class Usuario {
 	@Column(name = "apellido")
 	private String apellido;
 
+	@Column
 	private String email;
+
+	@Column
 	private String username;
+
+	@Column
 	private String password;
+
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuarios")
+    private List<Articulo> usuariosArticulo;
+
+    public void addArticulo(Articulo articulo){
+        usuariosArticulo.add(articulo);
+        articulo.setUsuarios(this);
+    }
+
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuariosComentarios")
+    private List<Comentario> usuariosComentario;
+
+    public void addComentario(Comentario comentario){
+        usuariosComentario.add(comentario);
+        comentario.setUsuariosComentarios(this);
+    }
+
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "solicitudUsuarios")
+    private List<Solicitud> usuariosSolicitud;
+
+    public void addSolicitud(Solicitud solicitud){
+        usuariosSolicitud.add(solicitud);
+        solicitud.setSolicitudUsuarios(this);
+    }
 	
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(
