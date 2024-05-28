@@ -17,6 +17,13 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "usuarios", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class Usuario {
@@ -70,49 +77,8 @@ public class Usuario {
 			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "rol_id",referencedColumnName = "id")
 			)
+			
 	private Collection<Rol> roles;
-
-
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-
-	public String getApellido() {
-		return apellido;
-	}
-
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Collection<Rol> getRoles() {
 		return roles;
@@ -141,23 +107,11 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	public Usuario() {
-		
-	}
-
     public Usuario(String nombre, String apellido, String username, String correo) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = correo;
-		this.username = username;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
 		this.username = username;
 	}
 
