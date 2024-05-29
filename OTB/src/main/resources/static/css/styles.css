@@ -1,19 +1,18 @@
-/* styles.css */
-
 body {
     background-color: #f8f9fa;
 }
 
 header {
-    background: #343a40;
+    background: #4a596d; 
     color: white;
-    padding: 1.5rem 0;
+    padding: 3rem 0; 
 }
 
-header .logo {
-    width: 100px;
-    height: 100px;
+header h1 {
+    margin: 0;
+    font-size: 1.5rem;
 }
+
 
 footer {
     background: #343a40;
@@ -31,10 +30,30 @@ footer a:hover {
 
 .navbar {
     font-size: 1.2rem;
+    background-color: #343a40; 
+}
+
+.navbar-brand .logo-navbar {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    left: 0;
+    transform: none;
 }
 
 .nav-link {
     padding: 0.75rem 1.25rem;
+    display: flex;
+    align-items: center;
+}
+
+.nav-link i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem; 
+}
+
+.nav-item .dropdown-toggle {
+    padding: 0;
 }
 
 .card-body {
@@ -46,10 +65,38 @@ footer a:hover {
     border-color: #4a596d;
 }
 
-/*INDEX ARTICULOS*/
+/* Ajustes adicionales para pantallas pequeñas */
+@media (max-width: 767px) {
+    .navbar-nav .dropdown-menu {
+        position: static;
+        float: none;
+    }
 
-.row{
-    margin-top: 50px;
+    .navbar-nav .dropdown-item {
+        display: flex;
+        align-items: center;
+    }
+
+    .d-lg-none .nav-link {
+        padding: 0.75rem 1rem;
+    }
+
+    .navbar-nav .nav-link {
+        padding-left: 1.5rem; 
+    }
+
+    .navbar-brand .logo-navbar {
+        left: -1.5rem;
+    }
+}
+
+
+
+
+/*ARTICULOS*/
+
+.row {
+    margin-top: 20px;
 }
 
 .badge-info {
