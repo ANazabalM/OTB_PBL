@@ -1,7 +1,9 @@
 package com.registro.usuarios.controlador;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,13 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
+@Controller
 public class UsuarioControlador {
     
-    UsuarioServicio usuarioServicio;
+    @Autowired
+    private UsuarioServicio usuarioServicio;
 
-    @GetMapping("/usuario/view/{username}")
-    public String visualizarPerfil(@PathVariable String username, Model model){
-        Usuario usuario = usuarioServicio.getUsuario(username);
+    @GetMapping("/usuario/view/{usuarioId}")
+    public String visualizarPerfil(@PathVariable String usuarioId, Model model){
+        Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
         Usuario usuarioRespuesta = null;
         Boolean mismo = false;
 
@@ -39,21 +43,25 @@ public class UsuarioControlador {
                                     usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername());
             }
             model.addAttribute("mismo", mismo);
-            model.addAttribute("usuario", usuarioRespuesta);
+            model.addAttribute("usuarioRespuesta", usuarioRespuesta);
             return "index";
         }
 
         return "error";
     }
     
-    @PostMapping("/usuario/delete/{username}")
+    @GetMapping("/usuario/delete/{usuarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarPerfil(@PathVariable String usuarioId, Model model){
 
-        Usuario usuario = usuarioServicio.cogerUsuarioId(Long.parseLong(usuarioId));
-        if(usuario != null)
+        if(SecurityContextHolder.getContext().getAuthentication().
+        getName().equals("admin@gmail.com"))
         {
-            //usuarioServicio.eliminarUsuario(Integer.parseInt(usuarioId));
-            return "index";
+            Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
+            if(usuario != null)
+            {
+                usuarioServicio.eliminarUsuario(Long.parseLong(usuarioId));
+                return "index";
+            }
         }
 
         return "error";
@@ -82,16 +90,19 @@ public class UsuarioControlador {
     @GetMapping("/usuario/edit/{usuarioId}")
     public String verFormularioEdicionUsuario(@PathVariable String usuarioId, Model model)
     {
-        /*
-         * if(usuario != null)
-         * {
-         *      usuarioServicio.edit();
-         *      return "index";
-         * }
-         * 
-         * return "error";
-         */
-        return "a";
+        
+        if(SecurityContextHolder.getContext().getAuthentication().
+            getName().equals("admin@gmail.com"))
+        {
+            Usuario usuario = new Usuario();
+
+            if(usuario != null)
+            {
+                usuarioServicio.editarUsuario(usuario);
+                return "index";
+            }
+        }
+        return "error";
     }
 
 }
