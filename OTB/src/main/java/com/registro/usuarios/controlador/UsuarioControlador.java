@@ -43,7 +43,7 @@ public class UsuarioControlador {
                                     usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername());
             }
             model.addAttribute("mismo", mismo);
-            model.addAttribute("usuarioRespuesta", usuarioRespuesta);
+            model.addAttribute("usuario", usuarioRespuesta);
             return "index";
         }
 
