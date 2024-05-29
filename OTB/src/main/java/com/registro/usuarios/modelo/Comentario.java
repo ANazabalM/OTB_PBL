@@ -24,7 +24,7 @@ public class Comentario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer comentarioId;
+    private Long comentarioId;
     
     @Column
     private String contenido;

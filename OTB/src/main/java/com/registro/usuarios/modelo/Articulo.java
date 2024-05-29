@@ -29,7 +29,7 @@ public class Articulo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer articuloId;
+    private Long articuloId;
     
     @Column
     private String titulo;
