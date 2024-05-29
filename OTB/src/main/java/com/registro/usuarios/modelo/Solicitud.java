@@ -24,7 +24,7 @@ public class Solicitud {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer solicitudId;
+    private Long solicitudId;
     
     @Column
     private String descripcion;

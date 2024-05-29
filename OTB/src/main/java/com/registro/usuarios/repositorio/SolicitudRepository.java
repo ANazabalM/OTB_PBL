@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.registro.usuarios.modelo.Solicitud;
 
 @Repository
-public interface SolicitudRepository extends JpaRepository<Solicitud,Integer>{
+public interface SolicitudRepository extends JpaRepository<Solicitud,Long>{
     
 }

@@ -74,16 +74,16 @@ public class Usuario {
         solicitud.setSolicitudUsuarios(this);
     }
 	
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "usuarios_roles",
 			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "rol_id",referencedColumnName = "id")
 			)
-	private Collection<Rol> roles;
+	private List<Rol> roles;
 
-	//@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	//@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "articulos_leidos",
 			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
@@ -91,8 +91,8 @@ public class Usuario {
 			)
 	private List<Articulo> articulos_leidos;
 
-	//@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	//@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "articulos_favoritos",
 			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
@@ -100,7 +100,7 @@ public class Usuario {
 			)
 	private List<Articulo> articulos_favoritos;
 	
-	public Usuario(Long id, String nombre, String apellido, String email, String password, Collection<Rol> roles) {
+	public Usuario(Long id, String nombre, String apellido, String email, String password, List<Rol> roles) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
@@ -110,7 +110,7 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	public Usuario(String nombre, String apellido, String email, String password, Collection<Rol> roles) {
+	public Usuario(String nombre, String apellido, String email, String password, List<Rol> roles) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
