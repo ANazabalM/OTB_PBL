@@ -12,10 +12,11 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    <header th:insert="fragments/header :: header"></header>
-    <header th:insert="fragments/header :: nav"></header>
+    <div th:insert="fragments/header :: header"> </div>
 
-    <main layout:fragment="contentido">
+    <div th:insert="fragments/header :: nav"> </div>
+
+    <main layout:fragment="contenido">
 
     </main>
 

@@ -29,7 +29,7 @@ public class Articulo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
-    private Integer articuloId;
+    private Long articuloId;
     
     @Column
     private String titulo;
@@ -68,6 +68,16 @@ public class Articulo {
 
     @ManyToMany(mappedBy = "articulos_favoritos")
     private List<Usuario> articulos_favoritos_usuarios;
+
+    public Articulo(String titulo, Date fecha_publ, String text, 
+                    String alt_img, String src_img)
+    {
+        this.titulo = titulo;
+        this.fecha_publ = fecha_publ;
+        this.text = text;
+        this.alt_img = alt_img;
+        this.src_img = src_img;
+    }
 }
 
 

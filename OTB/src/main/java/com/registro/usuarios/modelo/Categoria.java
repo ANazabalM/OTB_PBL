@@ -41,4 +41,9 @@ public class Categoria {
         articulo.setCategorias(this);
     }
 
+    public Categoria(String titulo, String color)
+    {
+        this.titulo = titulo;
+        this.color = color;
+    }
 }

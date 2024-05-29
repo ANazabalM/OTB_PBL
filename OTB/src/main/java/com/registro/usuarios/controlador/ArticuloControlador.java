@@ -1,5 +1,7 @@
 package com.registro.usuarios.controlador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,6 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.registro.usuarios.modelo.Articulo;
+import com.registro.usuarios.modelo.Categoria;
+import com.registro.usuarios.modelo.Comentario;
+import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
 
 @Controller
@@ -18,18 +23,31 @@ public class ArticuloControlador {
 
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
-        if(articuloId == null)
+        if(articuloId != null)
         {
-            return "error";
-        }
+            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
-        //Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-         *  model.addAttribute("articulo", articulo);
-            return "articulo";
-        */
-        return "a";
+            if(articulo != null)
+            {
+                Articulo articuloVista = new Articulo(articulo.getTitulo(), articulo.getFecha_publ(),
+                                                        articulo.getText(), articulo.getAlt_img(),
+                                                        articulo.getSrc_img());
+                Usuario usuario = new Usuario(articulo.getUsuarios().getId(),
+                                                articulo.getUsuarios().getUsername());
+                Categoria categoria = new Categoria(articulo.getCategorias().getTitulo(),
+                                        articulo.getCategorias().getColor());
+                List<Comentario> comentarios = articulo.getArticuloComentario();
+
+                model.addAttribute("autor", usuario);
+                model.addAttribute("articulo", articuloVista);
+                model.addAttribute("categoria", categoria);
+                model.addAttribute("comentarios", comentarios);
+
+                return "index";
+            }
+            
+        }
+        return "error";
     }
 
     @GetMapping("/articulo/create")
