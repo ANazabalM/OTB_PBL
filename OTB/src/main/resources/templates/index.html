@@ -80,9 +80,12 @@
             </div>
         </div>
     
-        <p th:if="${usuarioRespuesta != null}">
-            <p th:text="${usuarioRespuesta}">username</p>
-
+        <p th:if="${usuario != null}">
+            <p th:text="${usuario}"></p>
+        </p>
+        
+        <p th:if="${articulo != null}">
+            <p th:text="${articulo}"></p>
         </p>
 
     <footer th:insert="fragments/footer :: footer"></footer>

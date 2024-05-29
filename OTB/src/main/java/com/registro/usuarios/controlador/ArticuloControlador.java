@@ -1,17 +1,20 @@
 package com.registro.usuarios.controlador;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.registro.usuarios.modelo.Articulo;
+import com.registro.usuarios.servicio.ArticuloService;
+
 @Controller
 public class ArticuloControlador {
     
-    /* 
-     * private ArticuloServicio articuloServicio;
-    */
+    @Autowired
+    private ArticuloService articuloServicio;
 
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
@@ -20,6 +23,7 @@ public class ArticuloControlador {
             return "error";
         }
 
+        //Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
         /* 
             Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
          *  model.addAttribute("articulo", articulo);
