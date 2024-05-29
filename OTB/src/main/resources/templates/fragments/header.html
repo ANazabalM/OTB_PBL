@@ -1,67 +1,97 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
     <body>
-        <header class="bg-dark text-white text-center py-4" th:fragment="header">
-            <img src="/img/LOGO.png" alt="Outside the Books Logo" class="logo mb-3">
+        <header class="text-white text-center py-4" th:fragment="header">
             <h1>Outside the Books</h1>
         </header>
 
-        <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #4a596d;" th:fragment="nav">
+        <nav class="navbar navbar-expand-lg navbar-dark" th:fragment="nav">
             <!-- Botón del menú desplegable -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/">Menu</a>
+
+            <!-- Logo alineado al centro -->
+            <a class="navbar-brand mx-auto" href="/">
+                <img src="/img/LOGO.png" alt="Outside the Books Logo" class="logo-navbar">
+            </a>
+
+            <!-- Ítems del navbar -->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link " href="#"><i class="fa-solid fa-recycle fa-2x"></i></a>
+                        <a class="nav-link" href="#"><i class="fa-solid fa-recycle"></i>Reciclar</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-plug fa-2x"></i></a>
+                        <a class="nav-link" href="#"><i class="fa-solid fa-plug"></i>Tecnología</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-spray-can fa-2x"></i></a>
+                        <a class="nav-link" href="#"><i class="fa-solid fa-spray-can"></i>Limpieza</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="fa-solid fa-kitchen-set fa-2x"></i></a>
+                        <a class="nav-link" href="#"><i class="fa-solid fa-kitchen-set"></i>Cocina</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/categoria"><i class="fa-solid fa-ellipsis fa-2x"></i></a>
+                        <a class="nav-link" href="/categoria"><i class="fa-solid fa-ellipsis"></i>Más categorías</a>
+                    </li>
+                    <!-- Elementos de la derecha dentro del menú desplegable en pantallas pequeñas -->
+                    <li class="nav-item dropdown d-lg-none">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            es
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
+                            <a class="dropdown-item" href="#" data-lang="eng">Inglés</a>
+                            <a class="dropdown-item" href="#" data-lang="es">Español</a>
+                            <a class="dropdown-item" href="#" data-lang="eus">Euskara</a>
+                        </div>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a th:if="${email == null}" class="nav-link text-white" href="/login">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i> Iniciar sesión
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown d-lg-none" th:if="${email != null}">
+                        <a class="nav-link dropdown-toggle" href="#" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i> Perfil
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
+                            <a class="dropdown-item" href="/">Ver Perfil</a>
+                            <a class="dropdown-item" href="/">Ver Lista de Favoritos</a>
+                            <a th:if="${email.equals('admin@gmail.com')}" class="dropdown-item" href="#">Acciones de administrador</a>
+                            <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+                        </div>
                     </li>
                 </ul>
-            </div>
 
-            <div class="ml-auto d-flex align-items-center">
-                <!-- Botón desplegable para selección de idiomas -->
-                <div class="dropdown">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="languageDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa-solid fa-language fa-2x"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdown">
-                        <a class="dropdown-item" href="#">Inglés</a>
-                        <a class="dropdown-item" href="#">Español</a>
-                        <a class="dropdown-item" href="#">Euskara</a>
-                    </div>
-                </div>
-
-                <!-- Ícono de inicio de sesión -->
-                <a th:if="${email == null}" class="nav-link text-white ml-5" href="/login">
-                    <i class="fa-solid fa-arrow-right-to-bracket fa-2x"></i>
-                </a>
-
-                <!-- Botón desplegable de usuario con icono de corazón -->
-                <div th:if="${email != null}" class="dropdown ml-5">
-                    <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>
-                    </button>
-                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                        <a class="dropdown-item" href="/">Ver Perfil</a>
-                        <a class="dropdown-item" href="/">Ver Lista de Favoritos</a>
-                        <a th:if="${email.equals('admin@gmail.com')}">Acciones de administrador</a>
-                        <a class="dropdown-item" href="/logout">Cerrar sesion</a>
-                    </div>
-                </div>
+                <!-- Elementos de la derecha para pantallas grandes -->
+                <ul class="navbar-nav ml-auto d-none d-lg-flex">
+                    <li class="nav-item dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="languageDropdownLarge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            es
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="languageDropdownLarge">
+                            <a class="dropdown-item" href="#" data-lang="eng">Inglés</a>
+                            <a class="dropdown-item" href="#" data-lang="es">Español</a>
+                            <a class="dropdown-item" href="#" data-lang="eus">Euskara</a>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a th:if="${email == null}" class="nav-link text-white ml-3" href="/login">
+                            <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown ml-3" th:if="${email != null}">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdownLarge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdownLarge">
+                            <a class="dropdown-item" href="/">Ver Perfil</a>
+                            <a class="dropdown-item" href="/">Ver Lista de Favoritos</a>
+                            <a th:if="${email.equals('admin@gmail.com')}" class="dropdown-item" href="#">Acciones de administrador</a>
+                            <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </nav>
     </body>

@@ -40,13 +40,22 @@ public class ArticuloControlador {
 
             if(articulo != null)
             {
+<<<<<<< HEAD
                 Articulo articuloVista = new Articulo(articulo.getTitulo(), articulo.getFecha_publ(),
                                                         articulo.getContenido(), articulo.getAlt_img(),
+=======
+                Articulo articuloVista = new Articulo(articulo.getArticuloId(),
+                                                        articulo.getTitulo(), articulo.getFecha_publ(),
+                                                        articulo.getText(), articulo.getAlt_img(),
+>>>>>>> e2c501a95ed67c1372b664d769e021a34e88e45c
                                                         articulo.getSrc_img());
+
                 Usuario usuario = new Usuario(articulo.getUsuarios().getId(),
-                                                articulo.getUsuarios().getUsername());
+                                                articulo.getUsuarios().getEmail());
+
                 Categoria categoria = new Categoria(articulo.getCategorias().getTitulo(),
                                         articulo.getCategorias().getColor());
+
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
                 model.addAttribute("autor", usuario);
@@ -98,50 +107,44 @@ public class ArticuloControlador {
     @GetMapping("/articulo/edit/{articuloId}")
     private String verFormularioEdicion(@PathVariable String articuloId, Model model){
 
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            if(articulo != null)
-            {
-                model.addAttribute("articulo", articulo);
-                return "formularioArticulo";
-            }
-            return "index";
-        */
-        return "a";
+        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+        if(articulo != null)
+        {
+            Articulo articuloVista = new Articulo(articulo.getArticuloId(), articulo.getTitulo(), articulo.getFecha_publ(),
+                                                    articulo.getText(), articulo.getAlt_img(),
+                                                        articulo.getSrc_img());
+            model.addAttribute("articulo", articuloVista);
+        }
+        return "formularioArticulo";
     }
 
     @PostMapping("/articulo/edit/{articuloId}")
     private String editarArticulo(@PathVariable String articuloId, Model model){
 
-        /* 
-            Articulo articuloA = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            Articulo articulo = model.getAttribute("articulo");
+            Articulo articuloVista = (Articulo) model.getAttribute("articulo");
 
-            if(articuloA != null)
+            if(articuloVista != null)
             {
-                articuloServicio.editarArticulo(articulo);
+                articuloServicio.editarArticulo(Long.parseLong(articuloId), articuloVista);
                 return "index";
             }
 
             return "error";
-        */
-        return "a";
     }
 
     @PostMapping("/articulo/delete/{articuloId}")
     private String eliminarArticulo(@PathVariable String articuloId, Model model){
 
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
+        if(articuloId != null)
+        {
+            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
             if(articulo != null)
             {
-                articuloServicio.eliminarArticulo(articulo);
+                articuloServicio.deleteArticulo(Long.parseLong(articuloId));
                 return "index";
             }
-            
-            return "error";
-        */
-        return "a";
+        }
+        return "error";
     }
 }

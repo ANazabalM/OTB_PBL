@@ -34,4 +34,14 @@ public class ArticuloServiceImpl implements ArticuloService{
 
 		return articulo;
     }
+
+    @Override
+    public void deleteArticulo(long articuloId) {
+        articuloRepository.deleteById(articuloId);
+    }
+
+    @Override
+    public void editarArticulo(long articuloId, Articulo articuloEditado) {
+        articuloRepository.save(articuloEditado);
+    }
 }
