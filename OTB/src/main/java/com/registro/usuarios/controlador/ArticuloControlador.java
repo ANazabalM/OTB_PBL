@@ -38,29 +38,31 @@ public class ArticuloControlador {
         {
             Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String emailAuth = auth.getName();
+
+
+        Categoria categoria = categoriaServicio.findByCategoriaId(null);
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
             if(articulo != null)
             {
-<<<<<<< HEAD
-                Articulo articuloVista = new Articulo(articulo.getTitulo(), articulo.getFecha_publ(),
-                                                        articulo.getContenido(), articulo.getAlt_img(),
-=======
-                Articulo articuloVista = new Articulo(articulo.getArticuloId(),
-                                                        articulo.getTitulo(), articulo.getFecha_publ(),
-                                                        articulo.getText(), articulo.getAlt_img(),
->>>>>>> e2c501a95ed67c1372b664d769e021a34e88e45c
-                                                        articulo.getSrc_img());
-
-                Usuario usuario = new Usuario(articulo.getUsuarios().getId(),
-                                                articulo.getUsuarios().getEmail());
-
-                Categoria categoria = new Categoria(articulo.getCategorias().getTitulo(),
+                Articulo articuloVista = new Articulo(  articulo.getTitulo(),
+                                                        articulo.getAlt_img(),
+                                                        articulo.getSrc_video(),
+                                                        articulo.getContenido(),
+                                                        articulo.getLang(),
+                                                        usuario,
+                                                        categoria);
+                Usuario usuario2 = new Usuario(articulo.getUsuarios().getId(),
+                                                articulo.getUsuarios().getUsername());
+                Categoria categoria2 = new Categoria(articulo.getCategorias().getTitulo(),
                                         articulo.getCategorias().getColor());
-
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
-                model.addAttribute("autor", usuario);
+                model.addAttribute("autor", usuario2);
                 model.addAttribute("articulo", articuloVista);
-                model.addAttribute("categoria", categoria);
+                model.addAttribute("categoria", categoria2);
                 model.addAttribute("comentarios", comentarios);
 
                 return "index";
@@ -107,44 +109,50 @@ public class ArticuloControlador {
     @GetMapping("/articulo/edit/{articuloId}")
     private String verFormularioEdicion(@PathVariable String articuloId, Model model){
 
-        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-        if(articulo != null)
-        {
-            Articulo articuloVista = new Articulo(articulo.getArticuloId(), articulo.getTitulo(), articulo.getFecha_publ(),
-                                                    articulo.getText(), articulo.getAlt_img(),
-                                                        articulo.getSrc_img());
-            model.addAttribute("articulo", articuloVista);
-        }
-        return "formularioArticulo";
+        /* 
+            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
+            if(articulo != null)
+            {
+                model.addAttribute("articulo", articulo);
+                return "formularioArticulo";
+            }
+            return "index";
+        */
+        return "a";
     }
 
     @PostMapping("/articulo/edit/{articuloId}")
     private String editarArticulo(@PathVariable String articuloId, Model model){
 
-            Articulo articuloVista = (Articulo) model.getAttribute("articulo");
+        /* 
+            Articulo articuloA = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
+            Articulo articulo = model.getAttribute("articulo");
 
-            if(articuloVista != null)
+            if(articuloA != null)
             {
-                articuloServicio.editarArticulo(Long.parseLong(articuloId), articuloVista);
+                articuloServicio.editarArticulo(articulo);
                 return "index";
             }
 
             return "error";
+        */
+        return "a";
     }
 
     @PostMapping("/articulo/delete/{articuloId}")
     private String eliminarArticulo(@PathVariable String articuloId, Model model){
 
-        if(articuloId != null)
-        {
-            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+        /* 
+            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
 
             if(articulo != null)
             {
-                articuloServicio.deleteArticulo(Long.parseLong(articuloId));
+                articuloServicio.eliminarArticulo(articulo);
                 return "index";
             }
-        }
-        return "error";
+            
+            return "error";
+        */
+        return "a";
     }
 }

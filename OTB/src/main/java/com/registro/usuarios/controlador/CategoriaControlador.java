@@ -7,14 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.registro.usuarios.servicio.CategoriaService;
+//import com.registro.usuarios.servicio.CategoriaService;
 
 
 @Controller
 public class CategoriaControlador {
     
     @Autowired
-    private CategoriaService categoriaServicio;
+    //private CategoriaService categoriaServicio;
     
 
     public CategoriaControlador(//CategoriaServicio categoriaServicio
