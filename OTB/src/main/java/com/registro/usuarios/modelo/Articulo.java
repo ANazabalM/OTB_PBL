@@ -69,9 +69,10 @@ public class Articulo {
     @ManyToMany(mappedBy = "articulos_favoritos")
     private List<Usuario> articulos_favoritos_usuarios;
 
-    public Articulo(String titulo, Date fecha_publ, String text, 
+    public Articulo(Long articuloId, String titulo, Date fecha_publ, String text, 
                     String alt_img, String src_img)
     {
+        this.articuloId = articuloId;
         this.titulo = titulo;
         this.fecha_publ = fecha_publ;
         this.text = text;
