@@ -20,6 +20,7 @@ public class UsuarioControlador {
 
     @GetMapping("/usuario/view/{usuarioId}")
     public String visualizarPerfil(@PathVariable String usuarioId, Model model){
+        
         Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
         Usuario usuarioRespuesta = null;
         Boolean mismo = false;

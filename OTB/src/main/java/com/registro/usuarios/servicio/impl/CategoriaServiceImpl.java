@@ -9,10 +9,16 @@ import com.registro.usuarios.servicio.CategoriaService;
 
 @Service
 public class CategoriaServiceImpl implements CategoriaService {
+
     @Autowired
     private CategoriaRepository categoriaRepository;
 
     public Categoria save(Categoria categoria){
         return  categoriaRepository.save(categoria);
+    }
+
+    
+    public Categoria findByCategoriaId(Long id){
+        return categoriaRepository.findByCategoriaId(id);
     }
 }

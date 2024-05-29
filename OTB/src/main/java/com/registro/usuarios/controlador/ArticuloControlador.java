@@ -3,9 +3,12 @@ package com.registro.usuarios.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -14,12 +17,20 @@ import com.registro.usuarios.modelo.Categoria;
 import com.registro.usuarios.modelo.Comentario;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
+import com.registro.usuarios.servicio.CategoriaService;
+import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Controller
 public class ArticuloControlador {
     
     @Autowired
     private ArticuloService articuloServicio;
+
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private CategoriaService categoriaServicio;
 
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
@@ -30,7 +41,7 @@ public class ArticuloControlador {
             if(articulo != null)
             {
                 Articulo articuloVista = new Articulo(articulo.getTitulo(), articulo.getFecha_publ(),
-                                                        articulo.getText(), articulo.getAlt_img(),
+                                                        articulo.getContenido(), articulo.getAlt_img(),
                                                         articulo.getSrc_img());
                 Usuario usuario = new Usuario(articulo.getUsuarios().getId(),
                                                 articulo.getUsuarios().getUsername());
@@ -50,20 +61,38 @@ public class ArticuloControlador {
         return "error";
     }
 
+    @ModelAttribute("articulo")
+	public Articulo retornarNuevoArticulo() {
+		return new Articulo();
+	}
+
     @GetMapping("/articulo/create")
     private String verFormularioCreacion(Model model){
-        return "formularioArticulo";
+        return "crear_articulo";
     }
 
     @PostMapping("/articulo/create")
-    private String crearArtiuclo(Model model){
+    private String crearArticulo(@ModelAttribute("articulo") Articulo articulo){
 
-        /* 
-            Articulo articuloA = model.getAttribute("articulo");
-            articuloService.guardarArticulo(articuloA);
-            return "index";
-        */
-        return "a";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String emailAuth = auth.getName();
+
+
+        Categoria categoria = categoriaServicio.findByCategoriaId(null);
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
+
+
+        Articulo articuloNuevo = new Articulo(  articulo.getTitulo(),
+                                                articulo.getAlt_img(),
+                                                articulo.getSrc_video(),
+                                                articulo.getContenido(),
+                                                articulo.getLang(),
+                                                usuario,
+                                                categoria);
+
+        articuloServicio.save(articuloNuevo);
+        return "index";
     }
 
     @GetMapping("/articulo/edit/{articuloId}")

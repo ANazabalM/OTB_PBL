@@ -14,7 +14,6 @@ public class LoginControlador {
 	public String iniciarSesion() {
 		return "login";
 	}
-
 	
 	@GetMapping("/")
 	public String verPaginaDeInicio(Model model) {

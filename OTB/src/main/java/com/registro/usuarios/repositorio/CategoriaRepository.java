@@ -7,6 +7,7 @@ import com.registro.usuarios.modelo.Categoria;
 
 @Repository
 public interface CategoriaRepository extends JpaRepository<Categoria,Long>{
-    
+
+    public Categoria findByCategoriaId(Long id);
 
 }

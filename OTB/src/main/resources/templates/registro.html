@@ -1,63 +1,47 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OTB - Registrarse</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-    
-    <div th:replace="fragments/header :: header"></div>
+    <div layout:fragment="contenido">
+        <div class="container">
+            <div class="card mx-auto" style="max-inline-size: 400px; margin-block-end: 20px; margin-block-start: 40px;">
+                <div class="card-body text-center">
+                    <i class="fas fa-user-plus fa-3x mb-3"></i>
+                    <h5 class="card-title">Registrarse</h5>
+                    <form th:action="@{/registro}" method="post" th:object="${usuario}">
+                        <div class="form-group">
+                            <label class="control-label" for="nombre">Nombre : </label> 
+                            <input id="nombre" type="text" class="form-control" th:field="*{nombre}"
+                                required autofocus="autofocus">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="apellido">Apellido : </label> <input
+                                id="apellido" class="form-control" th:field="*{apellido}"
+                                required autofocus="autofocus">
+                        </div>
 
-    <div th:replace="fragments/header :: nav"></div>
+                        <div class="form-group">
+                            <label class="control-label" for="email">Email : </label> <input
+                                id="email" type="email" class="form-control" th:field="*{email}"
+                                required autofocus="autofocus">
+                        </div>
 
-    <div class="container">
-        <div class="card mx-auto" style="max-width: 400px; margin-bottom: 20px; margin-top: 40px;">
-            <div class="card-body text-center">
-                <i class="fas fa-user-plus fa-3x mb-3"></i>
-                <h5 class="card-title">Registrarse</h5>
-                <form th:action="@{/registro}" method="post" th:object="${usuario}">
-					<div class="form-group">
-						<label class="control-label" for="nombre">Nombre : </label> <input
-							id="nombre" type="text" class="form-control" th:field="*{nombre}"
-							required autofocus="autofocus">
-					</div>
+                        <div class="form-group">
+                            <label class="control-label" for="password">Password : </label> <input
+                                type="password" id="password" class="form-control" th:field="*{password}"
+                                required autofocus="autofocus">
+                        </div>
 
-					<div class="form-group">
-						<label class="control-label" for="apellido">Apellido : </label> <input
-							id="apellido" class="form-control" th:field="*{apellido}"
-							required autofocus="autofocus">
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="email">Email : </label> <input
-							id="email" type="email" class="form-control" th:field="*{email}"
-							required autofocus="autofocus">
-					</div>
-
-					<div class="form-group">
-						<label class="control-label" for="password">Password : </label> <input
-							type="password" id="password" class="form-control" th:field="*{password}"
-							required autofocus="autofocus">
-					</div>
-
-                    <button type="submit" class="btn btn-primary btn-block" style="background-color: #4a596d;">Registrarse</button>
-                </form>
-                <p class="mt-3">¿Ya tienes una cuenta? <a href="/login">Inicia Sesión</a></p>
+                        <button type="submit" class="btn btn-primary btn-block" style="background-color: #4a596d;">Registrarse</button>
+                    </form>
+                    <p class="mt-3">¿Ya tienes una cuenta? <a href="/login">Inicia Sesión</a></p>
+                </div>
             </div>
         </div>
     </div>
-
-    <div th:replace="fragments/footer :: footer"></div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://kit.fontawesome.com/9b8027ff42.js" crossorigin="anonymous"></script>
-
 </body>
 </html>
 

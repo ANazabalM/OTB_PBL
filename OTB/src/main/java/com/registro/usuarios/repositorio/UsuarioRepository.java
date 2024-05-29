@@ -9,5 +9,6 @@ import com.registro.usuarios.modelo.Usuario;
 public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 
 	public Usuario findByEmail(String email);
+	
 	public Usuario findByUsername(String username);
 }
