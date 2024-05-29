@@ -41,11 +41,6 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 				registroDTO.getApellido(),registroDTO.getEmail(),
 				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol("ROLE_USER")));
 
-		if(usuario != null)
-		{
-
-		}
-
 		return usuarioRepositorio.save(usuario);
 	}
 

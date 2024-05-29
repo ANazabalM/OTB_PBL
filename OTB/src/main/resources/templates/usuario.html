@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layout.html">
+<head>
+    <title>Perfil de Usuario</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            flex: 1;
+        }
+        .profile-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            margin-top: 20px;
+        }
+        .profile-info {
+            margin-left: 20px;
+        }
+        .profile-name {
+            font-size: 2rem;
+        }
+        .username {
+            font-size: 1.2rem;
+        }
+        .article-info {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        .article-count {
+            font-size: 1.2rem;
+        }
+        .rating {
+            font-size: 1.2rem;
+        }
+        .bio {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+        .article-list .card {
+            width: 48%;
+            margin-right: 2%;
+            margin-bottom: 20px;
+            float: left;
+        }
+        .article-title {
+            font-style: italic; /* Estilo cursiva */
+        }
+        footer {
+            width: 100%;
+            position: relative;
+            left: 0;
+            bottom: 0;
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        @media (max-width: 768px) {
+            .article-list .card {
+                width: 100%;
+                float: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="contenido">
+        <div class="container">
+            <div class="profile-header">
+                <img src="https://picsum.photos/200/100" alt="Profile Picture" class="rounded-circle" style="width: 150px; height: 150px;">
+                <div class="profile-info">
+                    <div class="profile-name" th:text="${usuario.nombre} + ' ' + ${usuario.nombre}">Nombre Apellido</div>
+                    <div class="username" th:text="${usuario.username}">@nombreusuario</div>
+                    <div class="article-info">
+                        <div class="article-count">20 Artículos</div>
+                        <div class="rating">Valoración: 4.5</div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="bio" th:text="${usuario.descripcion}">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam.</p>
+            </div>
+            
+            <div>
+
+            </div>
+            <div class="container mt-3">
+                <h4 class="article-title">Artículos</h4>
+
+                <div class="row" th:each="articulo: ${listaArticulos}">
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card">
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Artículo 1">
+                            <div class="card-body">
+                                <h5 class="card-title" th:value="${articulo.titulo}">Título del Artículo 1</h5>
+                                <p class="card-text" th:value="${articulo.autor} + ' - ' + ${articulo.fecha_publ}">Autor - Fecha</p>
+                                <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    <div class="col-md-6 col-lg-3 mb-4">
+                        <div class="card">
+                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Artículo 4">
+                            <div class="card-body">
+                                <h5 class="card-title">Título del Artículo 4</h5>
+                                <p class="card-text">Autor - Fecha</p>
+                                <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">5/5</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+    </div>
+</body>
+</html>    

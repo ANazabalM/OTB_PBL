@@ -1,5 +1,7 @@
 package com.registro.usuarios.controlador;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
@@ -42,9 +45,12 @@ public class UsuarioControlador {
                 usuarioRespuesta = new Usuario(usuario.getNombre(), usuario.getApellido(),
                                     usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername());
             }
+            List <Articulo> listaArticulos = usuario.getUsuariosArticulo();
             model.addAttribute("mismo", mismo);
             model.addAttribute("usuario", usuarioRespuesta);
-            return "index";
+            model.addAttribute("listaArticulos", listaArticulos);
+
+            return "usuario";
         }
 
         return "error";
