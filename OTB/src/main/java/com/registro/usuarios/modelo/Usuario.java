@@ -80,17 +80,26 @@ public class Usuario {
 			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
 			inverseJoinColumns = @JoinColumn(name = "rol_id",referencedColumnName = "id")
 			)
-			
 	private Collection<Rol> roles;
 
-	public Collection<Rol> getRoles() {
-		return roles;
-	}
+	//@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "articulos_leidos",
+			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "articulo_id",referencedColumnName = "articuloId")
+			)
+	private List<Articulo> articulos_leidos;
 
-	public void setRoles(Collection<Rol> roles) {
-		this.roles = roles;
-	}
-
+	//@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+			name = "articulos_favoritos",
+			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "articulo_id",referencedColumnName = "articuloId")
+			)
+	private List<Articulo> articulos_favoritos;
+	
 	public Usuario(Long id, String nombre, String apellido, String email, String password, Collection<Rol> roles) {
 		super();
 		this.id = id;
@@ -110,10 +119,6 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	public Usuario() {
-		
-	}
-
     public Usuario(String nombre, String apellido, String username, String descripcion) {
 		super();
 		this.nombre = nombre;
@@ -130,30 +135,4 @@ public class Usuario {
 		this.username = username;
 		
 	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
-	public Usuario(String nombre, String apellido, String descripcion, String email, String username) {
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.descripcion = descripcion;
-		this.email = email;
-		this.username = username;
-		
-	}
-
-	public String getDescripcion() {
-		return descripcion;
-	}
-
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
-
 }

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -61,6 +62,12 @@ public class Articulo {
         articuloComentario.add(comentario);
         comentario.setArticulosComentarios(this);
     }
+
+    @ManyToMany(mappedBy = "articulos_leidos")
+    private List<Usuario> articulos_leidos_usuarios;
+
+    @ManyToMany(mappedBy = "articulos_favoritos")
+    private List<Usuario> articulos_favoritos_usuarios;
 }
 
 
