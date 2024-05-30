@@ -83,14 +83,14 @@ public class ArticuloControlador {
     }
 
     @PostMapping("/articulo/create")
-    private String crearArticulo(@ModelAttribute("articulo") Articulo articulo){
+    private String crearArticulo(@ModelAttribute("articulo") Articulo articulo, Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		String emailAuth = auth.getName();
 
 
-        Categoria categoria = categoriaServicio.findByCategoriaId(null);
+        Categoria categoria = categoriaServicio.findByCategoriaId(model.getAttribute("categorias"));
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
 
