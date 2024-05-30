@@ -20,7 +20,7 @@ import com.registro.usuarios.servicio.CategoriaService;
 public class CategoriaControlador {
     
     @Autowired
-    //private CategoriaService categoriaServicio;
+    private CategoriaService categoriaServicio;
     
     @Autowired
     private ArticuloService articuloServicio;
@@ -37,8 +37,10 @@ public class CategoriaControlador {
 
             for(Articulo articulo : articulos)
             {
-                if(String.valueOf(articulo.getCategorias().getCategoriaId()).equals(categoriaId))
+                String articuloId = String.valueOf(articulo.getCategorias().getCategoriaId());
+                if(articuloId.equals(categoriaId))
                 {
+                    articulo.setUsuarios(articulo.getUsuarios());
                     articulosVisualizar.add(articulo);
                 }
             }

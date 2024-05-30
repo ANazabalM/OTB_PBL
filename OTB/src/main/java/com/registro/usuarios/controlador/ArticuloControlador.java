@@ -43,7 +43,7 @@ public class ArticuloControlador {
 		String emailAuth = auth.getName();
 
 
-        Categoria categoria = categoriaServicio.findByCategoriaId(null);
+        Categoria categoria = categoriaServicio.getCategoria(null);
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
             if(articulo != null)
             {
@@ -90,7 +90,7 @@ public class ArticuloControlador {
 		String emailAuth = auth.getName();
 
 
-        Categoria categoria = categoriaServicio.findByCategoriaId(null);
+        Categoria categoria = categoriaServicio.getCategoria(null);
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
 

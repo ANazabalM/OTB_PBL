@@ -38,12 +38,12 @@ public class UsuarioControlador {
             if(emailAuth.equals(email))
             {
                 mismo = true;
-                usuarioRespuesta = new Usuario(usuario.getNombre(), usuario.getApellido(),
+                usuarioRespuesta = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
                                     usuario.getUsername(), usuario.getDescripcion());
                 
 
             }else{
-                usuarioRespuesta = new Usuario(usuario.getNombre(), usuario.getApellido(),
+                usuarioRespuesta = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
                                     usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername());
             }
             List <Articulo> listaArticulos = usuario.getUsuariosArticulo();
@@ -74,36 +74,40 @@ public class UsuarioControlador {
         return "error";
     }
 
-    @PostMapping("/usuario/edit/{usuarioId}")
+    @GetMapping("/usuario/edit/{usuarioId}")
     public String editarPerfil(@PathVariable String usuarioId, Model model){
-        /*
-        Usuario usuario = usuarioServicio.cogerUsuario(Integer.parseInt(usuarioId));
+        
+        Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		String email = auth.getName();        
-        if(usuario != null  && usuario.getEmai().equals(email))
+        if(usuario != null  && usuario.getEmail().equals(email))
         {
-            usuarioServicio.eliminarUsuario(Integer.parseInt(usuarioId));
-            return "index";
+            Usuario usuarioVisualizar = new Usuario(usuario.getNombre(), usuario.getApellido(),
+                                                usuario.getUsername(), usuario.getDescripcion());
+            model.addAttribute("usuario", usuarioVisualizar);
+            model.addAttribute("mismo", true);
+
+            return "editar_Usuario";
         }
 
         return "error";
-         * 
-         */
 
-        return "a";
     }
 
-    @GetMapping("/usuario/edit/{usuarioId}")
+    @PostMapping("/usuario/edit/{usuarioId}")
     public String verFormularioEdicionUsuario(@PathVariable String usuarioId, Model model)
     {
-        
-        if(SecurityContextHolder.getContext().getAuthentication().
-            getName().equals("admin@gmail.com"))
-        {
-            Usuario usuario = new Usuario();
+        Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
+        String emailLogged = SecurityContextHolder.getContext().getAuthentication().
+            getName();
 
-            if(usuario != null)
+        if(emailLogged.equals("admin@gmail.com") || 
+                    usuario.getEmail().equals(emailLogged))
+        {
+            Usuario usuarioEditado = (Usuario) model.getAttribute("usuario");
+
+            if(usuarioEditado != null)
             {
                 usuarioServicio.editarUsuario(usuario);
                 return "index";
