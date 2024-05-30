@@ -78,7 +78,8 @@ layout:decorate="layout.html">
     <div layout:fragment="contenido">
         <div class="container">
             <div class="profile-header">
-                <img src="https://picsum.photos/200/100" alt="Imagen de perfil" class="rounded-circle" style="width: 150px; height: 150px;">
+                <img th:src="${usuario.img_src != null} ? ${usuario.img_src} : 'https://picsum.photos/200/100'" alt="Imagen de perfil" class="rounded-circle" style="width: 150px; height: 150px;">
+                <button th:if="mismo != false" th:href="@{'/usuario/edit/' + ${usuario.id}}">Editar Perfil</button>
                 <div class="profile-info">
                     <div class="profile-name" th:text="${usuario.nombre} + ' ' + ${usuario.apellido}">Nombre Apellido</div>
                     <div class="username" th:text="${usuario.username}">@nombreusuario</div>
@@ -101,7 +102,7 @@ layout:decorate="layout.html">
                 <div class="row">
                     <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${listaArticulos}">
                         <div class="card">
-                            <img src="https://picsum.photos/300/200" class="card-img-top" alt="Artículo 1">
+                            <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                             <div class="card-body">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo 1</h5>
                                 <p class="card-text" th:text="${usuario.nombre} + ' ' + ${usuario.apellido} + ' - ' + ${articulo.fecha_publ}">Autor - Fecha</p>
