@@ -5,7 +5,7 @@
 
     <style>
         .btn-custom {
-            margin-top: 20px;
+            margin-bottom: 20px;
             background-color: #4a596d;
             border-color: #4a596d;
         }
@@ -25,11 +25,24 @@
         .table .icon-column {
             width: 50px;
         }
+        h2 {
+            color: #4a596d;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            font-style: italic; 
+            font-size: 1.5em;
+        }
     </style>
 </head>
 <body>
 
     <div layout:fragment="contenido">
+
+        <h2>Acciones de administrador</h2>
+
         <div class="form-group text-center">
             <a th:href="@{/crear_categoria}" class="btn btn-primary btn-custom">Crear categoria</a>
         </div>   

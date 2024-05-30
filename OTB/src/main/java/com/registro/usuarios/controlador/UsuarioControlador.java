@@ -44,10 +44,10 @@ public class UsuarioControlador {
             Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		    String emailAuth = auth.getName();
-
-            if(emailAuth.equals(email))
+            mismo = email.equals(emailAuth);
+            
+            if(!mismo)
             {
-                mismo = true;
                 usuarioRespuesta = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
                                     usuario.getUsername(), usuario.getDescripcion(), usuario.getImg_src());
                 
@@ -56,6 +56,7 @@ public class UsuarioControlador {
                 usuarioRespuesta = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
                                     usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername(), usuario.getImg_src());
             }
+
             List <Articulo> listaArticulos = usuario.getUsuariosArticulo();
             model.addAttribute("mismo", mismo);
             model.addAttribute("usuario", usuarioRespuesta);
