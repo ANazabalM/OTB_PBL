@@ -42,8 +42,9 @@ public class ArticuloControlador {
 
 		String emailAuth = auth.getName();
 
+        Long catergoriaID = (Long) model.getAttribute("categorias");
 
-        Categoria categoria = categoriaServicio.findByCategoriaId(null);
+        Categoria categoria = categoriaServicio.getCategoria(catergoriaID);
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
             if(articulo != null)
             {
@@ -88,9 +89,9 @@ public class ArticuloControlador {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		String emailAuth = auth.getName();
+        Long catergoriaID = (Long) model.getAttribute("categorias");
 
-
-        Categoria categoria = categoriaServicio.findByCategoriaId(model.getAttribute("categorias"));
+        Categoria categoria = categoriaServicio.getCategoria(catergoriaID);
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
 
