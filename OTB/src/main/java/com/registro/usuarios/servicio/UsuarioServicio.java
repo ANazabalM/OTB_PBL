@@ -23,4 +23,6 @@ public interface UsuarioServicio extends UserDetailsService{
 
 	public Usuario buscarPorEmail (String email);
 
+    public List<Usuario> getAll();
+
 }
