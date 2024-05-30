@@ -16,7 +16,6 @@ public interface UsuarioServicio extends UserDetailsService{
 
 	public Usuario getUsuario(Long id);
 
-
 	public void eliminarUsuario(long id);
 
     public void editarUsuario(Usuario usuario);
