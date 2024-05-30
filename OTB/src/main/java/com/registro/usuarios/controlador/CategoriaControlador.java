@@ -37,8 +37,10 @@ public class CategoriaControlador {
 
             for(Articulo articulo : articulos)
             {
-                if(String.valueOf(articulo.getCategorias().getCategoriaId()).equals(categoriaId))
+                String articuloId = String.valueOf(articulo.getCategorias().getCategoriaId());
+                if(articuloId.equals(categoriaId))
                 {
+                    articulo.setUsuarios(articulo.getUsuarios());
                     articulosVisualizar.add(articulo);
                 }
             }
