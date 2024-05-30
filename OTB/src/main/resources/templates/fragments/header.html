@@ -88,7 +88,8 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdownLarge">
                             <a class="dropdown-item" href="/">Ver Perfil</a>
-                            <a class="dropdown-item" href="/">Ver Lista de Favoritos</a>
+                            <a class="dropdown-item" href="/">Ver Lista de Favoritos</a>                            
+                            <a class="dropdown-item" th:href="@{/administrador}">Admin</a>
                             <a th:if="${email.equals('admin@gmail.com')}" class="dropdown-item" href="#">Acciones de administrador</a>
                             <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                         </div>
