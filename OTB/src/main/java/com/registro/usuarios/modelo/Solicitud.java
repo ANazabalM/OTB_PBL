@@ -1,6 +1,6 @@
 package com.registro.usuarios.modelo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table
 public class Solicitud {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -31,10 +31,16 @@ public class Solicitud {
     private String descripcion;
     
     @Column
-    private Date fecha_sol;
+    private LocalDate fecha_sol;
 
     @ManyToOne
     @JoinColumn(name = "usuario_ID")
     private Usuario solicitudUsuarios;
+
+    public Solicitud(String descripcion2, Usuario solicitudUsuarios2, LocalDate fecha_sol) {
+        this.descripcion = descripcion2;
+        this.solicitudUsuarios = solicitudUsuarios2;
+        this.fecha_sol = fecha_sol;
+    }
 }
 

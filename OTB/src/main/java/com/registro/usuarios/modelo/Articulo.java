@@ -1,6 +1,6 @@
 package com.registro.usuarios.modelo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -37,7 +37,7 @@ public class Articulo {
     private String titulo;
     
     @Column
-    private Date fecha_publ;
+    private LocalDate fecha_publ;
     
     @Column
     private String src_img;
@@ -77,7 +77,7 @@ public class Articulo {
     @ManyToMany(mappedBy = "articulos_favoritos")
     private List<Usuario> articulos_favoritos_usuarios;
 
-    public Articulo(Long articuloId, String titulo, Date fecha_publ, String text, 
+    public Articulo(Long articuloId, String titulo, LocalDate fecha_publ, String text, 
                     String alt_img, String src_img)
     {
         this.articuloId = articuloId;
@@ -101,9 +101,24 @@ public class Articulo {
                 this.categorias = categoria;
     }
 
-    public Usuario getUsuarios()
-    {
-        return this.usuarios;
+
+    public Articulo(String titulo, String alt_img, String src_video, String contenido, Usuario usuario) {
+                this.titulo = titulo;
+                this.alt_img = alt_img;
+                this.src_video = src_video;
+                this.contenido = contenido;
+                this.usuarios = usuario;
+
+    }
+
+
+    public Articulo(String titulo, String alt_img, String src_video, String contenido, LocalDate fecha_publ, Usuario usuario) {
+                this.titulo = titulo;
+                this.alt_img = alt_img;
+                this.src_video = src_video;
+                this.contenido = contenido;
+                this.fecha_publ = fecha_publ;
+                this.usuarios = usuario;
     }
 }
 

@@ -44,7 +44,7 @@ public class CategoriaControlador {
                     articulosVisualizar.add(articulo);
                 }
             }
-            model.addAttribute("articulos", articulosVisualizar);
+            model.addAttribute("articulo", articulosVisualizar);
             model.addAttribute("categoria", categoria);
             return "tema";
         }

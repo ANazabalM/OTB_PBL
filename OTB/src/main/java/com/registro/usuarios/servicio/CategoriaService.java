@@ -10,4 +10,5 @@ public interface CategoriaService {
     public List<Categoria> cogerTodas();
 
     public Categoria getCategoria(Long categoriaId);
+
 }

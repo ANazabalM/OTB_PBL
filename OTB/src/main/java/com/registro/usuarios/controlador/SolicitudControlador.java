@@ -1,13 +1,10 @@
 package com.registro.usuarios.controlador;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,14 +12,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Categoria;
-import com.registro.usuarios.modelo.Comentario;
+import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.CategoriaService;
+import com.registro.usuarios.servicio.SolicitudService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.ui.Model;
+
 @Controller
-public class ArticuloControlador {
+public class SolicitudControlador {
     
     @Autowired
     private ArticuloService articuloServicio;
@@ -30,10 +31,11 @@ public class ArticuloControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
-    @Autowired
-    private CategoriaService categoriaServicio;
 
-    @GetMapping("/articulo/view/{articuloId}")
+    @Autowired
+    private SolicitudService solicitudServicio;
+
+    @GetMapping("/solicitud/view/{solicitudId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
 
         if(articuloId != null)
@@ -42,8 +44,6 @@ public class ArticuloControlador {
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
         Categoria catergoriaID = articulo.getCategorias();
-        LocalDate date = LocalDate.now();
-        Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
         Usuario usuarioA = articulo.getUsuarios();
         
             if(articulo != null){
@@ -51,54 +51,41 @@ public class ArticuloControlador {
                                                         articulo.getAlt_img(),
                                                         articulo.getSrc_video(),
                                                         articulo.getContenido(),
-                                                        date,
                                                         usuarioA);
-                Categoria categoria2 = new Categoria(   categoria.getTitulo(),
-                                                        categoria.getColor());
-                List<Comentario> comentarios = articulo.getArticuloComentario();
 
                 model.addAttribute("autor", usuarioA);
                 model.addAttribute("articulo", articuloVista);
-                model.addAttribute("categoria", categoria2);
-                model.addAttribute("comentarios", comentarios);
                 return "articulo";
             }
         }
         return "error";
     }
 
-    @ModelAttribute("articulo")
+    @ModelAttribute("solicitud")
 	public Articulo retornarNuevoArticulo() {
 		return new Articulo();
 	}
 
-    @GetMapping("/articulo/create")
+    @GetMapping("/solicitud/create")
     private String verFormularioCreacion(Model model){
-        return "crear_articulo";
+        return "crear_solicitud";
     }
 
-    @PostMapping("/articulo/create")
-    private String crearArticulo(@ModelAttribute("articulo") Articulo articulo, Model model){
+    @PostMapping("/solicitud/create")
+    private String crearArticulo(@ModelAttribute("solicitud") Solicitud solicitud, Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		String emailAuth = auth.getName();
-
-        Categoria catergoriaID = articulo.getCategorias();
         
-        Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
-
-        Articulo articuloNuevo = new Articulo(  articulo.getTitulo(),
-                                                articulo.getAlt_img(),
-                                                articulo.getSrc_video(),
-                                                articulo.getContenido(),
-                                                articulo.getLang(),
-                                                usuario,
-                                                categoria);
-
-        articuloServicio.save(articuloNuevo);
+        LocalDate date = LocalDate.now();
+        Solicitud solicitudCrear = new Solicitud(   solicitud.getDescripcion(),
+                                                    usuario,
+                                                    date
+                                                    );
+        solicitudServicio.save(solicitudCrear);
         return "index";
     }
 

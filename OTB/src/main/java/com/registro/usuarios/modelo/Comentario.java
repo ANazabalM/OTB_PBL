@@ -21,7 +21,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table
 public class Comentario {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
@@ -40,4 +39,9 @@ public class Comentario {
     @ManyToOne
     @JoinColumn(name = "usuario_ID")
     private Usuario usuariosComentarios;
+
+    public Comentario(String contenido, Usuario id, String apellido) {
+        this.contenido = contenido;
+        this.usuariosComentarios = id;
+    }
 }
