@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layout.html">
+<head>
+    <title>OTB - Reciclaje</title>
+<style>
+        .titulo-reciclaje {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #7BCF6F;
+            font-weight: bold;
+            font-style: italic;
+        }
+
+        .badge-info {
+            background-color: #7BCF6F;
+        }
+
+        .star-icon {
+            color: #7BCF6F;
+        }
+
+        .card {
+            position: relative;
+        }
+
+        .card-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: #ff0000;
+            font-size: 1.5rem;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div layout:fragment = "contenido">
+        <div class="container mt-3">
+            <h2 class="text-center titulo-reciclaje" th:text="${categoria.titulo}">Titulo</h2>
+        </div>
+    
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
+                    <div class="card">
+                        <i class="fas fa-heart card-icon"></i>
+                        <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
+                        <div class="card-body">
+                            <a th:href="@{articulo/view/articulo.articuloId}">
+                                <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
+                            </a>
+                            <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
+                                Autor - Fecha</p>
+                            <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Título "Reciclaje" -->
+    
+
+</body>
+</html>

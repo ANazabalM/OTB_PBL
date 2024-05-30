@@ -1,5 +1,6 @@
 package com.registro.usuarios.servicio.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,11 @@ public class ArticuloServiceImpl implements ArticuloService{
     @Override
     public void editarArticulo(long articuloId, Articulo articuloEditado) {
         articuloRepository.save(articuloEditado);
+    }
+
+    @Override
+    public List<Articulo> cogerTodos() {
+        List<Articulo> listaTodos = articuloRepository.findAll();
+        return listaTodos;
     }
 }

@@ -30,8 +30,12 @@ public class Categoria {
     
     @Column
     private String titulo;
+    
     @Column
     private String color;
+
+    @Column
+    private String icono;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "categorias")
     private List<Articulo> articulosCategoria;

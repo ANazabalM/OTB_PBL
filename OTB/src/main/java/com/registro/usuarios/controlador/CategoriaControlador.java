@@ -1,5 +1,8 @@
 package com.registro.usuarios.controlador;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.registro.usuarios.modelo.Articulo;
+import com.registro.usuarios.modelo.Categoria;
+import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.CategoriaService;
 
 
@@ -16,44 +22,40 @@ public class CategoriaControlador {
     @Autowired
     private CategoriaService categoriaServicio;
     
+    @Autowired
+    private ArticuloService articuloServicio;
 
-    public CategoriaControlador(//CategoriaServicio categoriaServicio
-    ) {
-		super();
-		//this.categoriaServicio = categoriaServicio;
-	}
 
     @GetMapping("/categoria/view/{categoriaId}")
     public String showCategoria(@PathVariable String categoriaId, Model model){
-        /*
-        if(categoriaId == null)
+        
+        if(categoriaId != null)
         {
-            List<Categoria> categorias = categoriaServicio.cogerTodas();
-            model.addAtribute("categorias", categorias);
-            return "categorias";
+            List<Articulo> articulos = articuloServicio.cogerTodos();
+            List<Articulo> articulosVisualizar = new ArrayList<>();
+            Categoria categoria = categoriaServicio.getCategoria(Long.parseLong(categoriaId));
+
+            for(Articulo articulo : articulos)
+            {
+                if(String.valueOf(articulo.getCategorias().getCategoriaId()).equals(categoriaId))
+                {
+                    articulosVisualizar.add(articulo);
+                }
+            }
+            model.addAttribute("articulos", articulosVisualizar);
+            model.addAttribute("categoria", categoria);
+            return "tema";
         }
-        Categoria categoria = categoriaServicio.coger(String.parseInt(categoriaId));
-        ArticuloServicio articuloServicio = new ArticuloServicio;
 
-        List<Articulo> articulos = articuloServicio.cogerTodos(categoriaId);
-        model.addAtribute("articulos", articulos);
-        model.addAtribute("categoria", categoria);
-
-        return "categoria";
-         */
-
-        return "a";
+        return "error";
     }
 
-    @GetMapping("/categoria/view/")
+    @GetMapping("/categoria/view")
     public String showCategorias(Model model){
-        /*
-            List<Categoria> categorias = categoriaServicio.cogerTodas();
-            model.addAtribute("categorias", categorias);
-            return "categorias";
-         */
-
-        return "a";
+        
+        List<Categoria> categorias = categoriaServicio.cogerTodas();
+        model.addAttribute("categorias", categorias);
+        return "categorias";
     }
 
     @PostMapping("/categoria/delete/{categoriaId}")
