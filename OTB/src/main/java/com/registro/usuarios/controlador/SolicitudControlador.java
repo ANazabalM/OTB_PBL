@@ -11,10 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.registro.usuarios.modelo.Articulo;
-import com.registro.usuarios.modelo.Categoria;
 import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
-import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.SolicitudService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
@@ -24,8 +22,6 @@ import org.springframework.ui.Model;
 @Controller
 public class SolicitudControlador {
     
-    @Autowired
-    private ArticuloService articuloServicio;
 
     @Autowired
     private UsuarioServicio usuarioServicio;
@@ -37,32 +33,13 @@ public class SolicitudControlador {
     @GetMapping("/solicitud/view/{solicitudId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
 
-        if(articuloId != null)
-        {
-
-        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-
-        Categoria catergoriaID = articulo.getCategorias();
-        Usuario usuarioA = articulo.getUsuarios();
         
-            if(articulo != null){
-                Articulo articuloVista = new Articulo(  articulo.getTitulo(),
-                                                        articulo.getAlt_img(),
-                                                        articulo.getSrc_video(),
-                                                        articulo.getContenido(),
-                                                        usuarioA);
-
-                model.addAttribute("autor", usuarioA);
-                model.addAttribute("articulo", articuloVista);
-                return "articulo";
-            }
-        }
         return "error";
     }
 
     @ModelAttribute("solicitud")
-	public Articulo retornarNuevoArticulo() {
-		return new Articulo();
+	public Solicitud retornarNuevoArticulo() {
+		return new Solicitud();
 	}
 
     @GetMapping("/solicitud/create")
@@ -80,61 +57,12 @@ public class SolicitudControlador {
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
         LocalDate date = LocalDate.now();
-        Solicitud solicitudCrear = new Solicitud(   solicitud.getDescripcion(),
+        Solicitud solicitudCrear = new Solicitud(   solicitud.getTitulo(),
+                                                    solicitud.getDescripcion(),
                                                     usuario,
                                                     date
                                                     );
         solicitudServicio.save(solicitudCrear);
         return "index";
-    }
-
-    @GetMapping("/articulo/edit/{articuloId}")
-    private String verFormularioEdicion(@PathVariable String articuloId, Model model){
-
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            if(articulo != null)
-            {
-                model.addAttribute("articulo", articulo);
-                return "formularioArticulo";
-            }
-            return "index";
-        */
-        return "a";
-    }
-
-    @PostMapping("/articulo/edit/{articuloId}")
-    private String editarArticulo(@PathVariable String articuloId, Model model){
-
-        /* 
-            Articulo articuloA = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            Articulo articulo = model.getAttribute("articulo");
-
-            if(articuloA != null)
-            {
-                articuloServicio.editarArticulo(articulo);
-                return "index";
-            }
-
-            return "error";
-        */
-        return "a";
-    }
-
-    @PostMapping("/articulo/delete/{articuloId}")
-    private String eliminarArticulo(@PathVariable String articuloId, Model model){
-
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-
-            if(articulo != null)
-            {
-                articuloServicio.eliminarArticulo(articulo);
-                return "index";
-            }
-            
-            return "error";
-        */
-        return "a";
     }
 }

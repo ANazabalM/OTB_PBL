@@ -26,6 +26,9 @@ public class Solicitud {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private Long solicitudId;
+
+    @Column
+    private String titulo;
     
     @Column
     private String descripcion;
@@ -37,7 +40,8 @@ public class Solicitud {
     @JoinColumn(name = "usuario_ID")
     private Usuario solicitudUsuarios;
 
-    public Solicitud(String descripcion2, Usuario solicitudUsuarios2, LocalDate fecha_sol) {
+    public Solicitud(String titulo,String descripcion2, Usuario solicitudUsuarios2, LocalDate fecha_sol) {
+        this.titulo = titulo;
         this.descripcion = descripcion2;
         this.solicitudUsuarios = solicitudUsuarios2;
         this.fecha_sol = fecha_sol;
