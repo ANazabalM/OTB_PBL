@@ -15,7 +15,6 @@ import com.registro.usuarios.modelo.Categoria;
 import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
-import com.registro.usuarios.servicio.CategoriaService;
 import com.registro.usuarios.servicio.SolicitudService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
@@ -68,7 +67,7 @@ public class SolicitudControlador {
 
     @GetMapping("/solicitud/create")
     private String verFormularioCreacion(Model model){
-        return "crear_solicitud";
+        return "solicitud_categoria";
     }
 
     @PostMapping("/solicitud/create")
