@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -42,17 +43,22 @@ public class Articulo {
     
     @Column
     private String alt_img;
+
+    @Column
+    private String src_video;
     
     @Column
     private String lang;
     
     @Column
-    private String text;
+    private String contenido;
 
     @ManyToOne // n --> 1 el foreing key que recibes
+    @JoinColumn(name = "categoria_ID")
     private Categoria categorias;
 
     @ManyToOne
+    @JoinColumn(name = "usuario_ID")
     private Usuario usuarios;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "articulosComentarios")  // 1 --> n el foreing key que mandas a otra tabla
@@ -75,9 +81,22 @@ public class Articulo {
         this.articuloId = articuloId;
         this.titulo = titulo;
         this.fecha_publ = fecha_publ;
-        this.text = text;
+        this.contenido = text;
         this.alt_img = alt_img;
         this.src_img = src_img;
+    }
+
+
+    public Articulo(String titulo, String alt_img, String src_video, String contenido, String lang, Usuario author,
+            Categoria categoria) {
+
+                this.titulo = titulo;
+                this.alt_img = alt_img;
+                this.src_video = src_video;
+                this.contenido = contenido;
+                this.lang = lang;
+                this.usuarios = author;
+                this.categorias = categoria;
     }
 }
 

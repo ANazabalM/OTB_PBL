@@ -118,14 +118,6 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-    public Usuario(String nombre, String apellido, String username, String descripcion) {
-		super();
-		this.nombre = nombre;
-		this.apellido = apellido;
-		this.descripcion = descripcion;
-		this.username = username;
-	}
-
 	public Usuario(String nombre, String apellido, String descripcion, String email, String username) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -135,8 +127,16 @@ public class Usuario {
 		
 	}
 
-    public Usuario(Long id, String username) {
+	public Usuario(Long id, String username) {
 		this.id = id;
 		this.username = username;
+	}
+
+	public Usuario(String nombre, String apellido, String email, String password) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.password = password;
+		this.email = email;
 	}
 }

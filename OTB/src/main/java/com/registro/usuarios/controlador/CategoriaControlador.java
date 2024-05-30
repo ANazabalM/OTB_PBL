@@ -20,7 +20,7 @@ import com.registro.usuarios.servicio.CategoriaService;
 public class CategoriaControlador {
     
     @Autowired
-    private CategoriaService categoriaServicio;
+    //private CategoriaService categoriaServicio;
     
     @Autowired
     private ArticuloService articuloServicio;

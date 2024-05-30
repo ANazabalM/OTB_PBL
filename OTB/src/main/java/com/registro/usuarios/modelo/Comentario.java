@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -33,8 +34,10 @@ public class Comentario {
     private Date fecha_com;
 
     @ManyToOne
+    @JoinColumn(name = "articulo_ID")
     private Articulo articulosComentarios;
 
     @ManyToOne
+    @JoinColumn(name = "usuario_ID")
     private Usuario usuariosComentarios;
 }

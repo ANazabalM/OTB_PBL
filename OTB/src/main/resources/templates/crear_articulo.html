@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
+<head>
+    <title>OTB - Crear Artículo</title>
+    <link rel="stylesheet" href="css/styles.css"> <!-- Incluir tus estilos personalizados aquí -->
+    <style>
+        .badge-info {
+            background-color: #7BCF6F;
+        }
+        .star-icon {
+            color: #7BCF6F;
+        }
+        .card-icon {
+            color: #ff0000;
+            font-size: 1.5rem;
+        }
+        .create-article-header {
+            margin-block-start: 20px;
+            margin-block-end: 20px;
+        }
+        .create-article-title {
+            font-size: 2.5rem;
+            color: #4a596d;
+        }
+        .form-group label {
+            font-weight: bold;
+        }
+        .btn-custom {
+            background-color: #4a596d;
+            border-color: #4a596d;
+        }
+        #btn-cancel:hover{
+            background-color: #d14747;
+        }
+    </style>
+</head>
+<body>
+    <div layout:fragment="contenido">
+        <div class="container create-article-header">
+            <h2 class="create-article-title text-center">Crear Artículo</h2>
+        </div>
+        <div class="container">
+            <form th:action="@{/articulo/create}" method="post" th:object=${articulo}>
+                <div class="form-group">
+                    <label for="titulo">Título del Artículo</label>
+                    <input  type="text" 
+                            class="form-control" 
+                            id="titulo" 
+                            th:field="*{titulo}" 
+                            required autofocus="autofocus"
+                            placeholder= "Ingresa el título del artículo">
+                </div>
+                <div class="form-group">
+                    <label  for="src_img">Imagen del Artículo</label>
+                    <input  type="file" 
+                            class="form-control-file" 
+                            id="src_img"
+                            th:field="*{src_img}">
+                    <small class="form-text text-muted">Seleccione una imagen para el artículo.</small>
+
+                    <label  for="alt_img" class="mt-2">Descripción de la Imagen</label>
+                    <input  type="text"
+                            class="form-control" 
+                            id="alt_img"
+                            th:field="*{alt_img}"
+                            placeholder="Describe la imagen">
+                </div>
+                <div class="form-group">
+                    <label  for="src_video">Video del Artículo (opcional)</label>
+                    <input  type="url" 
+                            class="form-control"
+                            id="src_video"
+                            th:field="*{src_video}"
+                            placeholder="URL del video">
+                </div>
+                <div class="form-group">
+                    <label for="contenido">Contenido del Artículo</label>
+                    <textarea class="form-control" id="contenido" th:field="*{contenido}" rows="10" placeholder="Escribe el contenido del artículo"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="categorias">Categoría del Artículo</label>
+                    <select class="form-control" id="categorias" th:field="*{categorias}">
+                        <option value="1">Reciclaje</option>
+                        <option value="2">Tecnología</option>
+                        <option value="3">Limpieza del hogar</option>
+                        <option value="4">Cocinar</option>
+                        <option value="5">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="lang">Idioma del Artículo</label>
+                    <select class="form-control" id="lang" th:field="*{lang}">
+                        <option value="es">Español</option>
+                        <option value="en">Inglés</option>
+                        <option value="eu">Euskera</option>
+                    </select>
+                </div>
+                <div class="form-group text-right">
+                    <button type="submit" class="btn btn-primary btn-custom">Finalizar y Compartir</button>
+                    <button type="button" class="btn btn-secondary" id="btn-cancel">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

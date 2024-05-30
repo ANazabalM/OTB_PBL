@@ -91,4 +91,8 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 		usuarioRepositorio.save(usuario);
 	}
 
+	public Usuario buscarPorEmail (String email){
+		return usuarioRepositorio.findByEmail(email);
+	}
+
 }
