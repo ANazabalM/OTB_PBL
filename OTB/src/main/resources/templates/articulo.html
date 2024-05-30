@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="layout.html">
+<head>
+    <title>OTB - Título del Artículo</title>
+    <style>
+        .badge-info {
+            background-color: #7BCF6F;
+        }
+        .star-icon {
+            color: #7BCF6F;
+        }
+        .card-icon {
+            color: #ff0000;
+            font-size: 1.5rem;
+        }
+        .article-header {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+        .article-title {
+            font-size: 2.5rem;
+            color: #4a596d;
+        }
+        .article-content {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+        .article-meta {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+        .article-container {
+            margin-top: 20px;
+        }
+        .comments-section {
+            margin-top: 40px;
+        }
+        .comment {
+            background-color: white;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .titulo-reciclaje {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #7BCF6F;
+            font-weight: bold;
+            font-style: italic;
+        }
+        .article-meta-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .article-meta-container {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (min-width: 992px) {
+            .article-meta-container {
+                margin-top: 75px;
+            }
+            .titulo-reciclaje {
+                align-self: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container article-container" layout:fragment="contenido">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="article-header">
+                    <h2 class="titulo" th:text="${articulo.titulo}">Titulo</h2>
+                    <img src="https://picsum.photos/800/400" class="img-fluid" alt="Imagen del Artículo">
+                </div>
+                <div class="article-content">
+                    <h3 class="article-content" th:text="${articulo.contenido}"></h3>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="article-meta-container">
+                    <h3 class="titulo-reciclaje" th:text="${categoria.titulo}"></h3>
+                    <p th:text="${autor.username}"></p>
+                    <p>Fecha: 17 de Mayo, 2024</p>
+                    <div class="article-meta-row">
+                        <p><span class="star-icon">&#9733;</span> <span class="badge badge-info">4/5</span></p>
+                        <p><i class="fas fa-heart card-icon"></i></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="comments-section">
+            <h3>Comentarios</h3>
+            <form>
+                <div class="form-group" method="post">
+                    <label for="comment">Añadir un comentario</label>
+                    <textarea class="form-control" rows="3" placeholder="Escribe tu comentario aquí"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="background-color: #4a596d; border-color: #4a596d;">Enviar</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
