@@ -21,6 +21,15 @@ public class UsuarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
 
+    @GetMapping("/administrador")
+    public String visualizarAccionesAdmin(Model model)
+    {
+        List<Usuario> usuarios = usuarioServicio.getAll();
+
+        model.addAttribute("usuarios", usuarios);
+        return "administrador";
+    }
+
     @GetMapping("/usuario/view/{usuarioId}")
     public String visualizarPerfil(@PathVariable String usuarioId, Model model){
         
@@ -61,7 +70,7 @@ public class UsuarioControlador {
     public String eliminarPerfil(@PathVariable String usuarioId, Model model){
 
         if(SecurityContextHolder.getContext().getAuthentication().
-        getName().equals("admin@gmail.com"))
+        getName().equals("a@a.com"))
         {
             Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
             if(usuario != null)
