@@ -32,7 +32,7 @@
                         <a class="nav-link" href="#"><i class="fa-solid fa-kitchen-set"></i>Cocina</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/categoria"><i class="fa-solid fa-ellipsis"></i>Más categorías</a>
+                        <a class="nav-link" th:href="@{/categoria/view}"><i class="fa-solid fa-ellipsis"></i>Más categorías</a>
                     </li>
                     <!-- Elementos de la derecha dentro del menú desplegable en pantallas pequeñas -->
                     <li class="nav-item dropdown d-lg-none">
@@ -46,7 +46,7 @@
                         </div>
                     </li>
                     <li class="nav-item d-lg-none">
-                        <a th:if="${email == null}" class="nav-link text-white" href="/login">
+                        <a th:if="${email == null}" class="nav-link text-white" th:href="@{/login}">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Iniciar sesión
                         </a>
                     </li>
@@ -55,10 +55,10 @@
                             <i class="fa-solid fa-user"></i> Perfil
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="/">Ver Perfil</a>
-                            <a class="dropdown-item" href="/">Ver Lista de Favoritos</a>
+                            <a class="dropdown-item" th:href="@{/}">Ver Perfil</a>
+                            <a class="dropdown-item" th:href="@{/}">Ver Lista de Favoritos</a>
                             <a th:if="${email.equals('admin@gmail.com')}" class="dropdown-item" href="#">Acciones de administrador</a>
-                            <a class="dropdown-item" href="/logout">Cerrar sesión</a>
+                            <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
                         </div>
                     </li>
                 </ul>

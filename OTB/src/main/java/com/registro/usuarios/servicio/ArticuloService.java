@@ -1,5 +1,7 @@
 package com.registro.usuarios.servicio;
 
+import java.util.List;
+
 import com.registro.usuarios.modelo.Articulo;
 
 public interface ArticuloService {
@@ -10,4 +12,6 @@ public interface ArticuloService {
     public void deleteArticulo(long articuloId);
 
     public void editarArticulo(long articuloId, Articulo articuloEditado);
+
+    public List<Articulo> cogerTodos();
 }
