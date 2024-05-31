@@ -2,7 +2,6 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
     <title>OTB - Crear Artículo</title>
-    <link rel="stylesheet" href="css/styles.css"> 
     <style>
         .badge-info {
             background-color: #7BCF6F;
@@ -40,22 +39,20 @@
             <h2 class="create-article-title text-center">Crear Categoría</h2>
         </div>
         <div class="container">
-            <form th:action="@{/categoria/create}" method="post" th:object=${categoria}>
+            <form th:action="@{/categoria/create}" method="post" th:object="${categoria}">
                 <div class="form-group">
-                    <label for="titulo">Título del Artículo</label>
+                    <label for="color">Título de la categoria</label>
                     <input  type="text" 
                             class="form-control" 
-                            id="titulo" 
-                            th:field="*{titulo}" 
+                            id="color" 
+                            th:field="*{color}" 
                             required autofocus="autofocus"
                             placeholder= "Ingresa el título de la categoría">
                 </div>
-               
                 <div class="form-group text-right">
                     <button type="submit" class="btn btn-primary btn-custom">Finalizar y Compartir</button>
-                    <button type="button" class="btn btn-secondary" id="btn-cancel">Cancelar</button>
                 </div>
-            </form>
+            </form> 
         </div>
     </div>
 </body>

@@ -80,7 +80,7 @@ public class CategoriaControlador {
 
     @GetMapping("/categoria/create")
     public String verFormularioCreacionCategoria(){  
-        return "formularioCategoria";
+        return "crear_categoria";
     }
 
     @GetMapping("/categoria")
