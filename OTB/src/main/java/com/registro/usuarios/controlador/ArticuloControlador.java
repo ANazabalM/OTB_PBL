@@ -38,12 +38,18 @@ public class ArticuloControlador {
 
         if(articuloId != null)
         {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String emailAuth = auth.getName();
+
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
         Categoria catergoriaID = articulo.getCategorias();
         LocalDate date = LocalDate.now();
         Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
+
         Usuario usuarioA = articulo.getUsuarios();
         
             if(articulo != null){
@@ -57,10 +63,14 @@ public class ArticuloControlador {
                                                         categoria.getColor());
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
+                articulo.addVisualizacion(usuario,articulo);
+
                 model.addAttribute("autor", usuarioA);
                 model.addAttribute("articulo", articuloVista);
                 model.addAttribute("categoria", categoria2);
                 model.addAttribute("comentarios", comentarios);
+
+                articuloServicio.guardarArticulo(articulo);
                 return "articulo";
             }
         }
@@ -102,53 +112,11 @@ public class ArticuloControlador {
         return "index";
     }
 
-    @GetMapping("/articulo/edit/{articuloId}")
-    private String verFormularioEdicion(@PathVariable String articuloId, Model model){
-
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            if(articulo != null)
-            {
-                model.addAttribute("articulo", articulo);
-                return "formularioArticulo";
-            }
-            return "index";
-        */
-        return "a";
-    }
-
-    @PostMapping("/articulo/edit/{articuloId}")
-    private String editarArticulo(@PathVariable String articuloId, Model model){
-
-        /* 
-            Articulo articuloA = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            Articulo articulo = model.getAttribute("articulo");
-
-            if(articuloA != null)
-            {
-                articuloServicio.editarArticulo(articulo);
-                return "index";
-            }
-
-            return "error";
-        */
-        return "a";
-    }
-
     @PostMapping("/articulo/delete/{articuloId}")
-    private String eliminarArticulo(@PathVariable String articuloId, Model model){
+    private String eliminarArticulo(@PathVariable Long articuloId, Model model){
 
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
+        articuloServicio.deleteArticulo(articuloId);
 
-            if(articulo != null)
-            {
-                articuloServicio.eliminarArticulo(articulo);
-                return "index";
-            }
-            
-            return "error";
-        */
-        return "a";
+        return "index";
     }
 }

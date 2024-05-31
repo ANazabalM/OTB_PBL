@@ -58,5 +58,10 @@ public class ArticuloServiceImpl implements ArticuloService{
         List<Articulo> listaMejores = articuloRepository.getTopArticulos();
         return listaMejores;
     }
+
+@Override
+public void guardarArticulo(Articulo articuloguardado) {
+    articuloRepository.save(articuloguardado);
+}
     
 }

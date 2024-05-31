@@ -74,9 +74,10 @@ public class Articulo {
     @ManyToMany(mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;
 
-    public void addVisualizacion(Usuario usuario){
+    public void addVisualizacion(Usuario usuario, Articulo articulo){
         articulos_leidos_usuarios.add(usuario);
-        usuario.addVisualizacion(this);
+
+        usuario.addVisualizacion(articulo);
     }
 
     @ManyToMany(mappedBy = "articulos_favoritos")
