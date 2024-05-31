@@ -24,4 +24,5 @@ public interface UsuarioServicio extends UserDetailsService{
 
     public List<Usuario> getAll();
 
+
 }

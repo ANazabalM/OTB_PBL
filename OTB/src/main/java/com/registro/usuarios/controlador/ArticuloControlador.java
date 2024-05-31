@@ -3,6 +3,8 @@ package com.registro.usuarios.controlador;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,6 +21,7 @@ import com.registro.usuarios.modelo.Comentario;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.CategoriaService;
+import com.registro.usuarios.servicio.ComentarioService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Controller
@@ -32,6 +35,9 @@ public class ArticuloControlador {
 
     @Autowired
     private CategoriaService categoriaServicio;
+    
+    @Autowired
+    private ComentarioService comentarioServicio;
 
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
@@ -47,18 +53,11 @@ public class ArticuloControlador {
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
         Categoria catergoriaID = articulo.getCategorias();
-        LocalDate date = LocalDate.now();
         Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
 
         Usuario usuarioA = articulo.getUsuarios();
-        
+
             if(articulo != null){
-                Articulo articuloVista = new Articulo(  articulo.getTitulo(),
-                                                        articulo.getAlt_img(),
-                                                        articulo.getSrc_video(),
-                                                        articulo.getContenido(),
-                                                        date,
-                                                        usuarioA);
                 Categoria categoria2 = new Categoria(   categoria.getTitulo(),
                                                         categoria.getColor());
                 List<Comentario> comentarios = articulo.getArticuloComentario();
@@ -66,11 +65,12 @@ public class ArticuloControlador {
                 articulo.addVisualizacion(usuario,articulo);
 
                 model.addAttribute("autor", usuarioA);
-                model.addAttribute("articulo", articuloVista);
+                model.addAttribute("articulo", articulo);
                 model.addAttribute("categoria", categoria2);
                 model.addAttribute("comentarios", comentarios);
 
                 articuloServicio.guardarArticulo(articulo);
+                model.addAttribute("comentarioCrear", new Comentario());
                 return "articulo";
             }
         }
@@ -85,6 +85,29 @@ public class ArticuloControlador {
     @GetMapping("/articulo/create")
     private String verFormularioCreacion(Model model){
         return "crear_articulo";
+    }
+
+    @ModelAttribute("comentario")
+	public Comentario retornarNuevoComentario() {
+		return new Comentario();
+	}
+
+
+    @PostMapping("/comentario/create")
+    public String crearComentario(@ModelAttribute("comentario") Comentario comentario, Model model, HttpSession session)
+    {
+        Usuario usuario = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
+        Articulo articulo = (Articulo) model.getAttribute("articulo");
+        Comentario comentarioGuardar = new Comentario(comentario.getContenido(), LocalDate.now(), usuario, articulo);
+
+        if(articulo != null)
+        {
+            comentarioServicio.save(comentarioGuardar);
+            return "redirect:/articulo/view/" + articulo.getArticuloId();
+        }
+
+        return "error";
+        
     }
 
     @PostMapping("/articulo/create")

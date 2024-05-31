@@ -87,6 +87,11 @@ public class Articulo {
         articulos_favoritos_usuarios.add(usuario);
     }
 
+    public void removeFavorito(Usuario usuario){
+        articulos_favoritos_usuarios.remove(usuario);
+    }
+    
+
     public Articulo(Long articuloId, String titulo, LocalDate fecha_publ, String text, 
                     String alt_img, String src_img)
     {

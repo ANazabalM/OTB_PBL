@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Usuario;
+import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Controller
@@ -21,6 +22,9 @@ public class UsuarioControlador {
     
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private ArticuloService articuloServicio;
 
     @GetMapping("/administrador")
     public String visualizarAccionesAdmin(Model model)
@@ -67,6 +71,8 @@ public class UsuarioControlador {
 
         return "error";
     }
+    
+  
     
     @GetMapping("/usuario/delete/{usuarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarPerfil(@PathVariable String usuarioId, Model model){
@@ -139,6 +145,30 @@ public class UsuarioControlador {
         }
 
         return "error";
+    }
+
+    @GetMapping("/listaDeFavoritos/{usuarioId}")
+    public String listaFavoritos(@PathVariable Long usuarioId, Model model) {
+        Usuario usuario = usuarioServicio.getUsuario(usuarioId);
+        List<Articulo> favoritos = usuario.getArticulos_favoritos();
+        model.addAttribute("favoritos", favoritos);
+        return "lista_de_favoritos";
+    }
+
+    @PostMapping("/addFavorito/{usuarioId}/{articuloId}")
+    public String addFavorito(@PathVariable Long usuarioId, @PathVariable Long articuloId) {
+        Usuario usuario = usuarioServicio.getUsuario(usuarioId);
+        Articulo articulo = articuloServicio.getArticulo(articuloId);
+        usuario.add_articulo_favoritos(articulo);
+        return "redirect:/";
+    }
+
+    @PostMapping("/removeFavorito/{usuarioId}/{articuloId}")
+    public String removeFavorito(@PathVariable Long usuarioId, @PathVariable Long articuloId) {
+        Usuario usuario = usuarioServicio.getUsuario(usuarioId);
+        Articulo articulo = articuloServicio.getArticulo(articuloId);
+        usuario.remove_articulo_favoritos(articulo);
+        return "redirect:/";
     }
 
 }

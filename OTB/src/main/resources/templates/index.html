@@ -26,7 +26,8 @@
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
                     <div class="card">
-                        <i class="fas fa-heart card-icon"></i>
+                        <a th:href="@{'/usuario/removeFavorito/' + usuarioId + '/' + ${articulo.articuloId}}"
+                        class="fas fa-heart card-icon favorited"></a>
                         <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         <div class="card-body">
                             <a th:href="@{'articulo/view/' + ${articulo.articuloId}}">

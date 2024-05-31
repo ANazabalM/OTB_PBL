@@ -112,6 +112,12 @@ public class Usuario {
 		articulo.addFavorito(this);
 	}
 
+	public void remove_articulo_favoritos(Articulo articulo)
+	{
+		articulos_favoritos.remove(articulo);
+		articulo.removeFavorito(this);
+	}
+
 	public Usuario(Long id, String nombre, String apellido, String email, String password, List<Rol> roles) {
 		super();
 		this.id = id;
