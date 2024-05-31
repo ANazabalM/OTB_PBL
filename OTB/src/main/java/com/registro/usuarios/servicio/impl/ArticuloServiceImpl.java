@@ -52,7 +52,7 @@ public class ArticuloServiceImpl implements ArticuloService{
         return listaTodos;
     }
 
-   @Override
+    @Override
     public List<Articulo> cogerMasVistos() {
     
         List<Articulo> listaMejores = articuloRepository.getTopArticulos();
