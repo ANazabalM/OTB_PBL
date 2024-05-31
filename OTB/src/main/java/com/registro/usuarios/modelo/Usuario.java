@@ -93,6 +93,10 @@ public class Usuario {
 			)
 	private List<Articulo> articulos_leidos;
 
+	public void addVisualizacion(Articulo articulo){ 
+        articulos_leidos.add(articulo);
+    }
+
 	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	//@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
@@ -102,6 +106,12 @@ public class Usuario {
 			)
 	private List<Articulo> articulos_favoritos;
 	
+	public void add_articulo_favoritos(Articulo articulo)
+	{
+		articulos_favoritos.add(articulo);
+		articulo.addFavorito(this);
+	}
+
 	public Usuario(Long id, String nombre, String apellido, String email, String password, List<Rol> roles) {
 		super();
 		this.id = id;

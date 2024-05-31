@@ -51,4 +51,12 @@ public class ArticuloServiceImpl implements ArticuloService{
         List<Articulo> listaTodos = articuloRepository.findAll();
         return listaTodos;
     }
+
+   @Override
+    public List<Articulo> cogerMasVistos() {
+    
+        List<Articulo> listaMejores = articuloRepository.getTopArticulos();
+        return listaMejores;
+    }
+    
 }
