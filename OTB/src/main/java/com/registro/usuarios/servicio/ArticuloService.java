@@ -13,6 +13,8 @@ public interface ArticuloService {
 
     public void editarArticulo(long articuloId, Articulo articuloEditado);
 
+    public void guardarArticulo(Articulo articuloguardado);
+
     public List<Articulo> cogerTodos();
 
     public List<Articulo> cogerMasVistos();

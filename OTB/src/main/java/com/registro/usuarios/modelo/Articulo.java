@@ -74,9 +74,10 @@ public class Articulo {
     @ManyToMany(mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;
 
-    public void addVisualizacion(Usuario usuario){
+    public void addVisualizacion(Usuario usuario, Articulo articulo){
         articulos_leidos_usuarios.add(usuario);
-        usuario.addVisualizacion(this);
+
+        usuario.addVisualizacion(articulo);
     }
 
     @ManyToMany(mappedBy = "articulos_favoritos")
@@ -85,6 +86,11 @@ public class Articulo {
     public void addFavorito(Usuario usuario){
         articulos_favoritos_usuarios.add(usuario);
     }
+
+    public void removeFavorito(Usuario usuario){
+        articulos_favoritos_usuarios.remove(usuario);
+    }
+    
 
     public Articulo(Long articuloId, String titulo, LocalDate fecha_publ, String text, 
                     String alt_img, String src_img)

@@ -50,6 +50,7 @@ public class SolicitudControlador {
         return "error";
     }
 
+
     @ModelAttribute("solicitud")
 	public Solicitud retornarNuevoArticulo() {
 		return new Solicitud();

@@ -44,11 +44,17 @@ public class ArticuloControlador {
 
         if(articuloId != null)
         {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String emailAuth = auth.getName();
+
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
         Categoria catergoriaID = articulo.getCategorias();
         Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
+
         Usuario usuarioA = articulo.getUsuarios();
 
             if(articulo != null){
@@ -56,10 +62,14 @@ public class ArticuloControlador {
                                                         categoria.getColor());
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
+                articulo.addVisualizacion(usuario,articulo);
+
                 model.addAttribute("autor", usuarioA);
                 model.addAttribute("articulo", articulo);
                 model.addAttribute("categoria", categoria2);
                 model.addAttribute("comentarios", comentarios);
+
+                articuloServicio.guardarArticulo(articulo);
                 model.addAttribute("comentarioCrear", new Comentario());
                 return "articulo";
             }
@@ -126,46 +136,11 @@ public class ArticuloControlador {
         return "index";
     }
 
-    /*
-     *  @GetMapping("/articulo/edit/{articuloId}")
-    private String verFormularioEdicion(@PathVariable String articuloId, Model model){
-
-        return "a";
-    }
-
-    @PostMapping("/articulo/edit/{articuloId}")
-    private String editarArticulo(@PathVariable String articuloId, Model model){
-
-        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		String email = auth.getName();        
-        if(articulo != null  && (articulo.getUsuarios().getEmail()).equals(email))
-        {
-            model.addAttribute("articulo", articulo);
-
-            return "crear_articulo";
-        }
-
-        return "error";
-    }
-     */
-   
-
     @PostMapping("/articulo/delete/{articuloId}")
-    private String eliminarArticulo(@PathVariable String articuloId, Model model){
+    private String eliminarArticulo(@PathVariable Long articuloId, Model model){
 
-        if(SecurityContextHolder.getContext().getAuthentication().
-        getName().equals("admin@gmail.com"))
-        {
-            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-            if(articulo != null)
-            {
-                articuloServicio.deleteArticulo(Long.parseLong(articuloId));
-                return "index";
-            }
-        }
+        articuloServicio.deleteArticulo(articuloId);
 
-        return "error";
+        return "index";
     }
 }
