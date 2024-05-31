@@ -3,8 +3,6 @@ package com.registro.usuarios.controlador;
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,7 +46,7 @@ public class ArticuloControlador {
 
 		String emailAuth = auth.getName();
 
-        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
+        //Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
@@ -62,15 +60,13 @@ public class ArticuloControlador {
                                                         categoria.getColor());
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
-                articulo.addVisualizacion(usuario,articulo);
+                //articulo.addVisualizacion(usuario,articulo);
 
                 model.addAttribute("autor", usuarioA);
                 model.addAttribute("articulo", articulo);
                 model.addAttribute("categoria", categoria2);
                 model.addAttribute("comentarios", comentarios);
-
                 articuloServicio.guardarArticulo(articulo);
-                model.addAttribute("comentarioCrear", new Comentario());
                 return "articulo";
             }
         }
@@ -87,17 +83,17 @@ public class ArticuloControlador {
         return "crear_articulo";
     }
 
-    @ModelAttribute("comentario")
+    @ModelAttribute("comentarioCrear")
 	public Comentario retornarNuevoComentario() {
 		return new Comentario();
 	}
 
 
-    @PostMapping("/articulo/view/{articuloId}/comentario/create")
-    public String crearComentario(@ModelAttribute("comentario") Comentario comentario, 
-                                        Model model, HttpSession session, @PathVariable String articuloId)
+    @PostMapping("/articulo/view/{articuloId}/comentario/create") //Deberia 
+    public String crearComentario(@ModelAttribute("comentarioCrear") Comentario comentario, 
+                                        @PathVariable String articuloId)
     {
-        Usuario usuario = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
+        Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
         Comentario comentarioGuardar = new Comentario(comentario.getContenido(), LocalDate.now(), usuario, articulo);
 

@@ -63,5 +63,11 @@ public class ArticuloServiceImpl implements ArticuloService{
 public void guardarArticulo(Articulo articuloguardado) {
     articuloRepository.save(articuloguardado);
 }
+
+@Override
+public List<Articulo> cogerArticulosCategoria(String categoriaId) {
+
+    return articuloRepository.getArticulosCategoria(Long.parseLong(categoriaId));
+}
     
 }
