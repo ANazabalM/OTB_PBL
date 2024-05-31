@@ -26,13 +26,14 @@
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
                     <div class="card">
-                        <i class="fas fa-heart card-icon"></i>
+                        <a th:href="@{'/usuario/removeFavorito/' + usuarioId + '/' + ${articulo.articuloId}}"
+                        class="fas fa-heart card-icon favorited"></a>
                         <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         <div class="card-body">
                             <a th:href="@{articulo/view/articulo.articuloId}">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
-                                <p class="card-text" th:text="${articulo.usuarios} + ' ' + ${articulo.usuarios} + ' - ' +${articulo.fecha_publ}">
+                                <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
                                     Autor - Fecha</p>
                             <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
                         </div>

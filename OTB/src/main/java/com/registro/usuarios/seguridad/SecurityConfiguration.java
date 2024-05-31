@@ -51,7 +51,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				"/articulo/view/**",
 				"/categoria/view/**",
 				"/categoria",
-				"/administrador"
+				"/administrador",
+				"/solicitudes/view"
 				).permitAll()
 		.anyRequest().authenticated()
 		.and()

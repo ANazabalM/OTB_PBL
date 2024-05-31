@@ -30,12 +30,14 @@ public class SolicitudControlador {
     @Autowired
     private SolicitudService solicitudServicio;
 
-    @GetMapping("/solicitud/view/{solicitudId}")
-    private String verArticulo(@PathVariable String articuloId, Model model){
 
-        
-        return "error";
+
+    @GetMapping("/solicitud/view")
+    private String verSolicitudes(Model model){
+
+        return "solicitudes";
     }
+
 
     @ModelAttribute("solicitud")
 	public Solicitud retornarNuevoArticulo() {
