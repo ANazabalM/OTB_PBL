@@ -1,12 +1,9 @@
 package com.registro.usuarios.controlador;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -82,10 +79,10 @@ public class CategoriaControlador {
         return "a";
     }
 
-    @GetMapping("/categoria")
-    public String a(){  
-        return "categorias";
-    }
+    @ModelAttribute("categoria")
+	public Categoria retornarNuevoCategoria() {
+		return new Categoria();
+	}
 
     @GetMapping("/categoria/create")
     public String verFormularioCreacionCategoria(){  

@@ -15,4 +15,14 @@ public class SolicitudServiceImpl implements SolicitudService {
     public Solicitud save(Solicitud solicitud){
         return  solicitudRepository.save(solicitud);
     }
+
+    @Override
+    public Solicitud getSolicitud(Long id) {
+        return solicitudRepository.getById(id);
+    }
+
+    @Override
+    public void borrarSolicitud(Solicitud solicitud) {
+        solicitudRepository.delete(solicitud);
+    }
 }
