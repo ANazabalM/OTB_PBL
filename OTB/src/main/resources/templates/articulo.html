@@ -99,10 +99,10 @@ layout:decorate="layout.html">
             <h3>Comentarios</h3>
 
             <div th:each="comentario : ${comentarios}">
-                <label class="form-control" rows="3" th:text="${comentario.usuariosComentario.nombre} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
+                <label class="form-control" rows="3" th:text="${comentario.usuariosComentarios.nombre} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
             </div>
 
-            <form th:action="@{/comentario/create}" method="post" th:object="${comentarioCrear}">
+            <form th:action="@{'/articulo/view/' + ${articulo.articuloId} + '/comentario/create'}" method="post" th:object="${comentarioCrear}">
                 <div class="form-group" method="post">
                     <textarea class="form-control" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
                 </div>
