@@ -29,7 +29,9 @@ public class ComentarioControlador {
     @Autowired
     private UsuarioServicio usuarioServicio;
     
-    @ModelAttribute("comentario")
+    /*
+     * 
+     * @ModelAttribute("comentario")
 	public Comentario retornarNuevoArticulo() {
 		return new Comentario();
 	}
@@ -52,6 +54,8 @@ public class ComentarioControlador {
         return "error";
         
     }
+     */
+    
     @GetMapping("/comentario/delete/{comentarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarComentario(@PathVariable Long comentarioId, Model model){
 

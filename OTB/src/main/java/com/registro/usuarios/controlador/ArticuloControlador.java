@@ -93,11 +93,12 @@ public class ArticuloControlador {
 	}
 
 
-    @PostMapping("/comentario/create")
-    public String crearComentario(@ModelAttribute("comentario") Comentario comentario, Model model, HttpSession session)
+    @PostMapping("/articulo/view/{articuloId}/comentario/create")
+    public String crearComentario(@ModelAttribute("comentario") Comentario comentario, 
+                                        Model model, HttpSession session, @PathVariable String articuloId)
     {
         Usuario usuario = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
-        Articulo articulo = (Articulo) model.getAttribute("articulo");
+        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
         Comentario comentarioGuardar = new Comentario(comentario.getContenido(), LocalDate.now(), usuario, articulo);
 
         if(articulo != null)
