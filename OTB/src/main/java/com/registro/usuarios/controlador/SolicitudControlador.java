@@ -1,6 +1,7 @@
 package com.registro.usuarios.controlador;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.registro.usuarios.modelo.Articulo;
+import com.registro.usuarios.modelo.Categoria;
+import com.registro.usuarios.modelo.Comentario;
 import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.SolicitudService;
@@ -30,9 +34,19 @@ public class SolicitudControlador {
     private SolicitudService solicitudServicio;
 
     @GetMapping("/solicitud/view/{solicitudId}")
-    private String verArticulo(@PathVariable String articuloId, Model model){
+    private String verSolicitud(@PathVariable Long solicitudId, Model model){
 
-        
+        if(solicitudId != null){
+        Solicitud solicitud = solicitudServicio.getSolicitud(solicitudId);
+
+        Usuario usuario = solicitud.getSolicitudUsuarios();
+
+        Solicitud solicitudVista = new Solicitud(solicitud.getTitulo(),
+                                                        solicitud.getDescripcion());
+        model.addAttribute("solicitud", solicitudVista);
+        model.addAttribute("usuario", usuario);
+        return "solicitud";
+        }
         return "error";
     }
 

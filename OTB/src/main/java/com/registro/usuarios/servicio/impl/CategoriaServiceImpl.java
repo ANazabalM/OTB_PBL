@@ -44,5 +44,10 @@ public class CategoriaServiceImpl implements CategoriaService {
 		return categoria1;
     }
 
+    @Override
+    public void borrarCategoria(Categoria categoria) {
+        categoriaRepository.delete(categoria);
+    }
+
     
 }
