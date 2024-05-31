@@ -40,11 +40,16 @@ public class Solicitud {
     @JoinColumn(name = "usuario_ID")
     private Usuario solicitudUsuarios;
 
-    public Solicitud(String titulo,String descripcion2, Usuario solicitudUsuarios2, LocalDate fecha_sol) {
+    public Solicitud(String titulo,String descripcion, Usuario solicitudUsuarios, LocalDate fecha_sol) {
         this.titulo = titulo;
-        this.descripcion = descripcion2;
-        this.solicitudUsuarios = solicitudUsuarios2;
+        this.descripcion = descripcion;
+        this.solicitudUsuarios = solicitudUsuarios;
         this.fecha_sol = fecha_sol;
+    }
+
+    public Solicitud(String titulo,String descripcion) {
+        this.titulo = titulo;
+        this.descripcion = descripcion;
     }
 }
 

@@ -15,4 +15,14 @@ public class ComentarioServiceImpl implements ComentarioService{
     public Comentario save(Comentario comentario){
         return  comentarioRepository.save(comentario);
     }
+
+    @Override
+    public Comentario getComentario(Long id) {
+        return comentarioRepository.getById(id);
+    }
+
+    @Override
+    public void borrarComentario(Comentario comentario) {
+        comentarioRepository.delete(comentario);
+    }
 }

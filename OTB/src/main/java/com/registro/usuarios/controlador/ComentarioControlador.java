@@ -8,14 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ComentarioService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Comentario;
+import com.registro.usuarios.servicio.ComentarioService;
 
 @Controller
 public class ComentarioControlador {
@@ -49,20 +52,13 @@ public class ComentarioControlador {
         return "error";
         
     }
+    @GetMapping("/comentario/delete/{comentarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
+    public String eliminarComentario(@PathVariable Long comentarioId, Model model){
 
-    @PostMapping("/comentario/delete/{comentarioId}")
-    public String crearComentario(@PathVariable String comentarioId, Model model)
-    {
-        /*
-            Comentario comentario = comentarioServicio.cogerComentario(Integer.parseInt(comentarioId));
-            if(comentario != null)
-            {
-                comentarioServicio.deleteComentario(Integer.parseInt(comentarioId));
-                return "articulo";
-            }
-         * return "error";
-         */
-        return "a";
+        Comentario comentario = comentarioServicio.getComentario(comentarioId);
+
+        comentarioServicio.borrarComentario(comentario);
+
+        return "index";
     }
-
 }

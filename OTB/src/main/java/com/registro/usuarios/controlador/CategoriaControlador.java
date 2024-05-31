@@ -15,7 +15,6 @@ import com.registro.usuarios.modelo.Categoria;
 import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.CategoriaService;
 
-
 @Controller
 public class CategoriaControlador {
     
@@ -24,7 +23,6 @@ public class CategoriaControlador {
     
     @Autowired
     private ArticuloService articuloServicio;
-
 
     @GetMapping("/categoria/view/{categoriaId}")
     public String showCategoria(@PathVariable String categoriaId, Model model){
@@ -44,29 +42,15 @@ public class CategoriaControlador {
 
     @GetMapping("/categoria/view")
     public String showCategorias(Model model){
-        
         List<Categoria> categorias = categoriaServicio.cogerTodas();
         model.addAttribute("categorias", categorias);
         return "categorias";
     }
 
-    @PostMapping("/categoria/delete/{categoriaId}")
-    public String eliminarCategoria(@PathVariable String categoriaId){
-        
-        /* 
-            Categoria categoria = categoriaService.getCategoria(String.parseInt(categoriaId));
-
-            if(categoria != null)
-            {
-                categoriaService.eliminarCategoria(categoria.getId());
-                return "index";
-            }
-            
-            return "error";
-        */
-        
-        return "a";
-    }
+    @ModelAttribute("categoria")
+	public Categoria retornarNuevoCategoria() {
+		return new Categoria();
+	}
 
     @GetMapping("/categoria/create")
     public String verFormularioCreacionCategoria(){  
@@ -79,7 +63,6 @@ public class CategoriaControlador {
         categoriaServicio.save(categoria);
         return "index";
     }
-
 
     @GetMapping("/categoria/edit/{categoriaId}")
     public String verFomularioEditarCategoria(@PathVariable String categoriaId){
@@ -112,5 +95,15 @@ public class CategoriaControlador {
          * return "error";
          */
         return "a";
+    }
+
+    @GetMapping("/categoria/delete/{categoriaId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
+    public String eliminarCategoria(@PathVariable Long categoriaId, Model model){
+
+        Categoria categoria = categoriaServicio.getCategoria(categoriaId);
+
+        categoriaServicio.borrarCategoria(categoria);
+
+        return "index";
     }
 }

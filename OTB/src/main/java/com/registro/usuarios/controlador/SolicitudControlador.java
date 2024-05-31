@@ -1,6 +1,7 @@
 package com.registro.usuarios.controlador;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +11,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.registro.usuarios.modelo.Articulo;
+import com.registro.usuarios.modelo.Categoria;
+import com.registro.usuarios.modelo.Comentario;
 import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.SolicitudService;
@@ -30,9 +34,19 @@ public class SolicitudControlador {
     private SolicitudService solicitudServicio;
 
     @GetMapping("/solicitud/view/{solicitudId}")
-    private String verArticulo(@PathVariable String articuloId, Model model){
+    private String verSolicitud(@PathVariable Long solicitudId, Model model){
 
-        
+        if(solicitudId != null){
+        Solicitud solicitud = solicitudServicio.getSolicitud(solicitudId);
+
+        Usuario usuario = solicitud.getSolicitudUsuarios();
+
+        Solicitud solicitudVista = new Solicitud(solicitud.getTitulo(),
+                                                        solicitud.getDescripcion());
+        model.addAttribute("solicitud", solicitudVista);
+        model.addAttribute("usuario", usuario);
+        return "solicitud";
+        }
         return "error";
     }
 
@@ -48,13 +62,9 @@ public class SolicitudControlador {
 
     @PostMapping("/solicitud/create")
     private String crearArticulo(@ModelAttribute("solicitud") Solicitud solicitud, Model model){
-
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-		String emailAuth = auth.getName();
-        
+		String emailAuth = auth.getName();  
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
-
         LocalDate date = LocalDate.now();
         Solicitud solicitudCrear = new Solicitud(   solicitud.getTitulo(),
                                                     solicitud.getDescripcion(),
@@ -62,6 +72,17 @@ public class SolicitudControlador {
                                                     date
                                                     );
         solicitudServicio.save(solicitudCrear);
+        return "index";
+    }
+
+
+    @GetMapping("/solicitud/delete/{solicitudId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
+    public String eliminarSolicitud(@PathVariable Long solicitudId, Model model){
+
+        Solicitud solicitud = solicitudServicio.getSolicitud(solicitudId);
+
+        solicitudServicio.borrarSolicitud(solicitud);
+
         return "index";
     }
 }
