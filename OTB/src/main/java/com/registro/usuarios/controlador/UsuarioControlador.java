@@ -35,11 +35,8 @@ public class UsuarioControlador {
     public String visualizarAccionesAdmin(Model model)
     {
         List<Usuario> usuarios = usuarioServicio.getAll();
-
-        List<Solicitud> solicitudes = solicitudService.getAll();
-
         model.addAttribute("usuarios", usuarios);
-        model.addAttribute("solicitudes", solicitudes);
+        
         return "administrador";
     }
 

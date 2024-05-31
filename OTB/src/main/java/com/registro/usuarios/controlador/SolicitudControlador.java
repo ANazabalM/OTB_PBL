@@ -31,6 +31,15 @@ public class SolicitudControlador {
     @Autowired
     private SolicitudService solicitudServicio;
 
+    @GetMapping("/solicitud/view/")
+    private String listaSolicitudes(@PathVariable Long solicitudId, Model model){
+
+    List<Solicitud> solicitudes = solicitudServicio.getAll();
+        model.addAttribute("solicitudes", solicitudes);
+
+        return "solicitud";
+    }
+
     @GetMapping("/solicitud/view/{solicitudId}")
     private String verSolicitud(@PathVariable Long solicitudId, Model model){
 
