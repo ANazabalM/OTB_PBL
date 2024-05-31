@@ -60,7 +60,7 @@ public class Articulo {
     private Categoria categorias;
 
     @ManyToOne (fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuario_ID")
+    @JoinColumn(name = "usuarios_ID")
     private Usuario usuarios;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "articulosComentarios")  // 1 --> n el foreing key que mandas a otra tabla
