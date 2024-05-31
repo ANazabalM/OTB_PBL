@@ -1,15 +1,23 @@
 package com.registro.usuarios.controlador;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.registro.usuarios.modelo.Articulo;
+import com.registro.usuarios.servicio.ArticuloService;
+
 @Controller
 public class LoginControlador {
 
-	
+	@Autowired
+	private ArticuloService articuloServicio;
+
 	@GetMapping("/login")
 	public String iniciarSesion() {
 		return "login";
@@ -29,11 +37,10 @@ public class LoginControlador {
 			model.addAttribute("email", null);
 		}
 
-		/*
 
-		 * 	List<Articulo> articulos = articulosServicio.cogerMasVistos();
-			model.addAttribute("articulos", articulos)
-		 */
+		List<Articulo> articulos = articuloServicio.cogerMasVistos();
+		model.addAttribute("articulos", articulos);
+	
 
 		return "index";
 	}

@@ -74,8 +74,17 @@ public class Articulo {
     @ManyToMany(mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;
 
+    public void addVisualizacion(Usuario usuario){
+        articulos_leidos_usuarios.add(usuario);
+        usuario.addVisualizacion(this);
+    }
+
     @ManyToMany(mappedBy = "articulos_favoritos")
     private List<Usuario> articulos_favoritos_usuarios;
+
+    public void addFavorito(Usuario usuario){
+        articulos_favoritos_usuarios.add(usuario);
+    }
 
     public Articulo(Long articuloId, String titulo, LocalDate fecha_publ, String text, 
                     String alt_img, String src_img)
