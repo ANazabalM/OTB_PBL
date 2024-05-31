@@ -51,5 +51,13 @@ public class Solicitud {
         this.titulo = titulo;
         this.descripcion = descripcion;
     }
+
+
+    public Solicitud(Long solicitudId2, String titulo2, String descripcion2, LocalDate fecha_sol2) {
+        this.solicitudId = solicitudId2;
+        this.titulo = titulo2;
+        this.descripcion = descripcion2;
+        this.fecha_sol = fecha_sol2;
+    }
 }
 

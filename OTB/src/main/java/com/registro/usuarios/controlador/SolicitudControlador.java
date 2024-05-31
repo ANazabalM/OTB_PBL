@@ -25,10 +25,8 @@ import org.springframework.ui.Model;
 @Controller
 public class SolicitudControlador {
     
-
     @Autowired
     private UsuarioServicio usuarioServicio;
-
 
     @Autowired
     private SolicitudService solicitudServicio;
@@ -41,8 +39,10 @@ public class SolicitudControlador {
 
         Usuario usuario = solicitud.getSolicitudUsuarios();
 
-        Solicitud solicitudVista = new Solicitud(solicitud.getTitulo(),
-                                                        solicitud.getDescripcion());
+        Solicitud solicitudVista = new Solicitud(solicitud.getSolicitudId(),
+                                                solicitud.getTitulo(),
+                                                solicitud.getDescripcion(),
+                                                solicitud.getFecha_sol());
         model.addAttribute("solicitud", solicitudVista);
         model.addAttribute("usuario", usuario);
         return "solicitud";
@@ -52,7 +52,7 @@ public class SolicitudControlador {
 
 
     @ModelAttribute("solicitud")
-	public Solicitud retornarNuevoArticulo() {
+	public Solicitud retornarNuevoSolicitud2() {
 		return new Solicitud();
 	}
 

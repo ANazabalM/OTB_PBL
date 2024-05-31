@@ -9,5 +9,4 @@ public class RegistroUsuariosSpringSecurityApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(RegistroUsuariosSpringSecurityApplication.class, args);
 	}
-
 }

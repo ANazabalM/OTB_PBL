@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.registro.usuarios.modelo.Articulo;
+import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
+import com.registro.usuarios.servicio.SolicitudService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Controller
@@ -26,12 +28,18 @@ public class UsuarioControlador {
     @Autowired
     private ArticuloService articuloServicio;
 
+    @Autowired
+    private SolicitudService solicitudService;
+
     @GetMapping("/administrador")
     public String visualizarAccionesAdmin(Model model)
     {
         List<Usuario> usuarios = usuarioServicio.getAll();
 
+        List<Solicitud> solicitudes = solicitudService.getAll();
+
         model.addAttribute("usuarios", usuarios);
+        model.addAttribute("solicitudes", solicitudes);
         return "administrador";
     }
 

@@ -50,6 +50,11 @@ public class ArticuloControlador {
 
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
+        if(usuario == null){
+            Long idusuarioANONIMO = Long.parseLong("1");
+            usuario = usuarioServicio.getUsuario(idusuarioANONIMO);
+        }
+
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
         Categoria catergoriaID = articulo.getCategorias();
