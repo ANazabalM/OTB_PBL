@@ -11,4 +11,6 @@ public interface CategoriaService {
 
     public Categoria getCategoria(Long categoriaId);
 
+    public void borrarCategoria(Categoria categoria);
+
 }

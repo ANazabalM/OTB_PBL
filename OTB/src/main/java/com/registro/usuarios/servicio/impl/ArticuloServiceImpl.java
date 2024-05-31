@@ -58,5 +58,12 @@ public class ArticuloServiceImpl implements ArticuloService{
         List<Articulo> listaMejores = articuloRepository.getTopArticulos();
         return listaMejores;
     }
+
+@Override
+public List<Articulo> cogerArticulosCategoria(String categoriaId) {
+    List<Articulo> articulosCategoria = articuloRepository.getArticulosCategoria(Long.parseLong(categoriaId));
+    return articulosCategoria;
+}
+
     
 }
