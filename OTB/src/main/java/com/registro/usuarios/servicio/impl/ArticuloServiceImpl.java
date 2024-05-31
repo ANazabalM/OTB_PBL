@@ -66,8 +66,8 @@ public void guardarArticulo(Articulo articuloguardado) {
 
 @Override
 public List<Articulo> cogerArticulosCategoria(String categoriaId) {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'cogerArticulosCategoria'");
+
+    return articuloRepository.getArticulosCategoria(Long.parseLong(categoriaId));
 }
     
 }

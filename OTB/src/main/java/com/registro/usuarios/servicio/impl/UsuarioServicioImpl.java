@@ -92,7 +92,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	}
 
 	public Usuario buscarPorEmail (String email){
-		return usuarioRepositorio.findByEmail(email);
+		return usuarioRepositorio.getByEmail(email);
 	}
 
 	@Override
