@@ -52,7 +52,7 @@ public class ArticuloServiceImpl implements ArticuloService{
         return listaTodos;
     }
 
-   @Override
+    @Override
     public List<Articulo> cogerMasVistos() {
     
         List<Articulo> listaMejores = articuloRepository.getTopArticulos();
@@ -62,6 +62,12 @@ public class ArticuloServiceImpl implements ArticuloService{
 @Override
 public void guardarArticulo(Articulo articuloguardado) {
     articuloRepository.save(articuloguardado);
+}
+
+@Override
+public List<Articulo> cogerArticulosCategoria(String categoriaId) {
+    // TODO Auto-generated method stub
+    throw new UnsupportedOperationException("Unimplemented method 'cogerArticulosCategoria'");
 }
     
 }
