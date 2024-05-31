@@ -1,6 +1,5 @@
 package com.registro.usuarios.controlador;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,25 +41,19 @@ public class ArticuloControlador {
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
         Categoria catergoriaID = articulo.getCategorias();
-        LocalDate date = LocalDate.now();
         Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
         Usuario usuarioA = articulo.getUsuarios();
-        
+
             if(articulo != null){
-                Articulo articuloVista = new Articulo(  articulo.getTitulo(),
-                                                        articulo.getAlt_img(),
-                                                        articulo.getSrc_video(),
-                                                        articulo.getContenido(),
-                                                        date,
-                                                        usuarioA);
                 Categoria categoria2 = new Categoria(   categoria.getTitulo(),
                                                         categoria.getColor());
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
                 model.addAttribute("autor", usuarioA);
-                model.addAttribute("articulo", articuloVista);
+                model.addAttribute("articulo", articulo);
                 model.addAttribute("categoria", categoria2);
                 model.addAttribute("comentarios", comentarios);
+                model.addAttribute("comentarioCrear", new Comentario());
                 return "articulo";
             }
         }
@@ -102,53 +95,46 @@ public class ArticuloControlador {
         return "index";
     }
 
-    @GetMapping("/articulo/edit/{articuloId}")
+    /*
+     *  @GetMapping("/articulo/edit/{articuloId}")
     private String verFormularioEdicion(@PathVariable String articuloId, Model model){
 
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            if(articulo != null)
-            {
-                model.addAttribute("articulo", articulo);
-                return "formularioArticulo";
-            }
-            return "index";
-        */
         return "a";
     }
 
     @PostMapping("/articulo/edit/{articuloId}")
     private String editarArticulo(@PathVariable String articuloId, Model model){
 
-        /* 
-            Articulo articuloA = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-            Articulo articulo = model.getAttribute("articulo");
+        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		
+		String email = auth.getName();        
+        if(articulo != null  && (articulo.getUsuarios().getEmail()).equals(email))
+        {
+            model.addAttribute("articulo", articulo);
 
-            if(articuloA != null)
-            {
-                articuloServicio.editarArticulo(articulo);
-                return "index";
-            }
+            return "crear_articulo";
+        }
 
-            return "error";
-        */
-        return "a";
+        return "error";
     }
+     */
+   
 
     @PostMapping("/articulo/delete/{articuloId}")
     private String eliminarArticulo(@PathVariable String articuloId, Model model){
 
-        /* 
-            Articulo articulo = articuloServicio.cogerArticulo(Integer.parseInt(articuloId));
-
+        if(SecurityContextHolder.getContext().getAuthentication().
+        getName().equals("admin@gmail.com"))
+        {
+            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
             if(articulo != null)
             {
-                articuloServicio.eliminarArticulo(articulo);
+                articuloServicio.deleteArticulo(Long.parseLong(articuloId));
                 return "index";
             }
-            
-            return "error";
-        */
-        return "a";
+        }
+
+        return "error";
     }
 }

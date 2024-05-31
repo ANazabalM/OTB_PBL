@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.SolicitudService;

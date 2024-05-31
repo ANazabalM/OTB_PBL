@@ -68,6 +68,8 @@ public class UsuarioControlador {
         return "error";
     }
     
+  
+    
     @GetMapping("/usuario/delete/{usuarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarPerfil(@PathVariable String usuarioId, Model model){
 

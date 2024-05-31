@@ -97,10 +97,14 @@ layout:decorate="layout.html">
 
         <div class="comments-section">
             <h3>Comentarios</h3>
-            <form>
+
+            <div th:each="comentario : ${comentarios}">
+                <label class="form-control" rows="3" th:text="${comentario.usuariosComentario.nombre} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
+            </div>
+
+            <form th:action="@{/comentario/create}" method="post" th:object="${comentarioCrear}">
                 <div class="form-group" method="post">
-                    <label for="comment">Añadir un comentario</label>
-                    <textarea class="form-control" rows="3" placeholder="Escribe tu comentario aquí"></textarea>
+                    <textarea class="form-control" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="background-color: #4a596d; border-color: #4a596d;">Enviar</button>
             </form>

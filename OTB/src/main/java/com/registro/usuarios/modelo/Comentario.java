@@ -1,6 +1,6 @@
 package com.registro.usuarios.modelo;
 
-import java.sql.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,7 +30,7 @@ public class Comentario {
     private String contenido;
     
     @Column
-    private Date fecha_com;
+    private LocalDate fecha_com;
 
     @ManyToOne
     @JoinColumn(name = "articulo_ID")
@@ -43,5 +43,12 @@ public class Comentario {
     public Comentario(String contenido, Usuario id, String apellido) {
         this.contenido = contenido;
         this.usuariosComentarios = id;
+    }
+
+    public Comentario(String contenido2, LocalDate now, Usuario usuario, Articulo articulo) {
+        this.fecha_com = now;
+        this.contenido = contenido2;
+        this.usuariosComentarios = usuario;
+        this.articulosComentarios = articulo;
     }
 }
