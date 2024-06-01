@@ -44,7 +44,7 @@ public class UsuarioControlador {
     public String visualizarPerfil(@PathVariable String usuarioId, Model model){
         
         Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
-        Usuario usuarioRespuesta = null;
+        Usuario usuarioVista = null;
         Boolean mismo = false;
 
         if(usuario != null )
@@ -55,21 +55,26 @@ public class UsuarioControlador {
 		    String emailAuth = auth.getName();
             mismo = email.equals(emailAuth);
             
+            int numeroArticulos = usuario.getUsuariosArticulo().size();
+            //float media = usuarioServicio.calcularMediaUsuario(usuarioId);
+
             if(!mismo)
             {
-                usuarioRespuesta = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
+                usuarioVista = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
                                     usuario.getUsername(), usuario.getDescripcion(), usuario.getImg_src());
                 
 
             }else{
-                usuarioRespuesta = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
+                usuarioVista = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
                                     usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername(), usuario.getImg_src());
             }
 
             List <Articulo> listaArticulos = usuario.getUsuariosArticulo();
             model.addAttribute("mismo", mismo);
-            model.addAttribute("usuario", usuarioRespuesta);
+            model.addAttribute("usuario", usuarioVista);
             model.addAttribute("listaArticulos", listaArticulos);
+            model.addAttribute("numeroArticulos", numeroArticulos);
+            //model.addAttribute("media", media);
 
             return "usuario";
         }

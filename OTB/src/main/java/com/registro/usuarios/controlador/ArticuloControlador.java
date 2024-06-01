@@ -3,6 +3,8 @@ package com.registro.usuarios.controlador;
 import java.time.LocalDate;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,7 +21,6 @@ import com.registro.usuarios.modelo.Comentario;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.CategoriaService;
-import com.registro.usuarios.servicio.ComentarioService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Controller
@@ -34,9 +35,6 @@ public class ArticuloControlador {
     @Autowired
     private CategoriaService categoriaServicio;
     
-    @Autowired
-    private ComentarioService comentarioServicio;
-
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
 
@@ -46,7 +44,7 @@ public class ArticuloControlador {
 
 		String emailAuth = auth.getName();
 
-        //Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
         if(usuario == null){
             Long idusuarioANONIMO = Long.parseLong("1");
@@ -65,7 +63,7 @@ public class ArticuloControlador {
                                                         categoria.getColor());
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
-                //articulo.addVisualizacion(usuario,articulo);
+                articulo.addVisualizacion(usuario,articulo);
 
                 model.addAttribute("autor", usuarioA);
                 model.addAttribute("articulo", articulo);
@@ -88,29 +86,13 @@ public class ArticuloControlador {
         return "crear_articulo";
     }
 
-    @ModelAttribute("comentarioCrear")
+    
+    
+
+     @ModelAttribute("comentarioCrear")
 	public Comentario retornarNuevoComentario() {
 		return new Comentario();
-	}
-
-
-    @PostMapping("/articulo/view/{articuloId}/comentario/create") //Deberia 
-    public String crearComentario(@ModelAttribute("comentarioCrear") Comentario comentario, 
-                                        @PathVariable String articuloId)
-    {
-        Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-        Comentario comentarioGuardar = new Comentario(comentario.getContenido(), LocalDate.now(), usuario, articulo);
-
-        if(articulo != null)
-        {
-            comentarioServicio.save(comentarioGuardar);
-            return "redirect:/articulo/view/" + articulo.getArticuloId();
-        }
-
-        return "error";
-        
-    }
+	}   
 
     @PostMapping("/articulo/create")
     private String crearArticulo(@ModelAttribute("articulo") Articulo articulo, Model model){
@@ -131,6 +113,7 @@ public class ArticuloControlador {
                                                 articulo.getContenido(),
                                                 articulo.getLang(),
                                                 usuario,
+                                                LocalDate.now(),
                                                 categoria);
 
         articuloServicio.save(articuloNuevo);
@@ -138,9 +121,15 @@ public class ArticuloControlador {
     }
 
     @PostMapping("/articulo/delete/{articuloId}")
-    private String eliminarArticulo(@PathVariable Long articuloId, Model model){
+    private String eliminarArticulo(@PathVariable String articuloId, HttpSession session){
 
-        articuloServicio.deleteArticulo(articuloId);
+        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+
+        if(articulo != null && (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())
+                        ||  SecurityContextHolder.getContext().getAuthentication().getName().equals("a@a.com")))
+        {
+            articuloServicio.deleteArticulo(Long.parseLong(articuloId));
+        }
 
         return "index";
     }

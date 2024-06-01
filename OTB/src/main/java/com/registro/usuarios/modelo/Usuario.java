@@ -128,11 +128,12 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	public Usuario(String nombre, String apellido, String email, String password, List<Rol> roles) {
+	public Usuario(String nombre, String apellido, String email, String username, String password, List<Rol> roles) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.username = username;
 		this.password = password;
 		this.roles = roles;
 	}

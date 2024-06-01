@@ -1,7 +1,7 @@
 package com.registro.usuarios.controlador;
 
 import java.time.LocalDate;
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.registro.usuarios.modelo.Articulo;
-import com.registro.usuarios.modelo.Categoria;
-import com.registro.usuarios.modelo.Comentario;
 import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.SolicitudService;

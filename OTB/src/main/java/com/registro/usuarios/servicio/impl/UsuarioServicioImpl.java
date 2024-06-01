@@ -38,7 +38,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	@Override
 	public Usuario guardar(UsuarioRegistroDTO registroDTO) {
 		Usuario usuario = new Usuario(registroDTO.getNombre(), 
-				registroDTO.getApellido(),registroDTO.getEmail(),
+				registroDTO.getApellido(),registroDTO.getEmail(), registroDTO.getUsername(),
 				passwordEncoder.encode(registroDTO.getPassword()),Arrays.asList(new Rol("ROLE_USER")));
 
 		return usuarioRepositorio.save(usuario);
@@ -99,6 +99,12 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 	public List<Usuario> getAll() {
 		List<Usuario> usuarios = usuarioRepositorio.findAll();
 		return usuarios;
+	}
+
+	@Override
+	public float calcularMediaUsuario(String usuarioId) {
+		
+		return usuarioRepositorio.calcularMediaUsuario(usuarioId);	
 	}
 
 }

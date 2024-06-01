@@ -105,7 +105,7 @@ public class Articulo {
 
 
     public Articulo(String titulo, String alt_img, String src_video, String contenido, String lang, Usuario author,
-            Categoria categoria) {
+            LocalDate date, Categoria categoria) {
 
                 this.titulo = titulo;
                 this.alt_img = alt_img;
@@ -113,6 +113,7 @@ public class Articulo {
                 this.contenido = contenido;
                 this.lang = lang;
                 this.usuarios = author;
+                this.fecha_publ = date;
                 this.categorias = categoria;
     }
 

@@ -6,19 +6,16 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.registro.usuarios.modelo.Usuario;
+import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.ComentarioService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Comentario;
-import com.registro.usuarios.servicio.ComentarioService;
 
 @Controller
 public class ComentarioControlador {
@@ -28,40 +25,46 @@ public class ComentarioControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
-    
-    /*
-     * 
-     * @ModelAttribute("comentario")
-	public Comentario retornarNuevoArticulo() {
-		return new Comentario();
-	}
 
+    @Autowired
+    private ArticuloService articuloServicio;
 
-    @PostMapping("/comentario/create")
-    public String crearComentario(Model model, HttpSession session)
+    @PostMapping("/comentario/create/{articuloId}")
+    public String crearComentario(@ModelAttribute("comentarioCrear")
+                                        Comentario comentario, HttpSession session,
+                                        @PathVariable("articuloId") String articuloId)
     {
-        Comentario comentario = (Comentario) model.getAttribute("comentarioCrear");
-        Usuario usuario = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
-        Articulo articulo = (Articulo) model.getAttribute("articulo");
-        Comentario comentarioGuardar = new Comentario(comentario.getContenido(), LocalDate.now(), usuario, articulo);
-
-        if(articulo != null)
+        if(articuloId != null)
         {
-            comentarioServicio.save(comentarioGuardar);
-            return "redirect:/articulo/view/" + articulo.getArticuloId();
-        }
-
-        return "error";
         
+            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+            if(articulo != null)
+            {
+                Usuario usuario = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
+
+                Comentario comentarioGuardar = new Comentario(comentario.getContenido(), LocalDate.now(), usuario, articulo);
+        
+                comentarioServicio.save(comentarioGuardar);
+                return "redirect:/articulo/view/" + articuloId;
+            }
+        }
+        return "error";        
     }
-     */
+
     
-    @GetMapping("/comentario/delete/{comentarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
-    public String eliminarComentario(@PathVariable Long comentarioId, Model model){
+    @PostMapping("/comentario/delete/{comentarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
+    public String eliminarComentario(@PathVariable Long comentarioId, HttpSession session){
 
         Comentario comentario = comentarioServicio.getComentario(comentarioId);
 
-        comentarioServicio.borrarComentario(comentario);
+        if(comentario != null && 
+            session.getAttribute("email").equals(comentario.getUsuariosComentarios().getEmail()))
+        {
+            Articulo articulo = articuloServicio.getArticulo(comentario.getArticulosComentarios().getArticuloId());
+            comentarioServicio.borrarComentario(comentario);
+
+            return "redirect:/articulo/view/" + articulo.getArticuloId();
+        }
 
         return "index";
     }

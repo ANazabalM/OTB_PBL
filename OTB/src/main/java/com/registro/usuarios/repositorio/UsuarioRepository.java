@@ -16,4 +16,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
 	public Usuario findByEmail(String email);
 
 	public Usuario findByUsername(String username);
+
+	@Query(value = "SELECT AVG(v.puntuacion) FROM (usuarios u JOIN articulo a ON a.usuarios_Id = u.id) JOIN valoracion v on v.articuloId = a.articuloId WHERE u.id = 1 GROUP BY u.id", nativeQuery = true)
+	public float calcularMediaUsuario(String usuarioId);
 }

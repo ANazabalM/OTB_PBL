@@ -47,11 +47,11 @@
                         </div>
                     </li>
                     <li class="nav-item d-lg-none">
-                        <a th:if="${#ctx.session.email == null}" class="nav-link text-white" th:href="@{/login}">
+                        <a th:if="${#session.getAttribute('email') == null}" class="nav-link text-white" th:href="@{/login}">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Iniciar sesión
                         </a>
                     </li>
-                    <li class="nav-item dropdown d-lg-none" th:if="${#ctx.session.email != null}">
+                    <li class="nav-item dropdown d-lg-none" th:if="${#session.getAttribute('email') != null}">
                         <a class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-user"></i> Perfil
                         </a>

@@ -85,8 +85,8 @@ layout:decorate="layout.html">
             <div class="col-lg-4">
                 <div class="article-meta-container">
                     <h3 class="titulo-reciclaje" th:text="${categoria.titulo}"></h3>
-                    <p th:text="${autor.username}"></p>
-                    <p>Fecha: 17 de Mayo, 2024</p>
+                    <p th:text="${autor.username}">Username</p>
+                    <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
                         <p><span class="star-icon">&#9733;</span> <span class="badge badge-info">4/5</span></p>
                         <p><i class="fas fa-heart card-icon"></i></p>
@@ -100,10 +100,16 @@ layout:decorate="layout.html">
 
             <div th:each="comentario : ${comentarios}">
                 <label class="form-control" rows="3" th:text="${comentario.usuariosComentarios.nombre} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
+                <form th:if="${#session.getAttribute('email') == comentario.usuariosComentarios.email}" 
+                        th:action="@{'/comentario/delete/' + ${comentario.comentarioId}}" method="post">
+                    <button type="submit" style="background:none; border:none; padding:0; margin:0;">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </form>
             </div>
 
-            <form th:action="@{'/articulo/view/' + ${articulo.articuloId} + '/comentario/create'}" method="post" th:object="${comentarioCrear}">
-                <div class="form-group" method="post">
+            <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}">
+                <div class="form-group">
                     <textarea class="form-control" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary" style="background-color: #4a596d; border-color: #4a596d;">Enviar</button>
