@@ -51,18 +51,18 @@
                 </div>
                 <div class="form-group">
                     <label  for="src_img">Imagen del Artículo</label>
-                    <input  type="file" 
-                            class="form-control-file" 
+                    <input  type="url" 
+                            class="form-control" 
                             id="src_img"
-                            th:field="*{src_img}">
+                            required th:field="*{src_img}">
                     <small class="form-text text-muted">Seleccione una imagen para el artículo.</small>
 
-                    <label  for="alt_img" class="mt-2">Descripción de la Imagen</label>
+                    <label  for="alt_img" class="mt-2">Breve descripción de la imagen</label>
                     <input  type="text"
                             class="form-control" 
                             id="alt_img"
                             th:field="*{alt_img}"
-                            placeholder="Describe la imagen">
+                            required placeholder="Describe la imagen">
                 </div>
                 <div class="form-group">
                     <label  for="src_video">Video del Artículo (opcional)</label>

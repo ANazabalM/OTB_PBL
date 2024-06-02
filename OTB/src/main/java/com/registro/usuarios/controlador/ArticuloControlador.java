@@ -85,11 +85,9 @@ public class ArticuloControlador {
     private String verFormularioCreacion(Model model){
         return "crear_articulo";
     }
-
-    
     
 
-     @ModelAttribute("comentarioCrear")
+    @ModelAttribute("comentarioCrear")
 	public Comentario retornarNuevoComentario() {
 		return new Comentario();
 	}   
@@ -117,7 +115,7 @@ public class ArticuloControlador {
                                                 categoria);
 
         articuloServicio.save(articuloNuevo);
-        return "index";
+        return "redirect:/";
     }
 
     @PostMapping("/articulo/delete/{articuloId}")
@@ -125,12 +123,38 @@ public class ArticuloControlador {
 
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
-        if(articulo != null && (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())
-                        ||  SecurityContextHolder.getContext().getAuthentication().getName().equals("a@a.com")))
+        if(articulo != null)
         {
-            articuloServicio.deleteArticulo(Long.parseLong(articuloId));
+            Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+            if((usuario.getRol().equals("admin")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
+            {
+                articuloServicio.deleteArticulo(Long.parseLong(articuloId));
+            }
         }
 
-        return "index";
+        return "redirect:/";
+    }
+
+    @PostMapping("/articulo/rate/{articuloId}/{rating}")
+    private String valorarArticulo(@PathVariable String articuloId)
+    {
+        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+
+        if(articulo != null)
+        {
+            Usuario usuarioLogged = usuarioServicio.buscarPorEmail(
+                SecurityContextHolder.getContext().getAuthentication().getName());
+            if(usuarioLogged.getEmail().equals("anonymousUser"))
+            {
+                /*
+                 * valoracionServicio.guardarValoracion(new Valoracion(usuarioLogged, articulo,
+                 *                                                        Integer.parseInt(articuloId)))
+                 */
+                return "redirect:/";
+            }
+                
+        }
+
+        return "error";
     }
 }

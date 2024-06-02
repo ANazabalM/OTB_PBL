@@ -118,9 +118,12 @@ layout:decorate="layout.html">
                 <div class="row">
                     <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${listaArticulos}">
                         <div class="card">
-                            <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
+                            <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
+                                <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
+                            </a>
                             <div class="card-body">
-                                <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}"><h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo 1</h5></a>
+                                <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}" style="color: inherit; text-decoration: none;">
+                                    <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo 1</h5></a>
                                 <p class="card-text" th:text="${usuario.nombre} + ' ' + ${usuario.apellido} + ' - ' + ${articulo.fecha_publ}">Autor - Fecha</p>
                                 <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
                                 <form th:if="${mismo}" th:action="@{'/articulo/delete/' + ${articulo.articuloId}}" method="post">

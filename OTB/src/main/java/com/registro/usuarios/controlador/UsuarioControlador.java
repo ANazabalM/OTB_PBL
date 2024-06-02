@@ -81,17 +81,17 @@ public class UsuarioControlador {
     
   
     
-    @GetMapping("/usuario/delete/{usuarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
+    @PostMapping("/usuario/delete/{usuarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarPerfil(@PathVariable String usuarioId, Model model){
 
         if(SecurityContextHolder.getContext().getAuthentication().
-        getName().equals("a@a.com"))
+        getName().equals("admin@gmail.com"))
         {
             Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
             if(usuario != null)
             {
                 usuarioServicio.eliminarUsuario(Long.parseLong(usuarioId));
-                return "index";
+                return "redirect:/";
             }
         }
 
@@ -119,8 +119,7 @@ public class UsuarioControlador {
 
     @PostMapping("/usuario/edit/{usuarioId}")
     public String verFormularioEdicionUsuario(@PathVariable String usuarioId, Model model,
-                                                @ModelAttribute("usuario") Usuario usuarioEditado,
-                                                @RequestParam("fecha_nacimiento") String fechaNacimiento)
+                                                @ModelAttribute("usuario") Usuario usuarioEditado)
     {
         Usuario usuarioDB = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
         String emailLogged = SecurityContextHolder.getContext().getAuthentication().
@@ -144,12 +143,14 @@ public class UsuarioControlador {
                 usuarioDB.setApellido(usuarioEditado.getApellido());
             }
 
-            if( usuarioDB.getDescripcion() != null && usuarioDB.getDescripcion().equals(usuarioEditado.getDescripcion()))
+            if(!usuarioEditado.getDescripcion().equals("") && (usuarioDB.getDescripcion() == null ||
+                                     !usuarioDB.getDescripcion().equals(usuarioEditado.getDescripcion())))
             {
                 usuarioDB.setDescripcion(usuarioEditado.getDescripcion());
             }
 
-            if(usuarioDB.getDescripcion() != null && usuarioDB.getImg_src().equals(usuarioEditado.getImg_src()))
+            if(!usuarioEditado.getImg_src().equals("")  && (usuarioDB.getImg_src() != null ||
+                                    usuarioDB.getImg_src().equals(usuarioEditado.getImg_src())))
             {
                 usuarioDB.setImg_src(usuarioEditado.getImg_src());
             }

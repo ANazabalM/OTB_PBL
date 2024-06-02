@@ -35,12 +35,7 @@ public class LoginControlador {
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
 		Long userId = null;
 
-		if(email.equals("anonymousUser"))
-		{
-			session.setAttribute("email", null);
-			session.setAttribute("userId", null);
-
-		}else if(!email.equals("anonymousUser") || session.getAttribute("email") == null){
+		if(!email.equals("anonymousUser") && session.getAttribute("email") == null){
 
 			session.setAttribute("email", email);
 			userId = usuarioServicio.buscarPorEmail(email).getId();

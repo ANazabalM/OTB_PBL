@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -57,12 +58,15 @@ public class ComentarioControlador {
 
         Comentario comentario = comentarioServicio.getComentario(comentarioId);
 
-        if(comentario != null && 
-            session.getAttribute("email").equals(comentario.getUsuariosComentarios().getEmail()))
+        if(comentario != null)
         {
+            Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
             Articulo articulo = articuloServicio.getArticulo(comentario.getArticulosComentarios().getArticuloId());
-            comentarioServicio.borrarComentario(comentario);
 
+            if((usuario.getRol().equals("admin")) || (session.getAttribute("email").equals(comentario.getUsuariosComentarios().getEmail())))
+            {
+                comentarioServicio.borrarComentario(comentario);
+            }
             return "redirect:/articulo/view/" + articulo.getArticuloId();
         }
 

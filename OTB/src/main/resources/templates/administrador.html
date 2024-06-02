@@ -68,8 +68,14 @@
                         <td th:text="${usuario.nombre}">ID</td>
                         <td th:text="${usuario.apellido}">ID</td>
                         <td th:text="${usuario.email}">ID</td>
-                        <td class="icon-center"><a th:href="@{'/usuario/edit/' + ${usuario.id}}" method="post"><i class="fa-solid fa-pen-to-square"></i></a></td>
-                        <td class="icon-center"><a th:href="@{'/usuario/delete/' + ${usuario.id}}" method="post"><i class="fa-solid fa-trash"></i></a></td>
+                        <td class="icon-center"><a th:href="@{'/usuario/edit/' + ${usuario.id}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td class="icon-center">
+                            <form th:action="@{'/usuario/delete/' + ${usuario.id}}" method="post">
+                            <button type="submit" style="border:none; padding:0; margin:0;">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                            </form>
+                        </td>
                     </tr>
                 </tbody>
             </table>

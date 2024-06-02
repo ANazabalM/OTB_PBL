@@ -3,6 +3,7 @@ package com.registro.usuarios.controlador;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +13,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Categoria;
+import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.CategoriaService;
+import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Controller
 public class CategoriaControlador {
@@ -21,6 +24,9 @@ public class CategoriaControlador {
     @Autowired
     private CategoriaService categoriaServicio;
     
+    @Autowired
+    private UsuarioServicio usuarioServicio;
+
     @Autowired
     private ArticuloService articuloServicio;
 
@@ -53,15 +59,24 @@ public class CategoriaControlador {
 	}
 
     @GetMapping("/categoria/create")
-    public String verFormularioCreacionCategoria(){  
-        return "crear_categoria";
+    public String verFormularioCreacionCategoria(){ 
+        Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(usuario.getRol().equals("admin"))
+        {
+            return "crear_categoria";
+        }
+        return "redirect:/";
     }
 
     @PostMapping("/categoria/create")
     public String crearCategoria(@ModelAttribute("categoria") Categoria categoria){
 
-        categoriaServicio.save(categoria);
-        return "index";
+        Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(usuario.getRol().equals("admin"))
+        {
+            categoriaServicio.save(categoria);
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/categoria/edit/{categoriaId}")
@@ -102,8 +117,15 @@ public class CategoriaControlador {
 
         Categoria categoria = categoriaServicio.getCategoria(categoriaId);
 
-        categoriaServicio.borrarCategoria(categoria);
+        if(categoria != null)
+        {
+            Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
+            if(usuario.getRol().equals("admin"))
+            {
+                categoriaServicio.borrarCategoria(categoria);
+            }
+        }
 
-        return "index";
+        return "redirect:/";
     }
 }

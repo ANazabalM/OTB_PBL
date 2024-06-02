@@ -56,6 +56,9 @@ public class Usuario {
 	@Column
 	private LocalDate fecha_nacimiento;
 
+	@Column
+	private String rol;
+
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuarios")
     private List<Articulo> usuariosArticulo;
 
@@ -132,14 +135,14 @@ public class Usuario {
 		this.roles = roles;
 	}
 
-	public Usuario(String nombre, String apellido, String email, String username, String password, List<Rol> roles) {
+	public Usuario(String nombre, String apellido, String email, String username, String password, String rol) {
 		super();
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
 		this.username = username;
 		this.password = password;
-		this.roles = roles;
+		this.rol = rol;
 	}
 
 	public Usuario(String nombre, String apellido, String descripcion, String email, String username) {

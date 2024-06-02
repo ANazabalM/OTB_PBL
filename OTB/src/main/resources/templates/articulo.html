@@ -76,7 +76,7 @@ layout:decorate="layout.html">
             <div class="col-lg-8">
                 <div class="article-header">
                     <h2 class="titulo" th:text="${articulo.titulo}">Titulo</h2>
-                    <img th:src="${articulo.src_img != null} ? ${articulo.src_img} : 'https://picsum.photos/1200/800'" class="img-fluid" alt="Imagen del Artículo">
+                    <img th:src="${articulo.src_img}" class="img-fluid" th:alt="${articulo.alt_img}">
                 </div>
                 <div class="article-content">
                     <h3 class="article-content" th:text="${articulo.contenido}"></h3>
@@ -91,7 +91,7 @@ layout:decorate="layout.html">
                         <p><span class="star-icon">&#9733;</span> <span class="badge badge-info">4/5</span></p>
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
                             <button type="submit" style="background:none; border:none; padding:0; margin:0;">
-                            <i class="fas fa-heart card-icon favorited"></i>
+                                <i class="fa-regular fa-heart card-icon"></i>
                             </button>
                         </form>
                     </div>
@@ -116,7 +116,8 @@ layout:decorate="layout.html">
                 <div class="form-group">
                     <textarea class="form-control" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" style="background-color: #4a596d; border-color: #4a596d;">Enviar</button>
+                <button type="submit" class="btn btn-primary" style="background-color: #4a596d; border-color: #4a596d;">
+                    <i class="fa-solid fa-paper-plane"></i></button>
             </form>
         </div>
     </div>
