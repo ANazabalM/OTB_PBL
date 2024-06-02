@@ -11,12 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.registro.usuarios.modelo.Articulo;
-import com.registro.usuarios.modelo.Solicitud;
 import com.registro.usuarios.modelo.Usuario;
 import com.registro.usuarios.servicio.ArticuloService;
-import com.registro.usuarios.servicio.SolicitudService;
 import com.registro.usuarios.servicio.UsuarioServicio;
 
 @Controller
@@ -28,8 +27,6 @@ public class UsuarioControlador {
     @Autowired
     private ArticuloService articuloServicio;
 
-    @Autowired
-    private SolicitudService solicitudService;
 
     @GetMapping("/administrador")
     public String visualizarAccionesAdmin(Model model)
@@ -66,7 +63,7 @@ public class UsuarioControlador {
 
             }else{
                 usuarioVista = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
-                                    usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername(), usuario.getImg_src());
+                                    usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername(), usuario.getImg_src(), usuario.getFecha_nacimiento());
             }
 
             List <Articulo> listaArticulos = usuario.getUsuariosArticulo();
@@ -122,7 +119,8 @@ public class UsuarioControlador {
 
     @PostMapping("/usuario/edit/{usuarioId}")
     public String verFormularioEdicionUsuario(@PathVariable String usuarioId, Model model,
-                                                @ModelAttribute("usuario") Usuario usuario)
+                                                @ModelAttribute("usuario") Usuario usuarioEditado,
+                                                @RequestParam("fecha_nacimiento") String fechaNacimiento)
     {
         Usuario usuarioDB = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
         String emailLogged = SecurityContextHolder.getContext().getAuthentication().
@@ -131,54 +129,93 @@ public class UsuarioControlador {
         if(emailLogged.equals("admin@gmail.com") || 
             usuarioDB.getEmail().equals(emailLogged))
         {   
-            if(!usuarioDB.getNombre().equals(usuario.getNombre()))
+            if(!usuarioDB.getNombre().equals(usuarioEditado.getNombre()))
             {
-                usuarioDB.setNombre(usuario.getNombre());
+                usuarioDB.setNombre(usuarioEditado.getNombre());
             }
 
-            if(!usuarioDB.getApellido().equals(usuario.getApellido()))
+            if(usuarioDB.getFecha_nacimiento() != usuarioEditado.getFecha_nacimiento())
             {
-                usuarioDB.setApellido(usuario.getApellido());
+                usuarioDB.setFecha_nacimiento(usuarioEditado.getFecha_nacimiento());
             }
 
-            if( usuarioDB.getDescripcion() == null || usuarioDB.getDescripcion().equals(usuario.getDescripcion()))
+            if(!usuarioDB.getApellido().equals(usuarioEditado.getApellido()))
             {
-                usuarioDB.setDescripcion(usuario.getDescripcion());
+                usuarioDB.setApellido(usuarioEditado.getApellido());
             }
 
-            if(usuarioDB.getImg_src() == null || usuarioDB.getImg_src().equals(usuario.getImg_src()))
+            if( usuarioDB.getDescripcion() != null && usuarioDB.getDescripcion().equals(usuarioEditado.getDescripcion()))
             {
-                usuarioDB.setImg_src(usuario.getImg_src());
+                usuarioDB.setDescripcion(usuarioEditado.getDescripcion());
+            }
+
+            if(usuarioDB.getDescripcion() != null && usuarioDB.getImg_src().equals(usuarioEditado.getImg_src()))
+            {
+                usuarioDB.setImg_src(usuarioEditado.getImg_src());
             }
             usuarioServicio.editarUsuario(usuarioDB);
-            return "index";
+            return "redirect:/usuario/view/" + usuarioId;
         }
 
         return "error";
     }
 
-    @GetMapping("/listaDeFavoritos/{usuarioId}")
-    public String listaFavoritos(@PathVariable Long usuarioId, Model model) {
-        Usuario usuario = usuarioServicio.getUsuario(usuarioId);
-        List<Articulo> favoritos = usuario.getArticulos_favoritos();
-        model.addAttribute("favoritos", favoritos);
-        return "lista_de_favoritos";
+    @GetMapping("/listaDeFavoritos")
+    public String listaFavoritos(Model model) {
+        String emailLogged = SecurityContextHolder.getContext().getAuthentication().
+            getName();
+
+        if(!emailLogged.equals("anonymousUser"))
+        {
+            List<Articulo> favoritos = usuarioServicio.buscarPorEmail(emailLogged).getArticulos_favoritos();
+            model.addAttribute("favoritos", favoritos);
+            return "lista_de_favoritos";
+        }
+        return "error";
     }
 
-    @PostMapping("/addFavorito/{usuarioId}/{articuloId}")
-    public String addFavorito(@PathVariable Long usuarioId, @PathVariable Long articuloId) {
-        Usuario usuario = usuarioServicio.getUsuario(usuarioId);
-        Articulo articulo = articuloServicio.getArticulo(articuloId);
-        usuario.add_articulo_favoritos(articulo);
-        return "redirect:/";
+    @PostMapping("/listaDeFavoritos/add/{articuloId}")
+    public String addFavorito(@PathVariable Long articuloId) {
+        
+        String emailLogged = SecurityContextHolder.getContext().getAuthentication().
+        getName();
+
+        if(!emailLogged.equals("anonymousUser"))
+        {
+            Articulo articulo = articuloServicio.getArticulo(articuloId);
+            if(articulo != null)
+            {
+                Usuario usuario = usuarioServicio.buscarPorEmail(emailLogged);
+                if(usuario.getArticulos_favoritos().indexOf(articulo) == -1)
+                {
+                    usuario.add_articulo_favoritos(articulo);
+                    usuarioServicio.editarUsuario(usuario);
+                }
+                return "redirect:/listaDeFavoritos";
+            }
+        }
+        return "error";
+
     }
 
-    @PostMapping("/removeFavorito/{usuarioId}/{articuloId}")
-    public String removeFavorito(@PathVariable Long usuarioId, @PathVariable Long articuloId) {
-        Usuario usuario = usuarioServicio.getUsuario(usuarioId);
-        Articulo articulo = articuloServicio.getArticulo(articuloId);
-        usuario.remove_articulo_favoritos(articulo);
-        return "redirect:/";
+    @PostMapping("/listaDeFavoritos/delete/{articuloId}")
+    public String removeFavorito(@PathVariable Long articuloId) {
+        
+        String emailLogged = SecurityContextHolder.getContext().getAuthentication().
+        getName();
+
+        if(!emailLogged.equals("anonymousUser"))
+        {
+            Articulo articulo = articuloServicio.getArticulo(articuloId);
+            if(articulo != null)
+            {
+                Usuario usuario = usuarioServicio.buscarPorEmail(emailLogged);
+                usuario.remove_articulo_favoritos(articulo);
+                usuarioServicio.editarUsuario(usuario);
+                return "redirect:/listaDeFavoritos";
+            }
+        }
+        return "error";
     }
 
 }

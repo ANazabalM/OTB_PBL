@@ -76,7 +76,7 @@ layout:decorate="layout.html">
             <div class="col-lg-8">
                 <div class="article-header">
                     <h2 class="titulo" th:text="${articulo.titulo}">Titulo</h2>
-                    <img src="https://picsum.photos/800/400" class="img-fluid" alt="Imagen del Artículo">
+                    <img th:src="${articulo.src_img != null} ? ${articulo.src_img} : 'https://picsum.photos/1200/800'" class="img-fluid" alt="Imagen del Artículo">
                 </div>
                 <div class="article-content">
                     <h3 class="article-content" th:text="${articulo.contenido}"></h3>
@@ -89,7 +89,11 @@ layout:decorate="layout.html">
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
                         <p><span class="star-icon">&#9733;</span> <span class="badge badge-info">4/5</span></p>
-                        <p><i class="fas fa-heart card-icon"></i></p>
+                        <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
+                            <button type="submit" style="background:none; border:none; padding:0; margin:0;">
+                            <i class="fas fa-heart card-icon favorited"></i>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>

@@ -26,8 +26,11 @@
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
                     <div class="card">
-                        <a th:href="@{'/usuario/removeFavorito/' + usuarioId + '/' + ${articulo.articuloId}}"
-                        class="fas fa-heart card-icon favorited"></a>
+                        <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
+                        <button type="submit" style="background:none; border:none; padding:0; margin:0;">
+                        <i class="fas fa-heart card-icon favorited"></i>
+                        </button>
+                        </form>
                         <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         <div class="card-body">
                             <a th:href="@{'articulo/view/' + ${articulo.articuloId}}">

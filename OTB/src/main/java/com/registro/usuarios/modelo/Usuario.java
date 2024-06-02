@@ -1,5 +1,6 @@
 package com.registro.usuarios.modelo;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -51,6 +52,9 @@ public class Usuario {
 
 	@Column
 	private String img_src;
+
+	@Column
+	private LocalDate fecha_nacimiento;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuarios")
     private List<Articulo> usuariosArticulo;
@@ -161,7 +165,7 @@ public class Usuario {
 	}
 
 	public Usuario(Long usuarioId, String nombre2, String apellido2, String descripcion2, String email2,
-			String username2, String img_src) {
+			String username2, String img_src, LocalDate fecha_nacimiento) {
 		super();
 		this.id = usuarioId;
 		this.nombre = nombre2;
@@ -170,6 +174,7 @@ public class Usuario {
 		this.email = email2;
 		this.username = username2;
 		this.img_src = img_src;
+		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
 	public Usuario(long id, String nombre2, String apellido2, String username2, 

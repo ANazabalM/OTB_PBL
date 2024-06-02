@@ -25,12 +25,17 @@
                         <div class="form-group">
                             <label for="descripcion">Descripcion :</label>
                             <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="10" placeholder="Escribe tu descripcion"></textarea>
-
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="img_src">URL de imagen de perfil: </label> 
                             <input id="img_src" type="url" class="form-control" th:field="*{img_src}"
+                                autofocus="autofocus">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label" for="fecha_nacimiento">Fecha de nacimiento: </label> 
+                            <input id="fecha_nacimiento" type="date" class="form-control" th:field="*{fecha_nacimiento}"
                                 required autofocus="autofocus">
                         </div>
 

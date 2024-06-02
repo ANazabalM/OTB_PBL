@@ -47,19 +47,18 @@
                         </div>
                     </li>
                     <li class="nav-item d-lg-none">
-                        <a th:if="${#session.getAttribute('email') == null}" class="nav-link text-white" th:href="@{/login}">
+                        <a th:if="${#session == null or #session.getAttribute('email') == null}" class="nav-link text-white" th:href="@{/login}">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i> Iniciar sesión
                         </a>
                     </li>
-                    <li class="nav-item dropdown d-lg-none" th:if="${#session.getAttribute('email') != null}">
+                    <li class="nav-item dropdown d-lg-none" th:if="${#session != null and #session.getAttribute('email') != null}">
                         <a class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-user"></i> Perfil
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" th:href="@{'/usuario/view/' + ${}}">Ver Perfil</a>
-                            <a class="dropdown-item" th:href="@{/}">Ver Lista de Favoritos</a>
-                            <a class="dropdown-item" th:href="@{/administrador}">Admin</a>
-                            <a class="dropdown-item" href="#">Acciones de administrador</a>
+                            <a class="dropdown-item" th:href="@{'/usuario/view/' + ${#session.getAttribute('userId')}}">Ver Perfil</a>
+                            <a class="dropdown-item" th:href="@{'/listaDeFavoritos'}" >Ver Lista de Favoritos</a>
+                            <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('email').equals('admin@gmail.com')}" th:href="@{/administrador}">Acciones de adminsitrador</a>
                             <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
                         </div>
                     </li>
@@ -78,19 +77,18 @@
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a th:if="${#ctx.session.email == null}" class="nav-link text-white ml-3" href="/login">
+                        <a th:if="${#session == null or #session.getAttribute('email') == null}" class="nav-link text-white ml-3" href="/login">
                             <i class="fa-solid fa-arrow-right-to-bracket"></i>
                         </a>
                     </li>
-                    <li class="nav-item dropdown ml-3" th:if="${#ctx.session.email != null}">
+                    <li class="nav-item dropdown ml-3" th:if="${#session != null and #session.getAttribute('email') != null}">
                         <button class="btn btn-secondary dropdown-toggle" type="button" id="profileDropdownLarge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa-solid fa-user"></i>
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdownLarge">
-                            <a class="dropdown-item" href="/">Ver Perfil</a>
-                            <a class="dropdown-item" href="/">Ver Lista de Favoritos</a>                            
-                            <a class="dropdown-item" th:href="@{/administrador}">Admin</a>
-                            <a class="dropdown-item" href="#">Acciones de administrador</a>
+                            <a class="dropdown-item" th:href="@{'/usuario/view/' + ${#session.getAttribute('userId')}}">Ver Perfil</a>
+                            <a class="dropdown-item" th:href="@{'/listaDeFavoritos/'}">Ver Lista de Favoritos</a>                            
+                            <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('email').equals('admin@gmail.com')}" th:href="@{/administrador}">Admin</a>
                             <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                         </div>
                     </li>
