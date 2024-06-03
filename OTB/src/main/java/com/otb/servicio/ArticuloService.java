@@ -15,6 +15,8 @@ public interface ArticuloService {
 
     public void guardarArticulo(Articulo articuloguardado);
 
+    public Long cogerArticuloFavorito(Long usuarioId, Long articuloId);
+
     public List<Articulo> cogerTodos();
 
     public List<Articulo> cogerMasVistos();

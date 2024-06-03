@@ -40,10 +40,10 @@ public class LoginControlador {
 			userId = usuarioServicio.buscarPorEmail(email).getId();
 			session.setAttribute("userId", String.valueOf(userId));
 		}
-		
+
 		List<Articulo> articulos = articuloServicio.cogerMasVistos();
 		model.addAttribute("articulos", articulos);
-	
+		
 		return "index";
 	}
 }

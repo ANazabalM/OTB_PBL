@@ -18,6 +18,9 @@ public interface ArticuloRepository extends JpaRepository <Articulo, Long>{
     @Query(value = "SELECT a.* FROM articulo a WHERE a.categoria_id = :categoriaId", nativeQuery = true)
     public List<Articulo> getArticulosCategoria(@Param("categoriaId") Long categoriaId);
 
+    @Query(value = "SELECT articulo_id FROM articulos_favoritos where usuario_id = :usuarioId and articulo_id = :articuloId", nativeQuery = true)
+    public Long getArticulosFavoritos(@Param("usuarioId") Long usuarioId , @Param("articuloId") Long articuloId);
+
     /*
     @Query(value = "SELECT a.* FROM articulos_leidos al JOIN articulo a ON al.articulo_id = a.articulo_id GROUP BY al.articulo_id ORDER BY COUNT(al.articulo_id) DESC LIMIT 3", nativeQuery = true)
     public List<Articulo> getValoracionArticulo(String articuloId);
