@@ -57,6 +57,9 @@ public class Usuario {
 	private LocalDate fecha_nacimiento;
 
 	@Column
+	private String Tipo="normal";
+
+	@Column
 	private String rol;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuarios")
@@ -81,6 +84,14 @@ public class Usuario {
     public void addSolicitud(Solicitud solicitud){
         usuariosSolicitud.add(solicitud);
         solicitud.setSolicitudUsuarios(this);
+    }
+
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuariosValorados")  // 1 --> n el foreing key que mandas a otra tabla
+    private List<Valoracion> articuloValorado; // "articuloComentario" hay que cogerlo del MayToOne
+
+    public void addValoracion(Valoracion valoracion){ // añadir comentario, en repository
+        articuloValorado.add(valoracion);
+        valoracion.setUsuariosValorados(this);
     }
 	
 	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
@@ -112,6 +123,7 @@ public class Usuario {
 			inverseJoinColumns = @JoinColumn(name = "articulo_id",referencedColumnName = "articuloId")
 			)
 	private List<Articulo> articulos_favoritos;
+	
 	
 	public void add_articulo_favoritos(Articulo articulo)
 	{

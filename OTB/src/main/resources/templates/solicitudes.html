@@ -52,15 +52,16 @@
                         <th>ID</th>
                         <th>Título</th>
                         <th>Justificación</th>
+                        <th>Fecha de la solicitud</th>
                     </tr>
                 </thead>
                 <tbody>
                     <!-- Iteración sobre las solicitudes de categoría -->
-                    <tr th:each="solicitudes : ${solicitudes}">
-                        <td th:text="${solicitudId}">ID</td>
-                        <td th:text="${titulo}">Título</td>
-                        <td th:text="${descripcion}">Justificación</td>
-                        <td th:text="${fecha_sol}">Justificación</td>
+                    <tr th:each="solicitud : ${solicitudes}">
+                        <td th:text="${solicitud.solicitudId}">ID</td>
+                        <td th:text="${solicitud.titulo}">Título</td>
+                        <td th:text="${solicitud.descripcion}">Justificación</td>
+                        <td th:text="${solicitud.fecha_sol}">Fecha de la solicitud</td>
                     </tr>
                 </tbody>
             </table>

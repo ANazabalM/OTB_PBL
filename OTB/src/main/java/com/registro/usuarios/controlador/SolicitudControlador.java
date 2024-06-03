@@ -28,13 +28,13 @@ public class SolicitudControlador {
     @Autowired
     private SolicitudService solicitudServicio;
 
-    @GetMapping("/solicitud/view/")
-    private String listaSolicitudes(@PathVariable Long solicitudId, Model model){
+    @GetMapping("/solicitud/view")
+    private String listaSolicitudes(Model model){
 
     List<Solicitud> solicitudes = solicitudServicio.getAll();
         model.addAttribute("solicitudes", solicitudes);
 
-        return "solicitud";
+        return "solicitudes";
     }
 
     @GetMapping("/solicitud/view/{solicitudId}")

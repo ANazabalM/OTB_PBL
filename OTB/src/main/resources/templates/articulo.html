@@ -101,9 +101,8 @@ layout:decorate="layout.html">
 
         <div class="comments-section">
             <h3>Comentarios</h3>
-
             <div th:each="comentario : ${comentarios}">
-                <label class="form-control" rows="3" th:text="${comentario.usuariosComentarios.nombre} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
+                <label class="form-control" rows="3" th:text="${comentario.usuariosComentarios.username} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
                 <form th:if="${#session.getAttribute('email') == comentario.usuariosComentarios.email}" 
                         th:action="@{'/comentario/delete/' + ${comentario.comentarioId}}" method="post">
                     <button type="submit" style="background:none; border:none; padding:0; margin:0;">
