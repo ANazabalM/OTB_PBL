@@ -54,9 +54,9 @@ public class ComentarioControlador {
 
     
     @PostMapping("/comentario/delete/{comentarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
-    public String eliminarComentario(@PathVariable Long comentarioId, HttpSession session){
+    public String eliminarComentario(@PathVariable String comentarioId, HttpSession session){
 
-        Comentario comentario = comentarioServicio.getComentario(comentarioId);
+        Comentario comentario = comentarioServicio.getComentario(Long.parseLong(comentarioId));
 
         if(comentario != null)
         {
