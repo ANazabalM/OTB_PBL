@@ -83,6 +83,7 @@ public class ArticuloControlador {
 
     @GetMapping("/articulo/create")
     private String verFormularioCreacion(Model model){
+        model.addAttribute("categoriasVisualizar", categoriaServicio.cogerTodas());
         return "crear_articulo";
     }
     
