@@ -53,7 +53,6 @@ public class Articulo {
     
     @Column
     private String contenido;
-
     
     @ManyToOne (fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
     @JoinColumn(name = "categoria_ID")
@@ -69,6 +68,14 @@ public class Articulo {
     public void addComentario(Comentario comentario){ // añadir comentario, en repository
         articuloComentario.add(comentario);
         comentario.setArticulosComentarios(this);
+    }
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "articulosValorados")  // 1 --> n el foreing key que mandas a otra tabla
+    private List<Valoracion> articuloValorado; // "articuloComentario" hay que cogerlo del MayToOne
+
+    public void addValoracion(Valoracion valoracion){ // añadir comentario, en repository
+        articuloValorado.add(valoracion);
+        valoracion.setArticulosValorados(this);
     }
 
     @ManyToMany(mappedBy = "articulos_leidos")
