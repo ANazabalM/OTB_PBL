@@ -57,6 +57,9 @@ public class Usuario {
 	private LocalDate fecha_nacimiento;
 
 	@Column
+	private String Tipo="normal";
+
+	@Column
 	private String rol;
 
 	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuarios")
