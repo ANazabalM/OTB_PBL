@@ -30,9 +30,16 @@ public class SolicitudControlador {
 
     @GetMapping("/solicitud/view")
     private String listaSolicitudes(Model model){
+        
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailAuth = auth.getName();  
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
-    List<Solicitud> solicitudes = solicitudServicio.getAll();
-        model.addAttribute("solicitudes", solicitudes);
+        if(usuario.getTipo().equals("avanzado") || usuario.getTipo().equals("administrador"))
+        {
+            List<Solicitud> solicitudes = solicitudServicio.getAll();
+            model.addAttribute("solicitudes", solicitudes);
+        }
 
         return "solicitudes";
     }
@@ -41,17 +48,24 @@ public class SolicitudControlador {
     private String verSolicitud(@PathVariable Long solicitudId, Model model){
 
         if(solicitudId != null){
-        Solicitud solicitud = solicitudServicio.getSolicitud(solicitudId);
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		    String emailAuth = auth.getName();  
+            Usuario usuarioLogged = usuarioServicio.buscarPorEmail(emailAuth);
 
-        Usuario usuario = solicitud.getSolicitudUsuarios();
+            if(usuarioLogged.getTipo().equals("avanzado") || usuarioLogged.getTipo().equals("administrador"))
+            {
+                Solicitud solicitud = solicitudServicio.getSolicitud(solicitudId);
 
-        Solicitud solicitudVista = new Solicitud(solicitud.getSolicitudId(),
+                Usuario usuario = solicitud.getSolicitudUsuarios();
+
+                Solicitud solicitudVista = new Solicitud(solicitud.getSolicitudId(),
                                                 solicitud.getTitulo(),
                                                 solicitud.getDescripcion(),
                                                 solicitud.getFecha_sol());
-        model.addAttribute("solicitud", solicitudVista);
-        model.addAttribute("usuario", usuario);
-        return "solicitud";
+                model.addAttribute("solicitud", solicitudVista);
+                model.addAttribute("usuario", usuario);
+                return "solicitud";
+            }
         }
         return "error";
     }
@@ -64,7 +78,16 @@ public class SolicitudControlador {
 
     @GetMapping("/solicitud/create")
     private String verFormularioCreacion(Model model){
-        return "solicitud_categoria";
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailAuth = auth.getName();  
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
+
+        if(usuario.getTipo().equals("avanzado") || usuario.getTipo().equals("administrador"))
+        {
+            return "solicitud_categoria";
+        }
+        return "index";
     }
 
     @PostMapping("/solicitud/create")
@@ -72,13 +95,17 @@ public class SolicitudControlador {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String emailAuth = auth.getName();  
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
-        LocalDate date = LocalDate.now();
-        Solicitud solicitudCrear = new Solicitud(   solicitud.getTitulo(),
+        if(usuario.getTipo().equals("avanzado") || usuario.getTipo().equals("administrador"))
+        {
+            
+            LocalDate date = LocalDate.now();
+            Solicitud solicitudCrear = new Solicitud(   solicitud.getTitulo(),
                                                     solicitud.getDescripcion(),
                                                     usuario,
                                                     date
                                                     );
-        solicitudServicio.save(solicitudCrear);
+            solicitudServicio.save(solicitudCrear);
+        }
         return "index";
     }
 
@@ -86,10 +113,17 @@ public class SolicitudControlador {
     @GetMapping("/solicitud/delete/{solicitudId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarSolicitud(@PathVariable Long solicitudId, Model model){
 
-        Solicitud solicitud = solicitudServicio.getSolicitud(solicitudId);
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailAuth = auth.getName();  
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
-        solicitudServicio.borrarSolicitud(solicitud);
+        if(usuario.getTipo().equals("avanzado") || usuario.getTipo().equals("administrador"))
+        {
+            Solicitud solicitud = solicitudServicio.getSolicitud(solicitudId);
 
+            solicitudServicio.borrarSolicitud(solicitud);
+        }
+        
         return "index";
     }
 }
