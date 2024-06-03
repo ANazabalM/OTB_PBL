@@ -79,39 +79,6 @@ public class CategoriaControlador {
         return "redirect:/";
     }
 
-    @GetMapping("/categoria/edit/{categoriaId}")
-    public String verFomularioEditarCategoria(@PathVariable String categoriaId){
-        
-        /*
-         * Categoria categoria = categoriaService.cogerCategoria(Integer.parseInt(categoriaId));
-         * if(categoria != null)
-         * {
-         *      model.addAttribute("categoria", categoria);
-         *      return "formilarioCategoria";
-         * }
-         * 
-         * return "error";
-         */
-        return "a";
-    }
-
-    @PostMapping("/categoria/edit/{categoriaId}")
-    public String editarCategoria(@PathVariable String categoriaId, Model model){
-        
-        /*
-         * Categoria categoriaA = categoriaService.cogerCategoria(Integer.parseInt(categoriaId));
-         * Categoria categoria = model.getAttribute("categoria");
-         * if(categoriaA != null)
-         * {
-         *      articuloServicio.editarCategoria(categoria);
-         *      return "index";
-         * }
-         * 
-         * return "error";
-         */
-        return "a";
-    }
-
     @GetMapping("/categoria/delete/{categoriaId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarCategoria(@PathVariable Long categoriaId, Model model){
 

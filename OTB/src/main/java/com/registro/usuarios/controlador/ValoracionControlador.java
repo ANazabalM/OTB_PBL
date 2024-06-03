@@ -49,8 +49,9 @@ public class ValoracionControlador {
                 return "redirect:/articulo/view/" + articuloId;
             }
         }
-        return "error";        
         
+        return "error";        
+
     }
 
 }

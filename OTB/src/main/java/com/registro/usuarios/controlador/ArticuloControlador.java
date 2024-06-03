@@ -19,9 +19,11 @@ import com.registro.usuarios.modelo.Articulo;
 import com.registro.usuarios.modelo.Categoria;
 import com.registro.usuarios.modelo.Comentario;
 import com.registro.usuarios.modelo.Usuario;
+import com.registro.usuarios.modelo.Valoracion;
 import com.registro.usuarios.servicio.ArticuloService;
 import com.registro.usuarios.servicio.CategoriaService;
 import com.registro.usuarios.servicio.UsuarioServicio;
+import com.registro.usuarios.servicio.ValoracionService;
 
 @Controller
 public class ArticuloControlador {
@@ -34,6 +36,9 @@ public class ArticuloControlador {
 
     @Autowired
     private CategoriaService categoriaServicio;
+
+    @Autowired
+    private ValoracionService valoracionServicio;
     
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
@@ -51,6 +56,9 @@ public class ArticuloControlador {
             usuario = usuarioServicio.getUsuario(idusuarioANONIMO);
         }
 
+        Valoracion valoracion = valoracionServicio.cogerValoracion(Long.parseLong(articuloId),usuario.getId());
+
+
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
         Categoria catergoriaID = articulo.getCategorias();
@@ -65,6 +73,7 @@ public class ArticuloControlador {
 
                 articulo.addVisualizacion(usuario,articulo);
 
+                model.addAttribute("valoracion", valoracion);
                 model.addAttribute("autor", usuarioA);
                 model.addAttribute("articulo", articulo);
                 model.addAttribute("categoria", categoria2);
@@ -86,7 +95,6 @@ public class ArticuloControlador {
         return "crear_articulo";
     }
     
-
     @ModelAttribute("comentarioCrear")
 	public Comentario retornarNuevoComentario() {
 		return new Comentario();
@@ -103,7 +111,6 @@ public class ArticuloControlador {
         
         Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
-
 
         Articulo articuloNuevo = new Articulo(  articulo.getTitulo(),
                                                 articulo.getAlt_img(),
@@ -133,28 +140,5 @@ public class ArticuloControlador {
         }
 
         return "redirect:/";
-    }
-
-    @PostMapping("/articulo/rate/{articuloId}/{rating}")
-    private String valorarArticulo(@PathVariable String articuloId)
-    {
-        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-
-        if(articulo != null)
-        {
-            Usuario usuarioLogged = usuarioServicio.buscarPorEmail(
-                SecurityContextHolder.getContext().getAuthentication().getName());
-            if(usuarioLogged.getEmail().equals("anonymousUser"))
-            {
-                /*
-                 * valoracionServicio.guardarValoracion(new Valoracion(usuarioLogged, articulo,
-                 *                                                        Integer.parseInt(articuloId)))
-                 */
-                return "redirect:/";
-            }
-                
-        }
-
-        return "error";
     }
 }

@@ -17,5 +17,11 @@ public class ValoracionServiceImpl implements ValoracionService{
     public Valoracion save(Valoracion valoracion) {
         return valoracionRepository.save(valoracion);
     }
+
+    @Override
+    public Valoracion cogerValoracion( Long articuloId, Long usuarioId) {
+    
+        return valoracionRepository.haValorado(articuloId,usuarioId);
+    }
     
 }
