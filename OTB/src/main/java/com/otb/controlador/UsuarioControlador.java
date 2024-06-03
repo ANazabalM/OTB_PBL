@@ -30,10 +30,17 @@ public class UsuarioControlador {
     @GetMapping("/administrador")
     public String visualizarAccionesAdmin(Model model)
     {
-        List<Usuario> usuarios = usuarioServicio.getAll();
-        model.addAttribute("usuarios", usuarios);
-        
-        return "administrador";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailAuth = auth.getName();  
+        Usuario usuarioLogged = usuarioServicio.buscarPorEmail(emailAuth);
+
+        if(usuarioLogged.getTipo().equals("administrador"))
+        {
+            List<Usuario> usuarios = usuarioServicio.getAll();
+            model.addAttribute("usuarios", usuarios);
+            return "administrador";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/usuario/view/{usuarioId}")
@@ -83,8 +90,11 @@ public class UsuarioControlador {
     @PostMapping("/usuario/delete/{usuarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarPerfil(@PathVariable String usuarioId, Model model){
 
-        if(SecurityContextHolder.getContext().getAuthentication().
-        getName().equals("admin@gmail.com"))
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailAuth = auth.getName();  
+        Usuario usuarioLogged = usuarioServicio.buscarPorEmail(emailAuth);
+
+        if(usuarioLogged.getTipo().equals("administrador"))
         {
             Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
             if(usuario != null)
@@ -102,9 +112,12 @@ public class UsuarioControlador {
         
         Usuario usuario = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		
-		String email = auth.getName();        
-        if(usuario != null  && usuario.getEmail().equals(email))
+        String email = auth.getName();  
+
+        Usuario usuarioLogged = usuarioServicio.buscarPorEmail(email);
+
+        if(usuario != null  && (usuario.getEmail().equals(email) || 
+                        usuarioLogged.getTipo().equals("administrador")))
         {
             model.addAttribute("usuario", usuario);
             model.addAttribute("mismo", true);
@@ -121,11 +134,14 @@ public class UsuarioControlador {
                                                 @ModelAttribute("usuario") Usuario usuarioEditado)
     {
         Usuario usuarioDB = usuarioServicio.getUsuario(Long.parseLong(usuarioId));
-        String emailLogged = SecurityContextHolder.getContext().getAuthentication().
-            getName();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String email = auth.getName();  
 
-        if(emailLogged.equals("admin@gmail.com") || 
-            usuarioDB.getEmail().equals(emailLogged))
+        Usuario usuarioLogged = usuarioServicio.buscarPorEmail(email);
+
+
+        if(usuarioLogged.getTipo().equals("administrador") || 
+            usuarioDB.getEmail().equals(email))
         {   
             if(!usuarioDB.getNombre().equals(usuarioEditado.getNombre()))
             {
