@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.otb.modelo.Articulo;
+import com.otb.modelo.Usuario;
 import com.otb.servicio.ArticuloService;
 import com.otb.servicio.UsuarioServicio;
 
@@ -32,13 +33,20 @@ public class LoginControlador {
 	public String verPaginaDeInicio(HttpSession session, Model model) {		
 		
 		String email = SecurityContextHolder.getContext().getAuthentication().getName();
-		Long userId = null;
+		Usuario usuario = null;
 
 		if(!email.equals("anonymousUser") && session.getAttribute("email") == null){
 
 			session.setAttribute("email", email);
-			userId = usuarioServicio.buscarPorEmail(email).getId();
-			session.setAttribute("userId", String.valueOf(userId));
+			
+			usuario = usuarioServicio.buscarPorEmail(email);
+		
+			if(usuario.getRol().equals("admin"))
+			{
+				session.setAttribute("admin", true);
+			}
+			
+			session.setAttribute("userId", String.valueOf(usuario.getId()));
 		}
 
 		List<Articulo> articulos = articuloServicio.cogerMasVistos();
