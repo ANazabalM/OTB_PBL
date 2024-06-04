@@ -1,6 +1,7 @@
 package com.otb.controlador;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.otb.modelo.Articulo;
 import com.otb.modelo.Categoria;
 import com.otb.modelo.Comentario;
+import com.otb.modelo.ComentarioAJAX;
 import com.otb.modelo.Usuario;
 import com.otb.modelo.Valoracion;
 import com.otb.servicio.ArticuloService;
@@ -77,6 +80,7 @@ public class ArticuloControlador {
                 model.addAttribute("articulo", articulo);
                 model.addAttribute("categoria", categoria2);
                 model.addAttribute("comentarios", comentarios);
+                model.addAttribute("currentEmail", emailAuth);
                 articuloServicio.guardarArticulo(articulo);
                 return "articulo";
             }
@@ -139,5 +143,22 @@ public class ArticuloControlador {
         }
 
         return "redirect:/";
+    }
+
+    @GetMapping("/articulo/{articuloId}/comentarios")
+    @ResponseBody
+    public List<ComentarioAJAX> getComentarios(@PathVariable String articuloId) {
+        Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+        List<Comentario> comentarios = articulo.getArticuloComentario();
+        List<ComentarioAJAX> comentariosVisualizar = new ArrayList<>();
+
+        for(Comentario comentario: comentarios)
+        {
+            comentariosVisualizar.add(new ComentarioAJAX(comentario.getComentarioId(), 
+                comentario.getContenido(), comentario.getUsuariosComentarios().getUsername(),
+                comentario.getUsuariosComentarios().getEmail()));
+        }
+
+        return comentariosVisualizar;
     }
 }

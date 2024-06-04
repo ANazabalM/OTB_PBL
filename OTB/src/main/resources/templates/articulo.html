@@ -3,6 +3,7 @@
 layout:decorate="layout.html">
 <head>
     <title>OTB - Título del Artículo</title>
+    <script src="/Javascript/main.js"></script>
     <style>
         .badge-info {
             background-color: #7BCF6F;
@@ -69,7 +70,7 @@ layout:decorate="layout.html">
         }
     </style>
 </head>
-<body>
+<body th:onload= "init([[${articulo.articuloId}]], [[${currentEmail}]])">
 
     <div class="container article-container" layout:fragment="contenido">
         <div class="row">
@@ -101,14 +102,8 @@ layout:decorate="layout.html">
 
         <div class="comments-section">
             <h3>Comentarios</h3>
-            <div th:each="comentario : ${comentarios}">
-                <label class="form-control" rows="3" th:text="${comentario.usuariosComentarios.username} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
-                <form th:if="${#session.getAttribute('email') == comentario.usuariosComentarios.email}" 
-                        th:action="@{'/comentario/delete/' + ${comentario.comentarioId}}" method="post">
-                    <button type="submit" style="background:none; border:none; padding:0; margin:0;">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </form>
+            <div id="comments">
+                
             </div>
 
             <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}">
