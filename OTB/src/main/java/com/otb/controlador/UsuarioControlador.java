@@ -7,11 +7,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
 import com.otb.modelo.Usuario;
 import com.otb.servicio.ArticuloService;
@@ -34,7 +36,7 @@ public class UsuarioControlador {
 		String emailAuth = auth.getName();  
         Usuario usuarioLogged = usuarioServicio.buscarPorEmail(emailAuth);
 
-        if(usuarioLogged.getTipo().equals("administrador"))
+        if(usuarioLogged.getRol().equals("administrador"))
         {
             List<Usuario> usuarios = usuarioServicio.getAll();
             model.addAttribute("usuarios", usuarios);
@@ -82,7 +84,7 @@ public class UsuarioControlador {
             return "usuario";
         }
 
-        return "error";
+        return "redirect:/";
     }
     
   
@@ -104,7 +106,7 @@ public class UsuarioControlador {
             }
         }
 
-        return "error";
+        return "redirect:/";
     }
 
     @GetMapping("/usuario/edit/{usuarioId}")
@@ -125,7 +127,7 @@ public class UsuarioControlador {
             return "usuario_editar";
         }
 
-        return "error";
+        return "redirect:/";
 
     }
 
@@ -170,10 +172,11 @@ public class UsuarioControlador {
                 usuarioDB.setImg_src(usuarioEditado.getImg_src());
             }
             usuarioServicio.editarUsuario(usuarioDB);
+            model.addAttribute("success", "Usuario creado con éxito");
             return "redirect:/usuario/view/" + usuarioId;
         }
 
-        return "error";
+        return "redirect:/";
     }
 
     @GetMapping("/listaDeFavoritos")
@@ -187,7 +190,7 @@ public class UsuarioControlador {
             model.addAttribute("favoritos", favoritos);
             return "lista_de_favoritos";
         }
-        return "error";
+        return "redirect:/";
     }
 
     @PostMapping("/listaDeFavoritos/add/{articuloId}")
@@ -210,7 +213,7 @@ public class UsuarioControlador {
                 return "redirect:/listaDeFavoritos";
             }
         }
-        return "error";
+        return "redirect:/";
 
     }
 
@@ -231,7 +234,12 @@ public class UsuarioControlador {
                 return "redirect:/listaDeFavoritos";
             }
         }
-        return "error";
+        return "redirect:/";
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFoundException(ResourceNotFoundException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "redirect:/";
+    }
 }

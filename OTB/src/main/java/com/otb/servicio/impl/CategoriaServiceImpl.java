@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Categoria;
 import com.otb.repositorio.CategoriaRepository;
 import com.otb.servicio.CategoriaService;
@@ -35,7 +35,7 @@ public class CategoriaServiceImpl implements CategoriaService {
 
 		if(!categoria.isPresent()) {
 			
-			throw new UsernameNotFoundException("Usuario o password inválidos");
+			throw new ResourceNotFoundException("Categoria no encontrada");
 		}
 		else{
 			categoria1 = categoria.get();
@@ -46,7 +46,10 @@ public class CategoriaServiceImpl implements CategoriaService {
 
     @Override
     public void borrarCategoria(Categoria categoria) {
-        categoriaRepository.delete(categoria);
+        if (!categoriaRepository.existsById(categoria.getCategoriaId())) {
+            throw new ResourceNotFoundException("Artículo no encontrado");
+        }
+        categoriaRepository.deleteById(categoria.getCategoriaId());
     }
 
     

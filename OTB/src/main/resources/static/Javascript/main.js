@@ -16,7 +16,7 @@ async function loadComentarios(articuloId, currentUserEmail) {
         // If the current user is the owner of the comment, add delete button
             if (comment.email === currentUserEmail) {
                 let deleteForm = document.createElement('form');
-                deleteForm.method = 'post';
+                deleteForm.method = 'GET';
                 deleteForm.action = `/comentario/delete/${comment.comentarioId}`;
                 
                 let deleteButton = document.createElement('button');
@@ -35,6 +35,6 @@ async function loadComentarios(articuloId, currentUserEmail) {
 
 async function init(articuloId, currentUserEmail) {
     loadComentarios(articuloId, currentUserEmail);
-    setInterval(() => loadComentarios(articuloId, currentUserEmail), 1000000000); // Actualiza cada 5 segundos
+    setInterval(() => loadComentarios(articuloId, currentUserEmail), 6400); // Actualiza cada 5 segundos
     
 }

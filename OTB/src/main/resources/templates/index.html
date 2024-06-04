@@ -5,11 +5,20 @@
 </head>
 <body>    
     <div layout:fragment="contenido">
+        
         <div th:if="${param.logout}" class="p-3 pl-5 pr-5">
             <div class="alert alert-info text-center card mx-auto">Ha cerrado sesión exitosamente
             </div>
         </div>
+
+        <div class="p-3 pl-5 pr-5" th:if="${param.error}">
+            <div th:text="${param.error}" class="alert alert-danger text-center card mx-auto"></div>
+        </div>
         
+        <div class="p-3 pl-5 pr-5" th:if="${param.success}">
+            <div th:text="${param.success}" class="alert alert-danger text-center card mx-auto"></div>
+        </div>
+
         <div class="container mt-5">
             <div class="row justify-content-center align-items-center">
                 <div class="col-md-6 text-center order-md-2">   
@@ -17,8 +26,7 @@
                 </div>
                 <div class="col-md-6 text-center order-md-1">
                     <!-- Reemplaza el enlace de abajo con un GIF o video real -->
-                    <img src="https://media.giphy.com/media/3o6Zt481isNVuQI1l6/giphy.gif" class="img-fluid rounded" alt="Inspirational GIF">
-                </div>
+                    <iframe src="https://giphy.com/embed/KDYB0cH4HW8xc3VIAx" width="480" height="271" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
             </div>
         </div>
         

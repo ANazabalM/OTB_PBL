@@ -11,12 +11,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
 import com.otb.modelo.Categoria;
 import com.otb.modelo.Comentario;
@@ -95,7 +97,7 @@ public class ArticuloControlador {
                 return "articulo";
             }
         }
-        return "error";
+        return "redirect:/";
     }
 
     @ModelAttribute("articulo")
@@ -105,6 +107,7 @@ public class ArticuloControlador {
 
     @GetMapping("/articulo/create")
     private String verFormularioCreacion(Model model){
+        model.addAttribute("categoriasVisualizar", categoriaServicio.cogerTodas());
         return "crear_articulo";
     }
     
@@ -134,12 +137,14 @@ public class ArticuloControlador {
                                                 LocalDate.now(),
                                                 categoria);
 
+        model.addAttribute("success", "Articulo creado con éxito");
         articuloServicio.save(articuloNuevo);
         return "redirect:/";
     }
 
     @PostMapping("/articulo/delete/{articuloId}")
-    private String eliminarArticulo(@PathVariable String articuloId, HttpSession session){
+    private String eliminarArticulo(@PathVariable String articuloId, HttpSession session,
+                                        Model model){
 
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
@@ -151,6 +156,8 @@ public class ArticuloControlador {
                 articuloServicio.deleteArticulo(Long.parseLong(articuloId));
             }
         }
+        
+        model.addAttribute("success", "Articulo eliminado con éxito");
 
         return "redirect:/";
     }
@@ -170,5 +177,11 @@ public class ArticuloControlador {
         }
 
         return comentariosVisualizar;
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFoundException(ResourceNotFoundException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "redirect:/";
     }
 }

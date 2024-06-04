@@ -41,7 +41,7 @@ public class LoginControlador {
 			
 			usuario = usuarioServicio.buscarPorEmail(email);
 		
-			if(usuario.getRol() != null && usuario.getRol().equals("admin"))
+			if(usuario.getRol() != null && usuario.getRol().equals("administrador"))
 			{
 				session.setAttribute("admin", true);
 			}

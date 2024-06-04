@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.otb.controlador.dto.UsuarioRegistroDTO;
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Rol;
 import com.otb.modelo.Usuario;
 import com.otb.repositorio.UsuarioRepository;
@@ -65,7 +66,7 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 		if(!usuario.isPresent()) {
 			
-			throw new UsernameNotFoundException("Usuario o password inválidos");
+			throw new ResourceNotFoundException("Usuario no encontrado");
 		}
 		else{
 			usuario1 = usuario.get();
@@ -81,12 +82,18 @@ public class UsuarioServicioImpl implements UsuarioServicio {
 
 	@Override
 	public void eliminarUsuario(long id) {
-		usuarioRepositorio.deleteById(id);
+		if (!usuarioRepositorio.existsById(id)) {
+            throw new ResourceNotFoundException("Usuario no encontrado");
+        }
+        usuarioRepositorio.deleteById(id);
 	}
 
 	@Override
 	public void editarUsuario(Usuario usuario)
 	{
+		if (!usuarioRepositorio.existsById(usuario.getId())) {
+            throw new ResourceNotFoundException("Usuario no encontrado");
+        }
 		usuarioRepositorio.save(usuario);
 	}
 

@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
 import com.otb.modelo.Categoria;
 import com.otb.modelo.Usuario;
@@ -42,8 +44,8 @@ public class CategoriaControlador {
             model.addAttribute("categoria", categoria);
             return "tema";
         }
-
-        return "error";
+        
+        return "redirect:/";
     }
 
     @GetMapping("/categoria/view")
@@ -69,13 +71,16 @@ public class CategoriaControlador {
     }
 
     @PostMapping("/categoria/create")
-    public String crearCategoria(@ModelAttribute("categoria") Categoria categoria){
+    public String crearCategoria(@ModelAttribute("categoria") Categoria categoria,
+                                    Model model){
 
         Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
         if(usuario.getRol().equals("admin"))
         {
             categoriaServicio.save(categoria);
         }
+        model.addAttribute("success", "Categoria creada con éxito");
+
         return "redirect:/";
     }
 
@@ -92,7 +97,14 @@ public class CategoriaControlador {
                 categoriaServicio.borrarCategoria(categoria);
             }
         }
+        model.addAttribute("success", "Categoria eliminada con éxito");
 
+        return "redirect:/";
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFoundException(ResourceNotFoundException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
         return "redirect:/";
     }
 }

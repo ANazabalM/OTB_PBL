@@ -48,7 +48,7 @@ public class ValoracionControlador {
             }
         }
         
-        return "error";        
+        return "redirect:/";        
 
     }
 

@@ -7,10 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
 import com.otb.modelo.Comentario;
 import com.otb.modelo.Usuario;
@@ -49,11 +53,11 @@ public class ComentarioControlador {
                 return "redirect:/articulo/view/" + articuloId;
             }
         }
-        return "error";        
+        return "redirect:/";        
     }
 
     
-    @PostMapping("/comentario/delete/{comentarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
+    @GetMapping("/comentario/delete/{comentarioId}") // Tiene que ser PostMapping, pero de momento para probar he puesto GET
     public String eliminarComentario(@PathVariable String comentarioId, HttpSession session){
 
         Comentario comentario = comentarioServicio.getComentario(Long.parseLong(comentarioId));
@@ -63,13 +67,19 @@ public class ComentarioControlador {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
             Articulo articulo = articuloServicio.getArticulo(comentario.getArticulosComentarios().getArticuloId());
 
-            if((usuario.getRol().equals("admin")) || (session.getAttribute("email").equals(comentario.getUsuariosComentarios().getEmail())))
+            if((usuario.getRol().equals("administrador")) || (session.getAttribute("email").equals(comentario.getUsuariosComentarios().getEmail())))
             {
                 comentarioServicio.borrarComentario(comentario);
             }
             return "redirect:/articulo/view/" + articulo.getArticuloId();
         }
 
-        return "index";
+        return "redirect:/";
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFoundException(ResourceNotFoundException ex, Model model) {
+        model.addAttribute("error", ex.getMessage());
+        return "redirect:/";
     }
 }

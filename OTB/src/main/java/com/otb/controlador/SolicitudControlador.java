@@ -67,7 +67,7 @@ public class SolicitudControlador {
                 return "solicitud";
             }
         }
-        return "error";
+        return "redirect:/";
     }
 
 
@@ -87,7 +87,7 @@ public class SolicitudControlador {
         {
             return "solicitud_categoria";
         }
-        return "index";
+        return "redirect:/";
     }
 
     @PostMapping("/solicitud/create")
@@ -106,7 +106,7 @@ public class SolicitudControlador {
                                                     );
             solicitudServicio.save(solicitudCrear);
         }
-        return "index";
+        return "redirect:/";
     }
 
 
@@ -124,6 +124,6 @@ public class SolicitudControlador {
             solicitudServicio.borrarSolicitud(solicitud);
         }
         
-        return "index";
+        return "redirect:/";
     }
 }

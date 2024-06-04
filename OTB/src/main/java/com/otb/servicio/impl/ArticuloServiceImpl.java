@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
 import com.otb.repositorio.ArticuloRepository;
 import com.otb.servicio.ArticuloService;
@@ -16,8 +16,8 @@ public class ArticuloServiceImpl implements ArticuloService{
     @Autowired
     private ArticuloRepository articuloRepository;
 
-    public Articulo save(Articulo articulo){
-        return  articuloRepository.save(articulo);
+     public Articulo save(Articulo articulo){
+        return articuloRepository.save(articulo);
     }
 
     @Override
@@ -27,7 +27,7 @@ public class ArticuloServiceImpl implements ArticuloService{
 
 		if(!articuloOptional.isPresent()) {
 			
-			throw new UsernameNotFoundException("Articulo no válido");
+			throw new ResourceNotFoundException("Artículo no encontrado");
 		}
 		else{
 			articulo = articuloOptional.get();
@@ -38,11 +38,17 @@ public class ArticuloServiceImpl implements ArticuloService{
 
     @Override
     public void deleteArticulo(long articuloId) {
+        if (!articuloRepository.existsById(articuloId)) {
+            throw new ResourceNotFoundException("Artículo no encontrado");
+        }
         articuloRepository.deleteById(articuloId);
     }
 
     @Override
     public void editarArticulo(long articuloId, Articulo articuloEditado) {
+        if (!articuloRepository.existsById(articuloId)) {
+            throw new ResourceNotFoundException("Artículo no encontrado");
+        }
         articuloRepository.save(articuloEditado);
     }
 
