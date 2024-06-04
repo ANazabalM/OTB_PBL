@@ -50,8 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 				"/login",
 				"/articulo/view/**",
 				"/categoria/view/**",
-				"/usuario/view/**",
-				"/solicitudes/view"
+				"/usuario/view/**"
 				).permitAll()
 		.anyRequest().authenticated()
 		.and()

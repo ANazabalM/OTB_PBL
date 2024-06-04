@@ -86,7 +86,9 @@ layout:decorate="layout.html">
             <div class="col-lg-4">
                 <div class="article-meta-container">
                     <h3 class="titulo-reciclaje" th:text="${categoria.titulo}"></h3>
-                    <p th:text="${articulo.usuarios}">Username</p>
+                    <a th:href="@{'/usuario/view/' + ${articulo.usuarios.id}}">
+                        <p th:text="${articulo.usuarios.username}">Username</p>
+                    </a>
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
                         <p><span class="star-icon">&#9733;</span> <span class="badge badge-info">4/5</span></p>
