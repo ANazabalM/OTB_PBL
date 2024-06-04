@@ -69,5 +69,10 @@ public List<Articulo> cogerArticulosCategoria(String categoriaId) {
 
     return articuloRepository.getArticulosCategoria(Long.parseLong(categoriaId));
 }
+
+@Override
+public Long cogerArticuloFavorito(Long usuarioId, Long articuloId) {
+    return articuloRepository.getArticulosFavoritos(usuarioId,articuloId);
+}
     
 }

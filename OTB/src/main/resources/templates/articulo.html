@@ -92,7 +92,7 @@ layout:decorate="layout.html">
                         <p><span class="star-icon">&#9733;</span> <span class="badge badge-info">4/5</span></p>
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
                             <button type="submit" style="background:none; border:none; padding:0; margin:0;">
-                                <i class="fa-regular fa-heart card-icon"></i>
+                                <i th:class="${articuloCorazon}"></i>
                             </button>
                         </form>
                     </div>

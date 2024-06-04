@@ -46,8 +46,10 @@ public class ArticuloControlador {
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
 
+        Long articuloFavorito= null;
         if(articuloId != null)
         {
+
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		String emailAuth = auth.getName();
@@ -58,8 +60,13 @@ public class ArticuloControlador {
             Long idusuarioANONIMO = Long.parseLong("1");
             usuario = usuarioServicio.getUsuario(idusuarioANONIMO);
         }
-
+        
         Valoracion valoracion = valoracionServicio.cogerValoracion(Long.parseLong(articuloId),usuario.getId());
+
+        if(usuario != null && articuloId != null){
+        articuloFavorito = articuloServicio.cogerArticuloFavorito(usuario.getId(), Long.parseLong(articuloId));
+        }
+        
 
         Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
 
@@ -74,6 +81,9 @@ public class ArticuloControlador {
                 List<Comentario> comentarios = articulo.getArticuloComentario();
 
                 articulo.addVisualizacion(usuario,articulo);
+
+                if(articuloFavorito == null)model.addAttribute("articuloCorazon", "fa-regular fa-heart card-icon");
+                else model.addAttribute("articuloCorazon", "fas fa-heart card-icon favorited");
 
                 model.addAttribute("valoracion", valoracion);
                 model.addAttribute("autor", usuarioA);
