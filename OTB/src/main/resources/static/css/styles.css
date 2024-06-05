@@ -21,6 +21,9 @@ header h1 {
     margin: 0;
     font-size: 2rem;
 }
+.giphy-embed {
+    border: 0; /* Remover el borde del iframe */
+}
 
 /*FOOTER*/
 footer {
@@ -129,7 +132,7 @@ footer a:hover {
     top: -3px; 
 }
 .plus-icon{
-    top: -3px;
+    top: 5px;
 }
 .star-icon {
     color: var(--azul);
@@ -154,6 +157,16 @@ footer a:hover {
     font-size: 2em;
     margin-right: 10px;
 }
+.avanzado-icon, .edit-icon {
+    color: var(--azul_oscuro);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+.edit-icon {
+    position: absolute;
+    right: 20px;
+    top: 180px;
+}
 
 /*LOGIN - REGISTRO - EDIT*/
 .login, .registro, .editar{
@@ -177,6 +190,57 @@ footer a:hover {
     color: var(--azul_oscuro);
     display: flex;
     justify-content: center;
+    align-items: center;
+}
+
+/*USUARIO*/
+.profile-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.profile-info {
+    margin-left: 20px;
+}
+.profile-name {
+    font-size: 2rem;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+.username {
+    font-size: 1.2rem;
+}
+.article-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.article-count {
+    font-size: 1.2rem;
+}
+.rating {
+    font-size: 1.2rem;
+}
+.bio {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+.article-list .card {
+    width: 48%;
+    margin-right: 2%;
+    margin-bottom: 20px;
+    float: left;
+}
+.article-title {
+    font-style: italic; 
+}
+.rating-trash-container {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -298,6 +362,11 @@ footer a:hover {
 
     .navbar-brand .logo-navbar {
         left: -1.5rem;
+    }
+
+    .article-list .card {
+        width: 100%;
+        float: none;
     }
 } 
 @media (min-width: 992px) { /*ARTICULO -- NO FUNCIONA*/

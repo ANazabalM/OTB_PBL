@@ -13,7 +13,7 @@
             <a th:href="@{/solicitud/view}" class="btn btn-primary btn-custom">Ver Solicitudes de Categoría</a>
         </div>  
         <div class="form-group text-center">
-            <a th:href="@{/crear_categoria}" class="btn btn-primary btn-custom">Crear categoria</a>
+            <a th:href="@{/categoria/create}" class="btn btn-primary btn-custom">Crear categoria</a>
         </div>  
 
     
@@ -34,7 +34,8 @@
                         <td th:text="${usuario.nombre}">ID</td>
                         <td th:text="${usuario.apellido}">ID</td>
                         <td th:text="${usuario.email}">ID</td>
-                        <td class="icon-center"><a th:href="@{'/usuario/edit/' + ${usuario.id}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+                        <td class="icon-center">
+                            <a th:href="@{'/usuario/edit/' + ${usuario.id}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td class="icon-center">
                             <form th:action="@{'/usuario/delete/' + ${usuario.id}}" method="post">
                             <button type="submit" class="btn-trash">

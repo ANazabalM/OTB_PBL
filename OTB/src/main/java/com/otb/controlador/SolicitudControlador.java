@@ -35,7 +35,7 @@ public class SolicitudControlador {
 		String emailAuth = auth.getName();  
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
-        if(usuario.getTipo().equals("avanzado") || usuario.getTipo().equals("administrador"))
+        if(usuario.getRol().equals("avanzado") || usuario.getRol().equals("administrador"))
         {
             List<Solicitud> solicitudes = solicitudServicio.getAll();
             model.addAttribute("solicitudes", solicitudes);
@@ -83,7 +83,7 @@ public class SolicitudControlador {
 		String emailAuth = auth.getName();  
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
-        if(usuario.getTipo().equals("avanzado") || usuario.getTipo().equals("administrador"))
+        if(usuario.getRol().equals("avanzado") || usuario.getRol().equals("administrador"))
         {
             return "solicitud_categoria";
         }
