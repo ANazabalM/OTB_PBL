@@ -8,7 +8,7 @@ async function loadComentarios(articuloId, currentUserEmail) {
     commentsSection.innerHTML = '';
     comentarios.forEach(comment => {
         let commentElement = document.createElement('div');
-        commentElement.classList.add('comment');
+        commentElement.classList.add("comment   ");
         commentElement.textContent = comment.username + ' : ' + comment.contenido;
 
         commentsSection.appendChild(commentElement);
@@ -21,10 +21,6 @@ async function loadComentarios(articuloId, currentUserEmail) {
                 
                 let deleteButton = document.createElement('button');
                 deleteButton.type = 'submit';
-                deleteButton.style.background = 'none';
-                deleteButton.style.border = 'none';
-                deleteButton.style.padding = '0';
-                deleteButton.style.margin = '0';
                 deleteButton.classList.add('btn-trash');
 
                 deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
@@ -37,6 +33,6 @@ async function loadComentarios(articuloId, currentUserEmail) {
 
 async function init(articuloId, currentUserEmail) {
     loadComentarios(articuloId, currentUserEmail);
-    setInterval(() => loadComentarios(articuloId, currentUserEmail), 6400); // Actualiza cada 5 segundos
+    setInterval(() => loadComentarios(articuloId, currentUserEmail), 60000); // Actualiza cada 5 segundos
     
 }

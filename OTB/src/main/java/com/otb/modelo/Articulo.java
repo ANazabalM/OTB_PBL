@@ -77,6 +77,22 @@ public class Articulo {
         articuloValorado.add(valoracion);
         valoracion.setArticulosValorados(this);
     }
+/* 
+    public int mediaValoracion(Long articuloId){
+
+        List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(Long.parseLong(articuloId));
+        
+        int media=0;
+        int i=0;
+        for(Valoracion val : articuloValorado){
+            i++;
+            media = val.getPuntuacion();
+        }
+
+        media = media / i;
+        return media;
+    }
+    */
 
     @ManyToMany(mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;
@@ -111,12 +127,13 @@ public class Articulo {
     }
 
 
-    public Articulo(String titulo, String alt_img, String src_video, String contenido, String lang, Usuario author,
+    public Articulo(String titulo, String alt_img, String src_video, String src_img, String contenido, String lang, Usuario author,
             LocalDate date, Categoria categoria) {
 
                 this.titulo = titulo;
                 this.alt_img = alt_img;
-                this.src_video = src_video;
+                this.src_video = src_video; 
+                this.src_img = src_img;
                 this.contenido = contenido;
                 this.lang = lang;
                 this.usuarios = author;

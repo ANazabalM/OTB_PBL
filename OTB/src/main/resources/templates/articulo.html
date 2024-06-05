@@ -26,7 +26,7 @@ layout:decorate="layout.html">
                     </a>
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
-                        <span class="badge badge-info badge-info-articulo">4/5</span>                                                
+                        </span> <span class="badge badge-info" th:text="${valoracion + '/5'}"></span>                                              
                         <div class="star-container">                            
                             <span class="star-icon-valoracion">&#9733;</span>
                             <span class="star-icon-valoracion">&#9733;</span>
@@ -44,11 +44,14 @@ layout:decorate="layout.html">
             </div>
         </div>
 
-        <div class="comments-section">
+        <div>
             <h3>Comentarios</h3>
-            <div id="comments">
+            <div id="coments1">
+                <div id="comments">
                 
+                </div>
             </div>
+            
 
             <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}" class="comment-form">
                 <textarea class="form-control comment-text" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
