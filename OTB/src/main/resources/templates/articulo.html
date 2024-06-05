@@ -3,8 +3,9 @@
 layout:decorate="layout.html">
 <head>
     <title>OTB - Título del Artículo</title>
+    <script src="/Javascript/main.js"></script>
 </head>
-<body>
+<body th:onload= "init([[${articulo.articuloId}]], [[${currentEmail}]])">
 
     <div class="container article-container" layout:fragment="contenido">
         <div class="row">
@@ -20,7 +21,9 @@ layout:decorate="layout.html">
             <div class="col-lg-4">
                 <div class="article-meta-containers">
                     <h3 class="title-articulo" th:text="${categoria.titulo}"></h3>
-                    <p th:text="${autor}">Username</p>
+                    <a th:href="@{'/usuario/view/' + ${articulo.usuarios.id}}">
+                        <p th:text="${articulo.usuarios.username}">Username</p>
+                    </a>
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
                         <span class="badge badge-info badge-info-articulo">4/5</span>                                                
@@ -33,7 +36,7 @@ layout:decorate="layout.html">
                         </div>
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
                             <button type="submit" class="heart-icon">
-                                <i class="fa-regular fa-heart"></i>
+                                <i th:class="${articuloCorazon}"></i>
                             </button>
                         </form>
                     </div>
@@ -43,15 +46,8 @@ layout:decorate="layout.html">
 
         <div class="comments-section">
             <h3>Comentarios</h3>
-
-            <div th:each="comentario : ${comentarios}" class="comment">
-                <span th:text="${comentario.usuariosComentarios.nombre} + ' : ' + ${comentario.contenido}"></span>
-                <form th:if="${#session.getAttribute('email') == comentario.usuariosComentarios.email}" 
-                      th:action="@{'/comentario/delete/' + ${comentario.comentarioId}}" method="post">
-                    <button type="submit" class="btn-trash">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </form>
+            <div id="comments">
+                
             </div>
 
             <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}" class="comment-form">

@@ -49,11 +49,10 @@
                 <div class="form-group">
                     <label for="categorias">Categoría del Artículo</label>
                     <select class="form-control" id="categorias" th:field="*{categorias}">
-                        <option value="1">Reciclaje</option>
-                        <option value="2">Tecnología</option>
-                        <option value="3">Limpieza del hogar</option>
-                        <option value="4">Cocinar</option>
-                        <option value="5">Otros</option>
+                        <option th:each="categoria : ${categoriasVisualizar}"
+                                th:value="${categoria.categoriaId}"
+                                th:text="${categoria.titulo}">
+                        </option>
                     </select>
                 </div>
                 <div class="form-group">
