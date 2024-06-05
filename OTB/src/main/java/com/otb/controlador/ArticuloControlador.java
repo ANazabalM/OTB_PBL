@@ -141,6 +141,7 @@ public class ArticuloControlador {
         Articulo articuloNuevo = new Articulo(  articulo.getTitulo(),
                                                 articulo.getAlt_img(),
                                                 articulo.getSrc_video(),
+                                                articulo.getSrc_img(),
                                                 articulo.getContenido(),
                                                 articulo.getLang(),
                                                 usuario,
@@ -161,7 +162,7 @@ public class ArticuloControlador {
         if(articulo != null)
         {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-            if((usuario.getRol().equals("admin")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
+            if((usuario.getRol().equals("administrador")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
             {
                 articuloServicio.deleteArticulo(Long.parseLong(articuloId));
             }

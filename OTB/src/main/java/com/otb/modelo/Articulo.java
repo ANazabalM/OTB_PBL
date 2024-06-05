@@ -127,12 +127,13 @@ public class Articulo {
     }
 
 
-    public Articulo(String titulo, String alt_img, String src_video, String contenido, String lang, Usuario author,
+    public Articulo(String titulo, String alt_img, String src_video, String src_img, String contenido, String lang, Usuario author,
             LocalDate date, Categoria categoria) {
 
                 this.titulo = titulo;
                 this.alt_img = alt_img;
-                this.src_video = src_video;
+                this.src_video = src_video; 
+                this.src_img = src_img;
                 this.contenido = contenido;
                 this.lang = lang;
                 this.usuarios = author;
