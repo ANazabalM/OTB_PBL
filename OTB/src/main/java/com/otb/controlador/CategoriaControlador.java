@@ -63,7 +63,7 @@ public class CategoriaControlador {
     @GetMapping("/categoria/create")
     public String verFormularioCreacionCategoria(){ 
         Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        if(usuario.getRol() != null && usuario.getRol().equals("admin"))
+        if(usuario.getRol() != null && usuario.getRol().equals("administrador"))
         {
             return "crear_categoria";
         }
@@ -75,7 +75,7 @@ public class CategoriaControlador {
                                     Model model){
 
         Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        if(usuario.getRol().equals("admin"))
+        if(usuario.getRol().equals("administrador"))
         {
             categoriaServicio.save(categoria);
         }
@@ -92,7 +92,7 @@ public class CategoriaControlador {
         if(categoria != null)
         {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-            if(usuario.getRol().equals("admin"))
+            if(usuario.getRol().equals("administrador"))
             {
                 categoriaServicio.borrarCategoria(categoria);
             }
