@@ -8,7 +8,7 @@ async function loadComentarios(articuloId, currentUserEmail) {
     commentsSection.innerHTML = '';
     comentarios.forEach(comment => {
         let commentElement = document.createElement('div');
-        commentElement.classList.add('form-control');
+        commentElement.classList.add('comment');
         commentElement.textContent = comment.username + ' : ' + comment.contenido;
 
         commentsSection.appendChild(commentElement);
@@ -25,6 +25,8 @@ async function loadComentarios(articuloId, currentUserEmail) {
                 deleteButton.style.border = 'none';
                 deleteButton.style.padding = '0';
                 deleteButton.style.margin = '0';
+                deleteButton.classList.add('btn-trash');
+
                 deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
                     
                 deleteForm.appendChild(deleteButton);
