@@ -77,6 +77,22 @@ public class Articulo {
         articuloValorado.add(valoracion);
         valoracion.setArticulosValorados(this);
     }
+/* 
+    public int mediaValoracion(Long articuloId){
+
+        List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(Long.parseLong(articuloId));
+        
+        int media=0;
+        int i=0;
+        for(Valoracion val : articuloValorado){
+            i++;
+            media = val.getPuntuacion();
+        }
+
+        media = media / i;
+        return media;
+    }
+    */
 
     @ManyToMany(mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;

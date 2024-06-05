@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
+import com.otb.modelo.Valoracion;
 import com.otb.repositorio.ArticuloRepository;
 import com.otb.servicio.ArticuloService;
 

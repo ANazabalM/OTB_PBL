@@ -26,7 +26,7 @@ layout:decorate="layout.html">
                     </a>
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
-                        <span class="badge badge-info badge-info-articulo">4/5</span>                                                
+                        </span> <span class="badge badge-info" th:text="${valoracion + '/5'}"></span>                                              
                         <div class="star-container">                            
                             <span class="star-icon-valoracion">&#9733;</span>
                             <span class="star-icon-valoracion">&#9733;</span>

@@ -16,11 +16,6 @@ layout:decorate="layout.html">
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
                     <div class="card">
-                        <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
-                            <button type="submit">
-                            <i class="fa-regular fa-heart heart-icon"></i>
-                            </button>
-                        </form>
                         <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                             <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         </a>
@@ -38,8 +33,6 @@ layout:decorate="layout.html">
                 </div>
             </div>
         </div>
-
     </div>
- 
 </body>
 </html>

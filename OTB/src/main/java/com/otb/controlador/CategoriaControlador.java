@@ -16,9 +16,11 @@ import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
 import com.otb.modelo.Categoria;
 import com.otb.modelo.Usuario;
+import com.otb.modelo.Valoracion;
 import com.otb.servicio.ArticuloService;
 import com.otb.servicio.CategoriaService;
 import com.otb.servicio.UsuarioServicio;
+import com.otb.servicio.ValoracionService;
 
 @Controller
 public class CategoriaControlador {
@@ -32,16 +34,27 @@ public class CategoriaControlador {
     @Autowired
     private ArticuloService articuloServicio;
 
+    @Autowired
+    private ValoracionService valoracionServicio;
+
     @GetMapping("/categoria/view/{categoriaId}")
     public String showCategoria(@PathVariable String categoriaId, Model model){
         
         if(categoriaId != null)
         {
+
             List<Articulo> articulos = articuloServicio.cogerArticulosCategoria(categoriaId);
             Categoria categoria = categoriaServicio.getCategoria(Long.parseLong(categoriaId));
 
+            /* 
+            for(Articulo media:articulos){
+                Long articuloID=media.getArticuloId();
+                List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(articuloID);
+            }
+            */
             model.addAttribute("articulos", articulos);
             model.addAttribute("categoria", categoria);
+
             return "tema";
         }
         

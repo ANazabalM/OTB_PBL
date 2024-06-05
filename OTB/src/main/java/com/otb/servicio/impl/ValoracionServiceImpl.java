@@ -1,5 +1,7 @@
 package com.otb.servicio.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,4 +26,9 @@ public class ValoracionServiceImpl implements ValoracionService{
         return valoracionRepository.haValorado(articuloId,usuarioId);
     }
     
+    @Override
+    public List<Valoracion> cogerLasValoracion(Long articuloId) {
+    
+        return valoracionRepository.laValoracion(articuloId);
+    }
 }
