@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
     <title>OTB</title>
 </head>
@@ -7,8 +7,7 @@
     <div layout:fragment="contenido">
         
         <div th:if="${param.logout}" class="p-3 pl-5 pr-5">
-            <div class="alert alert-info text-center card mx-auto">Ha cerrado sesión exitosamente
-            </div>
+            <div class="alert alert-info text-center card mx-auto">Ha cerrado sesión exitosamente</div>
         </div>
 
         <div class="p-3 pl-5 pr-5" th:if="${param.error}">
@@ -25,20 +24,19 @@
                     <h2 class="mb-4">¡Bienvenidos a Outside the Books! Descubre el conocimiento vital que va más allá de las páginas.</h2>
                 </div>
                 <div class="col-md-6 text-center order-md-1">
-                    <!-- Reemplaza el enlace de abajo con un GIF o video real -->
-                    <iframe src="https://giphy.com/embed/KDYB0cH4HW8xc3VIAx" width="480" height="271" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-            </div>
-        </div>
+                    <iframe src="https://giphy.com/embed/KDYB0cH4HW8xc3VIAx" width="480" height="271" class="giphy-embed" allowFullScreen></iframe>
+                </div> 
+            </div> 
+        </div> 
         
         <div class="container mt-3">
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
                     <div class="card">
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
-                        <button type="submit">
-                            <i class="fa-regular fa-heart heart-icon"></i>
-
-                        </button>
+                            <button type="submit">
+                                <i class="fa-regular fa-heart heart-icon"></i>
+                            </button>
                         </form>
                         <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                             <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
@@ -47,16 +45,12 @@
                             <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
-                            <a th:href="@{'/usuario/view/' + ${articulo.usuarios.id}}">
-                                <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
-                                    Autor - Fecha</p>
-                            </a>
                             <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
                         </div>  
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
-    </div>
+    </div> 
 </body>
 </html>

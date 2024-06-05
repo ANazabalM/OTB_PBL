@@ -16,7 +16,7 @@
                             class="form-control" 
                             id="titulo" 
                             th:field="*{titulo}" 
-                            required autofocus="autofocus"
+                            required 
                             placeholder= "Ingresa el título de la categoría">
                 </div>
                 <div class="form-group">
@@ -24,9 +24,7 @@
                     <input  type="color" 
                             class="form-control" 
                             id="color" 
-                            th:field="*{color}" 
-                            required autofocus="autofocus"
-                            placeholder= "Ingresa el color de la categoría">
+                            th:field="*{color}">
                 </div>
                 <div class="form-group">    
                             <label for="icono">Icono de la categoria</label>
@@ -34,7 +32,7 @@
                             class="form-control" 
                             id="icono" 
                             th:field="*{icono}" 
-                            required autofocus="autofocus"
+                            required
                             placeholder= "Ingresa el icono de la categoría">
                 </div>
                 <div class="form-group text-right">

@@ -63,7 +63,7 @@ public class CategoriaControlador {
     @GetMapping("/categoria/create")
     public String verFormularioCreacionCategoria(){ 
         Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-        if(usuario.getRol() != null && usuario.getRol().equals("admin"))
+        if(usuario.getRol() != null && usuario.getRol().equals("administrador"))
         {
             return "crear_categoria";
         }

@@ -19,7 +19,7 @@
                         <div class="form-group">
                             <label class="control-label" for="apellido">Apellido : </label> <input
                                 id="apellido" class="form-control" th:field="*{apellido}"
-                                required autofocus="autofocus">
+                                required>
                         </div>
 
                         <div class="form-group">
@@ -29,14 +29,12 @@
 
                         <div class="form-group">
                             <label class="control-label" for="img_src">URL de imagen de perfil: </label> 
-                            <input id="img_src" type="url" class="form-control" th:field="*{img_src}"
-                                autofocus="autofocus">
+                            <input id="img_src" type="url" class="form-control" th:field="*{img_src}">
                         </div>
 
                         <div class="form-group">
                             <label class="control-label" for="fecha_nacimiento">Fecha de nacimiento: </label> 
-                            <input id="fecha_nacimiento" type="date" class="form-control" th:field="*{fecha_nacimiento}"
-                                required autofocus="autofocus">
+                            <input id="fecha_nacimiento" type="date" class="form-control" th:field="*{fecha_nacimiento}">
                         </div>
 
                         <button type="submit" class="btn btn-primary btn-block">Editar Usuario</button>

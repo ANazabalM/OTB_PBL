@@ -3,107 +3,10 @@
 layout:decorate="layout.html">
 <head>
     <title>Perfil de Usuario</title>
-    <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-        body {
-            display: flex;
-            flex-direction: column;
-        }
-        .container {
-            flex: 1;
-        }
-        .profile-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            margin-top: 20px;
-        }
-        .profile-info {
-            margin-left: 20px;
-        }
-        .profile-name {
-            font-size: 2rem;
-            margin-right: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .username {
-            font-size: 1.2rem;
-        }
-        .article-info {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-        }
-        .article-count {
-            font-size: 1.2rem;
-        }
-        .rating {
-            font-size: 1.2rem;
-        }
-        .bio {
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-        .article-list .card {
-            width: 48%;
-            margin-right: 2%;
-            margin-bottom: 20px;
-            float: left;
-        }
-        .article-title {
-            font-style: italic; 
-        }
-        footer {
-            width: 100%;
-            position: relative;
-            left: 0;
-            bottom: 0;
-            background-color: #343a40;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-        }
-        @media (max-width: 768px) {
-            .article-list .card {
-                width: 100%;
-                float: none;
-            }
-        }
-        .icon, .edit-icon {
-            color: #343a40;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        .edit-icon {
-            position: absolute;
-            right: 20px;
-            top: 180px;
-        }
-        .trash-icon {
-            color: #343a40;
-            cursor: pointer;
-            background:none; 
-            border:none; 
-            padding:0; 
-            margin:0;
-        }
-        .rating-trash-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
 </head>
 <body>
     <div layout:fragment="contenido">
         <div class="container">
-            <!-- Botón de editar justo debajo de la navegación a la derecha -->
             <div th:if="${mismo}" class="edit-icon">
                 <a th:href="@{'/usuario/edit/' + ${usuario.id}}"><i class="fa-solid fa-pen-to-square"></i></a>
             </div>
@@ -112,7 +15,7 @@ layout:decorate="layout.html">
                 <div class="profile-info">
                     <div class="profile-name">
                         <span th:text="${usuario.nombre} + ' ' + ${usuario.apellido}">Nombre Apellido</span>
-                        <div class="icon" style="margin-left: 10px;">
+                        <div class="avanzado-icon" style="margin-left: 10px;">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
                     </div>
@@ -146,7 +49,7 @@ layout:decorate="layout.html">
                                 <div class="rating-trash-container">
                                     <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
                                     <form th:if="${mismo}" th:action="@{'/articulo/delete/' + ${articulo.articuloId}}" method="post">
-                                        <button type="submit" style="" class="trash-icon">
+                                        <button type="submit" class="btn-trash">
                                             <i class="fa-solid fa-trash-can"></i>
                                         </button>
                                     </form>
