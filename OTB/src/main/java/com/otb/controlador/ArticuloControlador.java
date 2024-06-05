@@ -131,6 +131,7 @@ public class ArticuloControlador {
         Articulo articuloNuevo = new Articulo(  articulo.getTitulo(),
                                                 articulo.getAlt_img(),
                                                 articulo.getSrc_video(),
+                                                articulo.getSrc_img(),
                                                 articulo.getContenido(),
                                                 articulo.getLang(),
                                                 usuario,

@@ -44,11 +44,14 @@ layout:decorate="layout.html">
             </div>
         </div>
 
-        <div class="comments-section">
+        <div>
             <h3>Comentarios</h3>
-            <div id="comments">
+            <div id="coments1">
+                <div id="comments">
                 
+                </div>
             </div>
+            
 
             <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}" class="comment-form">
                 <textarea class="form-control comment-text" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
