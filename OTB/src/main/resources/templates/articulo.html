@@ -3,71 +3,6 @@
 layout:decorate="layout.html">
 <head>
     <title>OTB - Título del Artículo</title>
-    <style>
-        .badge-info {
-            background-color: #7BCF6F;
-        }
-        .star-icon {
-            color: #7BCF6F;
-        }
-        .card-icon {
-            color: #ff0000;
-            font-size: 1.5rem;
-        }
-        .article-header {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        .article-title {
-            font-size: 2.5rem;
-            color: #4a596d;
-        }
-        .article-content {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-        }
-        .article-meta {
-            font-size: 1rem;
-            color: #6c757d;
-        }
-        .article-container {
-            margin-top: 20px;
-        }
-        .comments-section {
-            margin-top: 40px;
-        }
-        .comment {
-            background-color: white;
-            border: 1px solid #dee2e6;
-            border-radius: 5px;
-            padding: 15px;
-            margin-bottom: 10px;
-        }
-        .titulo-reciclaje {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #7BCF6F;
-            font-weight: bold;
-            font-style: italic;
-        }
-        .article-meta-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .article-meta-container {
-            display: flex;
-            flex-direction: column;
-        }
-        @media (min-width: 992px) {
-            .article-meta-container {
-                margin-top: 75px;
-            }
-            .titulo-reciclaje {
-                align-self: flex-start;
-            }
-        }
-    </style>
 </head>
 <body>
 
@@ -83,15 +18,22 @@ layout:decorate="layout.html">
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="article-meta-container">
-                    <h3 class="titulo-reciclaje" th:text="${categoria.titulo}"></h3>
-                    <p th:text="${autor.username}">Username</p>
+                <div class="article-meta-containers">
+                    <h3 class="title-articulo" th:text="${categoria.titulo}"></h3>
+                    <p th:text="${autor}">Username</p>
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
-                        <p><span class="star-icon">&#9733;</span> <span class="badge badge-info">4/5</span></p>
+                        <span class="badge badge-info badge-info-articulo">4/5</span>                                                
+                        <div class="star-container">                            
+                            <span class="star-icon-valoracion">&#9733;</span>
+                            <span class="star-icon-valoracion">&#9733;</span>
+                            <span class="star-icon-valoracion">&#9733;</span>
+                            <span class="star-icon-valoracion">&#9733;</span>
+                            <span class="star-icon-valoracion">&#9733;</span>
+                        </div>
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
-                            <button type="submit" style="background:none; border:none; padding:0; margin:0;">
-                                <i class="fa-regular fa-heart card-icon"></i>
+                            <button type="submit" class="heart-icon">
+                                <i class="fa-regular fa-heart"></i>
                             </button>
                         </form>
                     </div>
@@ -102,22 +44,21 @@ layout:decorate="layout.html">
         <div class="comments-section">
             <h3>Comentarios</h3>
 
-            <div th:each="comentario : ${comentarios}">
-                <label class="form-control" rows="3" th:text="${comentario.usuariosComentarios.nombre} + ' : ' + ${comentario.contenido}" placeholder="Escribe tu comentario aquí"></label>
+            <div th:each="comentario : ${comentarios}" class="comment">
+                <span th:text="${comentario.usuariosComentarios.nombre} + ' : ' + ${comentario.contenido}"></span>
                 <form th:if="${#session.getAttribute('email') == comentario.usuariosComentarios.email}" 
-                        th:action="@{'/comentario/delete/' + ${comentario.comentarioId}}" method="post">
-                    <button type="submit" style="background:none; border:none; padding:0; margin:0;">
+                      th:action="@{'/comentario/delete/' + ${comentario.comentarioId}}" method="post">
+                    <button type="submit" class="btn-trash">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </form>
             </div>
 
-            <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}">
-                <div class="form-group">
-                    <textarea class="form-control" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary" style="background-color: #4a596d; border-color: #4a596d;">
-                    <i class="fa-solid fa-paper-plane"></i></button>
+            <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}" class="comment-form">
+                <textarea class="form-control comment-text" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa-solid fa-paper-plane"></i>
+                </button>
             </form>
         </div>
     </div>

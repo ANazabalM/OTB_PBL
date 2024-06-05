@@ -27,8 +27,8 @@
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
                     <div class="card">
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
-                        <button type="submit" style="background:none; border:none; padding:0; margin:0;">
-                            <i class="fa-regular fa-heart card-icon"></i>
+                        <button type="submit">
+                            <i class="fa-regular fa-heart heart-icon"></i>
 
                         </button>
                         </form>
@@ -36,12 +36,11 @@
                             <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         </a>
                         <div class="card-body">
-                            <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}" style="color: inherit; text-decoration: none;">
+                            <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
-                                <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
-                                    Autor - Fecha</p>
-                            <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
+
+                            <p class="card-text"><span class="star-icon"></span> <span class="badge badge-info">3/5</span></p>
                         </div>
                     </div>
                 </div>

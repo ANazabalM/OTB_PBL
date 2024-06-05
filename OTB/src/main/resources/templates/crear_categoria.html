@@ -2,41 +2,11 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
     <title>OTB - Crear Artículo</title>
-    <style>
-        .badge-info {
-            background-color: #7BCF6F;
-        }
-        .star-icon {
-            color: #7BCF6F;
-        }
-        .card-icon {
-            color: #ff0000;
-            font-size: 1.5rem;
-        }
-        .create-article-header {
-            margin-block-start: 20px;
-            margin-block-end: 20px;
-        }
-        .create-article-title {
-            font-size: 2.5rem;
-            color: #4a596d;
-        }
-        .form-group label {
-            font-weight: bold;
-        }
-        .btn-custom {
-            background-color: #4a596d;
-            border-color: #4a596d;
-        }
-        #btn-cancel:hover{
-            background-color: #d14747;
-        }
-    </style>
 </head>
 <body>
     <div layout:fragment="contenido">
-        <div class="container create-article-header">
-            <h2 class="create-article-title text-center">Crear Categoría</h2>
+        <div class="container create-header">
+            <h2 class="create-title text-center">Crear Categoría</h2>
         </div>
         <div class="container">
             <form th:action="@{/categoria/create}" method="post" th:object="${categoria}">
@@ -69,6 +39,7 @@
                 </div>
                 <div class="form-group text-right">
                     <button type="submit" class="btn btn-primary btn-custom">Finalizar y Compartir</button>
+                    <a class="btn btn-secondary btn-cancel" th:href="@{/}">Cancelar</a>
                 </div>
             </form> 
         </div>

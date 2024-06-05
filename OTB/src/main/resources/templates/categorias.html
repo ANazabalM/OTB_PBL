@@ -3,55 +3,6 @@
 layout:decorate="layout.html">
 <head>
     <title>OTB - Título del Artículo</title>
-<style>
-        .category-icon {
-            font-size: 2em;
-            margin-right: 10px;
-        }
-        .category-title {
-            font-size: 1.5em;
-        }
-        .category-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 20px;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            background-color: #fff;
-        }
-        .recycle-icon {
-            color: #7BCF6F;
-        }
-        .tecnologia-icon{
-            color: #F77272;
-        }
-        .economia-icon{
-            color: #F9F568;
-        }
-        .limpieza-icon{
-            color: #9AD6EA;
-        }
-        .cocina-icon{
-            color: #FFBD5B;
-        }
-        .mecanica-icon{
-            color: #AAAA9E;
-        }
-        .deporte-icon{
-            color: #D07AF5;
-        }
-        .hogar-icon{
-            color: #98F5B8;
-        }
-        .animales-icon{
-            color: #C98769;
-        }
-        .sexo-icon{
-            color: #F590C9;
-        }
-    </style>
 </head>
 <body>
     <div class="container mt-5" layout:fragment="contenido">
@@ -62,7 +13,7 @@ layout:decorate="layout.html">
                         <i th:class="${categoria.icono} + ' category-icon'"
                         th:style="'color: ' + ${categoria.color}"></i>
                     </a>
-                    <span class="category-title" th:text="${categoria.titulo}" 
+                    <span class="title-categoria" th:text="${categoria.titulo}" 
                         >NombreCategoria</span>
                 </div>
             </div>

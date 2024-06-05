@@ -2,46 +2,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
     <title>OTB - Crear categoria</title>
-
-    <style>
-        .btn-custom {
-            margin-bottom: 20px;
-            background-color: #4a596d;
-            border-color: #4a596d;
-        }
-        .icon-center {
-            color: #343a40;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .table th, .table td {
-            text-align: center;
-            vertical-align: middle;
-        }
-        .table th {
-            white-space: nowrap;
-        }
-        .table .icon-column {
-            width: 50px;
-        }
-        h2 {
-            color: #4a596d;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            font-style: italic; 
-            font-size: 1.5em;
-        }
-    </style>
 </head>
 <body>
 
     <div layout:fragment="contenido">
 
-        <h2>Acciones de administrador</h2>
+        <h2 class="title-admin">Acciones de administrador</h2>
 
         <div class="form-group text-center">
             <a th:href="@{/solicitud/view}" class="btn btn-primary btn-custom">Ver Solicitudes de Categoría</a>
@@ -71,7 +37,7 @@
                         <td class="icon-center"><a th:href="@{'/usuario/edit/' + ${usuario.id}}"><i class="fa-solid fa-pen-to-square"></i></a></td>
                         <td class="icon-center">
                             <form th:action="@{'/usuario/delete/' + ${usuario.id}}" method="post">
-                            <button type="submit" style="border:none; padding:0; margin:0;">
+                            <button type="submit" class="btn-trash">
                                 <i class="fa-solid fa-trash-can"></i>
                             </button>
                             </form>

@@ -2,47 +2,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
     <title>OTB - Visualizar Solicitudes de Categoría</title>
-    <style>
-        /* Estilos de botones y tabla */
-        .btn-custom {
-            margin-bottom: 20px;
-            background-color: #4a596d;
-            border-color: #4a596d;
-        }
-        .icon-center {
-            color: #343a40;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .table th, .table td {
-            text-align: center;
-            vertical-align: middle;
-        }
-        .table th {
-            white-space: nowrap;
-        }
-        .table .icon-column {
-            width: 50px;
-        }
-        /* Estilos para título */
-        h2 {
-            color: #4a596d;
-            text-align: center;
-            margin-top: 20px;
-            margin-bottom: 20px;
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            font-style: italic; 
-            font-size: 1.5em;
-        }
-    </style>
 </head>
 <body>
 
     <div layout:fragment="contenido">
         
-        <h2>Solicitudes de Categoría</h2>
+        <h2 class="title-solicitud">Solicitudes de Categoría</h2>
     
         <!-- Tabla de solicitudes -->
         <div class="container">
