@@ -31,7 +31,7 @@ layout:decorate="layout.html">
                                 <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
                                     Autor - Fecha</p>
                             </a>
-                            <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
+                            <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info" th:text="${articulo.valoracionMedia + '/5'}"></span></p>
                         </div>
                     </div>
                 </div>

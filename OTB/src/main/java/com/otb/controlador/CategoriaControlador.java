@@ -45,13 +45,23 @@ public class CategoriaControlador {
 
             List<Articulo> articulos = articuloServicio.cogerArticulosCategoria(categoriaId);
             Categoria categoria = categoriaServicio.getCategoria(Long.parseLong(categoriaId));
+        
+            for (Articulo articulo2 :articulos){
 
-            /* 
-            for(Articulo media:articulos){
-                Long articuloID=media.getArticuloId();
-                List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(articuloID);
-            }
-            */
+                List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(articulo2.getArticuloId());
+                int mediaValoracion = 0;
+                if(listaValoracion!=null){
+                    int i =0 ;
+                    for (Valoracion valoracion2 :listaValoracion){
+                        i++;
+                        mediaValoracion = mediaValoracion + valoracion2.getPuntuacion();
+                    }
+                            mediaValoracion = (mediaValoracion / i);
+                            articulo2.setValoracionMedia(mediaValoracion);
+                        }else articulo2.setValoracionMedia(0);
+                        
+                        
+                    }
             model.addAttribute("articulos", articulos);
             model.addAttribute("categoria", categoria);
 

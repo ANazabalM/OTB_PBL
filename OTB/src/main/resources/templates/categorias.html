@@ -13,8 +13,7 @@ layout:decorate="layout.html">
                         <i th:class="${categoria.icono} + ' category-icon'"
                         th:style="'color: ' + ${categoria.color}"></i>
                     
-                    <span class="title-categoria" th:style="'color: ' + ${categoria.color}" th:href="@{'/categoria/view/' + ${categoria.categoriaId}}" th:text="${categoria.titulo}" 
-                        >NombreCategoria</span>
+                    <span class="title-categoria" th:style="'color: ' + ${categoria.color}" th:href="@{'/categoria/view/' + ${categoria.categoriaId}}" th:text="${categoria.titulo}" >NombreCategoria</span>
                     </a>
                 </div>
             </div>

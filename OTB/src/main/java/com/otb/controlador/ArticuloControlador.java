@@ -41,9 +41,6 @@ public class ArticuloControlador {
 
     @Autowired
     private CategoriaService categoriaServicio;
-
-    @Autowired
-    private ValoracionService valoracionServicio;
     
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
@@ -63,18 +60,8 @@ public class ArticuloControlador {
             usuario = usuarioServicio.getUsuario(idusuarioANONIMO);
         }
         
-        List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(Long.parseLong(articuloId));
-        int mediaValoracion = 0;
-        if(listaValoracion==null){
-                int i =0 ;
-                
-                for (Valoracion valoracion2 :listaValoracion){
-                    i++;
-                    mediaValoracion = mediaValoracion + valoracion2.getPuntuacion();
-                }
-                mediaValoracion = (mediaValoracion / i);
-            }
-            mediaValoracion=0;
+
+        
         if(usuario != null && articuloId != null){
         articuloFavorito = articuloServicio.cogerArticuloFavorito(usuario.getId(), Long.parseLong(articuloId));
         }
@@ -97,7 +84,6 @@ public class ArticuloControlador {
                 if(articuloFavorito == null)model.addAttribute("articuloCorazon", "fa-regular fa-heart card-icon");
                 else model.addAttribute("articuloCorazon", "fas fa-heart card-icon favorited");
 
-                model.addAttribute("valoracion", mediaValoracion);
                 model.addAttribute("autor", usuarioA);
                 model.addAttribute("articulo", articulo);
                 model.addAttribute("categoria", categoria2);
