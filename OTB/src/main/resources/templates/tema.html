@@ -8,18 +8,22 @@ layout:decorate="layout.html">
 
     <div layout:fragment = "contenido">
         <div class="container mt-3">
-            <h2 class="text-center" th:text="${categoria.titulo}" 
-                th:style="'color: ' + ${categoria.color}">Titulo</h2>
+            <a th:href="@{'/categoria/view/' + ${categoria.categoriaId}}"> 
+
+            <i th:class="${categoria.icono} + ' category-icon'" th:style="'color: ' + ${categoria.color}"></i>
+            
+            <h2 class="title-categoria-grande" th:style="'color: ' + ${categoria.color}" th:href="@{'/categoria/view/' + ${categoria.categoriaId}}" th:text="${categoria.titulo}">NombreCategoria</h2>
+            </a>
         </div>
     
         <div class="container mt-3">
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
-                    <div class="card">
-                        <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
+                    <div class="card" th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
+                        <a >
                             <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         </a>
-                        <div class="card-body">
+                        <div class="card-body" th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                             <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
