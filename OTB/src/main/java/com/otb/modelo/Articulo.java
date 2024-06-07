@@ -53,6 +53,9 @@ public class Articulo {
     
     @Column
     private String contenido;
+
+    @Column
+    private Integer valoracion_media;
     
     @ManyToOne (fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
     @JoinColumn(name = "categoria_ID")
