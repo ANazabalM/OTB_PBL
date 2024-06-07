@@ -4,12 +4,8 @@ layout:decorate="layout.html">
 <head>
     <title>OTB - Título del Artículo</title>
     <script src="/Javascript/main.js"></script>
-    <style>
-        
-    </style>
 </head>
-<body >
-
+<body th:onload="init([[${articulo.articuloId}]],[[${currentEmail}]])">
     <div class="container article-container" layout:fragment="contenido">
         <div class="row">
             <div class="col-lg-8">
@@ -29,7 +25,7 @@ layout:decorate="layout.html">
                     </a>
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
-                        </span> <span class="badge badge-info" th:text="${articulo.valoracionMedia + '/5'}"></span>                                              
+                        <span class="badge badge-info" th:text="${articulo.valoracionMedia + '/5'}"></span>                                              
                         <div class="star-container">                            
                             <span class="star-icon-valoracion">&#9733;</span>
                             <span class="star-icon-valoracion">&#9733;</span>
@@ -49,20 +45,12 @@ layout:decorate="layout.html">
 
         <div>
             <h3>Comentarios</h3>
-            <div class="comments-section">
-                <div class="comment-form">
-                    <div class="comment-text">eider : hjb</div>
-                    <form method="GET" action="/comentario/delete/8">
-                        <button type="submit" class="btn btn-trash">
-                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
-                        </button>
-                    </form>
+                <div id="comment1">
+                    
                 </div>
-            </div>
+                
             
-            
-            
-
+        
             <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}" class="comment-form">
                 <textarea class="form-control comment-text" id="contenido" th:field="*{contenido}" rows="3" placeholder="Escribe su comentario aqui"></textarea>
                 <button type="submit" class="btn btn-primary">

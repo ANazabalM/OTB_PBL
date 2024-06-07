@@ -4,14 +4,16 @@ async function loadComentarios(articuloId, currentUserEmail) {
     const comentarios = await response.json();
     console.log(comentarios);
 
-    let commentsSection = document.getElementById('comments');
+    let commentsSection = document.getElementById('comment1');
     commentsSection.innerHTML = '';
     comentarios.forEach(comment => {
+        let commentElement1 = document.createElement('div')
+        commentElement1.classList.add("comment-section")
         let commentElement = document.createElement('div');
         commentElement.classList.add("comment");
         commentElement.textContent = comment.username + ' : ' + comment.contenido;
 
-        commentsSection.appendChild(commentElement);
+        commentElement1.appendChild(commentElement);
                 
         // If the current user is the owner of the comment, add delete button
             if (comment.email === currentUserEmail) {
@@ -26,8 +28,9 @@ async function loadComentarios(articuloId, currentUserEmail) {
                 deleteButton.innerHTML = '<i class="fa-solid fa-trash-can"></i>';
                     
                 deleteForm.appendChild(deleteButton);
-                commentsSection.appendChild(deleteForm);
+                commentElement1.appendChild(deleteForm);
             }
+            commentsSection.appendChild(commentElement1);
         });
 }
 

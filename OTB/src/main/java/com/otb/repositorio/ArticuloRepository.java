@@ -12,7 +12,7 @@ import com.otb.modelo.Articulo;
 @Repository
 public interface ArticuloRepository extends JpaRepository <Articulo, Long>{
     
-    @Query(value = "SELECT a.* FROM articulos_leidos al JOIN articulo a ON al.articulo_id = a.articulo_id GROUP BY al.articulo_id ORDER BY COUNT(al.articulo_id) DESC LIMIT 4", nativeQuery = true)
+    @Query(value = "SELECT a.* FROM articulos_leidos al JOIN articulo a ON al.articulo_id = a.articulo_id GROUP BY al.articulo_id ORDER BY COUNT(al.articulo_id) DESC LIMIT 8", nativeQuery = true)
     public List<Articulo> getTopArticulos();
 
     @Query(value = "SELECT a.* FROM articulo a WHERE a.categoria_id = :categoriaId", nativeQuery = true)

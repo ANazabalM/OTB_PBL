@@ -3,16 +3,15 @@
 layout:decorate="layout.html">
 <head>
     <title>OTB - Reciclaje</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
 </head>
 <body>
 
-    <div layout:fragment = "contenido">
+    <div layout:fragment="contenido">
         <div class="container mt-3">
-            <a th:href="@{'/categoria/view/' + ${categoria.categoriaId}}"> 
-
-            <i th:class="${categoria.icono} + ' category-icon'" th:style="'color: ' + ${categoria.color}"></i>
-            
-            <h2 class="title-categoria-grande" th:style="'color: ' + ${categoria.color}" th:href="@{'/categoria/view/' + ${categoria.categoriaId}}" th:text="${categoria.titulo}">NombreCategoria</h2>
+            <a th:href="@{'/categoria/view/' + ${categoria.categoriaId}}" class="category-container"> 
+                <i th:class="${categoria.icono} + ' category-icon'" th:style="'color: ' + ${categoria.color}"></i>
+                <h2 class="title-categoria-grande" th:style="'color: ' + ${categoria.color}" th:text="${categoria.titulo}">NombreCategoria</h2>
             </a>
         </div>
     
@@ -20,7 +19,7 @@ layout:decorate="layout.html">
             <div class="row">
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${articulos}">
                     <div class="card" th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
-                        <a >
+                        <a>
                             <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         </a>
                         <div class="card-body" th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
@@ -28,10 +27,9 @@ layout:decorate="layout.html">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
                             <a th:href="@{'/usuario/view/' + ${articulo.usuarios.id}}">
-                                <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
-                                    Autor - Fecha</p>
+                                <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">Autor - Fecha</p>
                             </a>
-                            <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info" th:text="${articulo.valoracionMedia + '/5'}"></span></p>
+                            <p class="card-text"><span class="star-icon" th:style="'color: ' + ${categoria.color}">&#9733;</span> <span class="badge badge-info" th:style="'background-color: ' + ${categoria.color}" th:text="${articulo.valoracionMedia + '/5'}"></span></p>
                         </div>
                     </div>
                 </div>

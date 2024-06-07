@@ -34,7 +34,14 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/categoria/view}"><i class="fa-solid fa-ellipsis"></i>MÁS CATEGORÍAS</a>
                 </li>
-                
+
+                <!-- Icono plus y crear categoría en pantallas pequeñas -->
+                <li class="nav-item d-lg-none" th:if="${#session != null and #session.getAttribute('email') != null}">
+                    <a class="nav-link" th:href="@{/articulo/create}">
+                        <i class="fa-solid fa-plus plus-icon"></i> Crear Categoría
+                    </a>
+                </li>
+
                 <!-- Elementos de la derecha dentro del menú desplegable en pantallas pequeñas -->
                 <li class="nav-item dropdown d-lg-none">
                     <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -57,9 +64,9 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdown">
                         <a class="dropdown-item" th:href="@{'/usuario/view/' + ${#session.getAttribute('userId')}}">Ver Perfil</a>
-                        <a class="dropdown-item" th:href="@{'/listaDeFavoritos'}" >Ver Lista de Favoritos</a>
-                        <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('admin') == true}" th:href="@{/administrador}">Acciones de adminsitrador</a>
-                        <a class="dropdown-item" th:if="${#session != null and  #session.getAttribute('avanzado') == true}" th:href="@{/solicitud/create}">Solicitar categoría</a>
+                        <a class="dropdown-item" th:href="@{'/listaDeFavoritos'}">Ver Lista de Favoritos</a>
+                        <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('admin') == true}" th:href="@{/administrador}">Acciones de administrador</a>
+                        <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('avanzado') == true}" th:href="@{/solicitud/create}">Solicitar categoría</a>
                         <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
                     </div>
                 </li>
@@ -67,13 +74,12 @@
 
             <!-- Elementos de la derecha para pantallas grandes -->
             <ul class="navbar-nav ml-auto d-none d-lg-flex">
-                
                 <li class="nav-item" th:if="${#session != null and #session.getAttribute('email') != null}">
                     <a class="nav-link text-white ml-3" th:href="@{/articulo/create}">
                         <i class="fa-solid fa-plus plus-icon"></i>
                     </a>
-                </li>                
-                
+                </li>
+
                 <li class="nav-item dropdown">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="languageDropdownLarge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         es
@@ -98,8 +104,8 @@
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profileDropdownLarge">
                         <a class="dropdown-item" th:href="@{'/usuario/view/' + ${#session.getAttribute('userId')}}">Ver Perfil</a>
                         <a class="dropdown-item" th:href="@{'/listaDeFavoritos/'}">Ver Lista de Favoritos</a>                            
-                        <a class="dropdown-item" th:if="${#session != null and  #session.getAttribute('admin') == true}" th:href="@{/administrador}">Admin</a>
-                        <a class="dropdown-item" th:if="${#session != null and  #session.getAttribute('avanzado') == true}" th:href="@{/solicitud/create}">Solicitar categoría</a>
+                        <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('admin') == true}" th:href="@{/administrador}">Admin</a>
+                        <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('avanzado') == true}" th:href="@{/solicitud/create}">Solicitar categoría</a>
                         <a class="dropdown-item" th:href="@{'/solicitud/create'}">Solicitar Categoría</a>   
                         <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                     </div>

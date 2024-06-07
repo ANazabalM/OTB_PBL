@@ -210,7 +210,7 @@ public class UsuarioControlador {
                     usuario.add_articulo_favoritos(articulo);
                     usuarioServicio.editarUsuario(usuario);
                 }
-                return "redirect:/listaDeFavoritos";
+                return "redirect:/articulo/view/" + articuloId;
             }
         }
         return "redirect:/";
