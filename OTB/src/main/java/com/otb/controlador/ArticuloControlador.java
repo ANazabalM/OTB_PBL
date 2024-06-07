@@ -138,9 +138,8 @@ public class ArticuloControlador {
 
 		String emailAuth = auth.getName();
 
-        Categoria catergoriaID = articulo.getCategorias();
         
-        Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
+        Categoria categoria = articulo.getCategorias();
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
 
         Articulo articuloNuevo = new Articulo(  articulo.getTitulo(),
