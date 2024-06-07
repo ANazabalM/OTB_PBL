@@ -41,10 +41,10 @@ public class LoginControlador {
 			
 			usuario = usuarioServicio.buscarPorEmail(email);
 		
-			if(usuario.getRol() != null && usuario.getRol().equals("administrador"))
+			if(usuario.getTipo() != null && usuario.getTipo().equals("administrador"))
 			{
 				session.setAttribute("admin", true);
-			}else if(usuario.getRol() != null && usuario.getRol().equals("avanzado"))
+			}else if(usuario.getTipo() != null && usuario.getTipo().equals("avanzado"))
 			{
 				session.setAttribute("avanzado", true);
 

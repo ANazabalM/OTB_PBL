@@ -67,7 +67,7 @@ public class ComentarioControlador {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
             Articulo articulo = articuloServicio.getArticulo(comentario.getArticulosComentarios().getArticuloId());
 
-            if((usuario.getRol().equals("administrador")) || (session.getAttribute("email").equals(comentario.getUsuariosComentarios().getEmail())))
+            if((usuario.getTipo().equals("administrador")) || (session.getAttribute("email").equals(comentario.getUsuariosComentarios().getEmail())))
             {
                 comentarioServicio.borrarComentario(comentario);
             }
