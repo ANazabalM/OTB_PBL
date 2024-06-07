@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data                           // Atributo de lombok, que crea getters y setters. Para ahorrar código.                             
+@Data                          // Atributo de lombok, que crea getters y setters. Para ahorrar código.                             
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
