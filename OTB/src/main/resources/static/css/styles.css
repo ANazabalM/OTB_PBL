@@ -259,7 +259,7 @@ footer a:hover {
     background-color: white;
 }
 .category-item:hover{
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 /*CARD ARTICULO*/
@@ -318,7 +318,7 @@ footer a:hover {
 .comments-section {
     margin-top: 40px;
 }
-.comment {
+#comment {
     background-color: white;
     border: 1px solid var(--blanco_border);
     border-radius: 5px;
@@ -337,6 +337,7 @@ footer a:hover {
     flex: 1;
     margin-right: 10px;
 }
+
 
 /*CREAR ARTICULO-CATEGORIA-SOLICITUD*/
 .create-header {
