@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-layout:decorate="layout.html">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
     <title>OTB - Reciclaje</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> 
@@ -22,10 +21,13 @@ layout:decorate="layout.html">
                         <a>
                             <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         </a>
-                        <div class="card-body" th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
+                        <div class="card-body pb-1" th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                             <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
+                            
+                        </div>
+                        <div  class="card-footer pt-0" th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                             <a th:href="@{'/usuario/view/' + ${articulo.usuarios.id}}">
                                 <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">Autor - Fecha</p>
                             </a>
