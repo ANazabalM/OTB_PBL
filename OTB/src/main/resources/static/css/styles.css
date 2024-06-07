@@ -22,7 +22,7 @@ header h1 {
     font-size: 2rem;
 }
 .giphy-embed {
-    border: 0; /* Remover el borde del iframe */
+    border: 0; 
 }
 
 /*FOOTER*/
@@ -76,7 +76,7 @@ footer a:hover {
     background-color: var(--azul);
     border-color: var(--azul);
 }
-.btn-custom, .btn-block { /*admin/crear art*/
+.btn-custom, .btn-block { 
     background-color: var(--azul);
     border-color: var(--azul);
 }
