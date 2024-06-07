@@ -395,13 +395,10 @@ footer a:hover {
     .navbar-nav .nav-link {
         padding-left: 0;
     }
-}
-@media (min-width: 992px) {
-    
-    .titulo-articulo {
+    .title-articulo {
         align-self: flex-start;
     }
-    .article-meta-container {
+    .article-meta-containers {
         margin-top: 75px;
-    }   
+    }  
 }
