@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RegistroUsuariosSpringSecurityApplication {
+public class OtbApplicationRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RegistroUsuariosSpringSecurityApplication.class, args);
+		SpringApplication.run(OtbApplicationRunner.class, args);
 	}
 }
