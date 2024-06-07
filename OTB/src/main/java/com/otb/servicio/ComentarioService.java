@@ -9,4 +9,6 @@ public interface ComentarioService {
 
     public void borrarComentario(Comentario comentario);
 
+    public void borrarTodosLosComentarios(Long articuloId);
+
 }

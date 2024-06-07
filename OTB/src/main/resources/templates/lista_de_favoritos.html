@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout.html">
 <head>
     <title>OTB</title>
 </head>
@@ -14,8 +14,7 @@
                 <div class="col-md-6 col-lg-3 mb-4" th:each="articulo: ${favoritos}">
                     <div class="card">
                         <form th:action="@{'/listaDeFavoritos/delete/' + ${articulo.articuloId}}" method="post">
-                            <button type="submit">
-                            <i class="fas fa-heart heart-icon"></i>
+                            <button type="submit" class="fas fa-heart heart-icon">
                             </button>
                         </form>
                         <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
@@ -23,7 +22,7 @@
                             <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
-                            <p class="card-text" th:text="${articulo.usuarios} + ' ' + ${articulo.usuarios} + ' - ' +${articulo.fecha_publ}">
+                            <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
                                 Autor - Fecha</p>
                             <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
                         </div>

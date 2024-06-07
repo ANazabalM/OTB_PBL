@@ -94,7 +94,7 @@ public class Usuario {
         valoracion.setUsuariosValorados(this);
     }
 	
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
 	@JoinTable(
 			name = "usuarios_roles",
 			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
@@ -102,7 +102,7 @@ public class Usuario {
 			)
 	private List<Rol> roles;
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	//@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "articulos_leidos",
@@ -115,7 +115,7 @@ public class Usuario {
         articulos_leidos.add(articulo);
     }
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
 	//@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "articulos_favoritos",

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 layout:decorate="layout.html">
 <head>
     <title>OTB - Título del Artículo</title>
@@ -12,9 +12,9 @@ layout:decorate="layout.html">
                     <a th:href="@{'/categoria/view/' + ${categoria.categoriaId}}"> 
                         <i th:class="${categoria.icono} + ' category-icon'"
                         th:style="'color: ' + ${categoria.color}"></i>
+                    
+                    <span class="title-categoria" th:style="'color: ' + ${categoria.color}" th:href="@{'/categoria/view/' + ${categoria.categoriaId}}" th:text="${categoria.titulo}" >NombreCategoria</span>
                     </a>
-                    <span class="title-categoria" th:text="${categoria.titulo}" 
-                        >NombreCategoria</span>
                 </div>
             </div>
         </div>

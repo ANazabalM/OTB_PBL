@@ -16,7 +16,7 @@ public class ArticuloServiceImpl implements ArticuloService{
     @Autowired
     private ArticuloRepository articuloRepository;
 
-     public Articulo save(Articulo articulo){
+    public Articulo save(Articulo articulo){
         return articuloRepository.save(articulo);
     }
 
