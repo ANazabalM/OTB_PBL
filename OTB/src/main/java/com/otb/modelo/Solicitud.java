@@ -2,6 +2,7 @@ package com.otb.modelo;
 
 import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +37,7 @@ public class Solicitud {
     @Column
     private LocalDate fecha_sol;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_ID")
     private Usuario solicitudUsuarios;
 

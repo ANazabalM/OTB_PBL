@@ -47,10 +47,9 @@ public class CategoriaControlador {
             Categoria categoria = categoriaServicio.getCategoria(Long.parseLong(categoriaId));
         
             for (Articulo articulo2 :articulos){
-
                 List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(articulo2.getArticuloId());
                 int mediaValoracion = 0;
-                if(listaValoracion!=null){
+                if(listaValoracion.size()!=0){
                     int i =0 ;
                     for (Valoracion valoracion2 :listaValoracion){
                         i++;
@@ -58,10 +57,10 @@ public class CategoriaControlador {
                     }
                             mediaValoracion = (mediaValoracion / i);
                             articulo2.setValoracionMedia(mediaValoracion);
-                        }else articulo2.setValoracionMedia(0);
+                }else articulo2.setValoracionMedia(0);
                         
                         
-                    }
+            }
             model.addAttribute("articulos", articulos);
             model.addAttribute("categoria", categoria);
 

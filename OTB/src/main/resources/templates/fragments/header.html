@@ -59,6 +59,7 @@
                         <a class="dropdown-item" th:href="@{'/usuario/view/' + ${#session.getAttribute('userId')}}">Ver Perfil</a>
                         <a class="dropdown-item" th:href="@{'/listaDeFavoritos'}" >Ver Lista de Favoritos</a>
                         <a class="dropdown-item" th:if="${#session != null and #session.getAttribute('admin') == true}" th:href="@{/administrador}">Acciones de adminsitrador</a>
+                        <a class="dropdown-item" th:if="${#session != null and  #session.getAttribute('avanzado') == true}" th:href="@{/solicitud/create}">Solicitar categoría</a>
                         <a class="dropdown-item" th:href="@{/logout}">Cerrar sesión</a>
                     </div>
                 </li>
@@ -98,6 +99,7 @@
                         <a class="dropdown-item" th:href="@{'/usuario/view/' + ${#session.getAttribute('userId')}}">Ver Perfil</a>
                         <a class="dropdown-item" th:href="@{'/listaDeFavoritos/'}">Ver Lista de Favoritos</a>                            
                         <a class="dropdown-item" th:if="${#session != null and  #session.getAttribute('admin') == true}" th:href="@{/administrador}">Admin</a>
+                        <a class="dropdown-item" th:if="${#session != null and  #session.getAttribute('avanzado') == true}" th:href="@{/solicitud/create}">Solicitar categoría</a>
                         <a class="dropdown-item" th:href="@{'/solicitud/create'}">Solicitar Categoría</a>   
                         <a class="dropdown-item" href="/logout">Cerrar sesión</a>
                     </div>

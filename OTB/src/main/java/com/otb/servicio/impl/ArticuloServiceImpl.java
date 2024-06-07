@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Articulo;
-import com.otb.modelo.Valoracion;
 import com.otb.repositorio.ArticuloRepository;
 import com.otb.servicio.ArticuloService;
 
@@ -17,7 +16,7 @@ public class ArticuloServiceImpl implements ArticuloService{
     @Autowired
     private ArticuloRepository articuloRepository;
 
-     public Articulo save(Articulo articulo){
+    public Articulo save(Articulo articulo){
         return articuloRepository.save(articulo);
     }
 

@@ -1,5 +1,6 @@
 package com.otb.modelo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,11 +30,11 @@ public class Valoracion {
 	@Column
     private Integer puntuacion;
     
-    @ManyToOne (fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
+    @ManyToOne (cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
     @JoinColumn(name = "articulo_ID")
     private Articulo articulosValorados;
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "usuarios_ID")
     private Usuario usuariosValorados;
 

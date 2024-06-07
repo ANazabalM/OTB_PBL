@@ -27,6 +27,7 @@ import com.otb.modelo.Usuario;
 import com.otb.modelo.Valoracion;
 import com.otb.servicio.ArticuloService;
 import com.otb.servicio.CategoriaService;
+import com.otb.servicio.ComentarioService;
 import com.otb.servicio.UsuarioServicio;
 import com.otb.servicio.ValoracionService;
 
@@ -41,6 +42,12 @@ public class ArticuloControlador {
 
     @Autowired
     private CategoriaService categoriaServicio;
+    
+    @Autowired
+    private ComentarioService comentarioServicio;
+
+    @Autowired
+    private ValoracionService valoracionServicio;
     
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
@@ -60,8 +67,6 @@ public class ArticuloControlador {
             usuario = usuarioServicio.getUsuario(idusuarioANONIMO);
         }
         
-
-        
         if(usuario != null && articuloId != null){
         articuloFavorito = articuloServicio.cogerArticuloFavorito(usuario.getId(), Long.parseLong(articuloId));
         }
@@ -72,7 +77,21 @@ public class ArticuloControlador {
         Categoria catergoriaID = articulo.getCategorias();
         Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
 
+        
+            List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(Long.parseLong(articuloId));
+            int mediaValoracion = 0;
+            if(listaValoracion.size()!=0){
+                int i =0 ;
+                for (Valoracion valoracion2 :listaValoracion){
+                    i++;
+                    mediaValoracion = mediaValoracion + valoracion2.getPuntuacion();
+                }
+                        mediaValoracion = (mediaValoracion / i);
+                        articulo.setValoracionMedia(mediaValoracion);
+            }else articulo.setValoracionMedia(0);
+
         Usuario usuarioA = articulo.getUsuarios();
+
 
             if(articulo != null){
                 Categoria categoria2 = new Categoria(   categoria.getTitulo(),
@@ -150,7 +169,10 @@ public class ArticuloControlador {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
             if((usuario.getRol().equals("administrador")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
             {
+                
+                //comentarioServicio.borrarTodosLosComentarios(Long.parseLong(articuloId));
                 articuloServicio.deleteArticulo(Long.parseLong(articuloId));
+                
             }
         }
         

@@ -11,6 +11,8 @@ body {
     background-color: var(--blanco_fondo);
 }
 
+
+
 /*HEADER*/
 header {
     background: var(--azul); 
@@ -104,6 +106,7 @@ footer a:hover {
     background-color: var(--azul);
     border-color: var(--azul);
 }
+
 .btn-custom, .btn-block { /*admin/crear art*/
     background-color: var(--azul);
     border-color: var(--azul);

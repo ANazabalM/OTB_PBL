@@ -1,6 +1,6 @@
 async function loadComentarios(articuloId, currentUserEmail) {
 
-    const response = await fetch("/articulo/3/comentarios");
+    const response = await fetch("/articulo/"+articuloId+"/comentarios");
     const comentarios = await response.json();
     console.log(comentarios);
 
@@ -8,7 +8,7 @@ async function loadComentarios(articuloId, currentUserEmail) {
     commentsSection.innerHTML = '';
     comentarios.forEach(comment => {
         let commentElement = document.createElement('div');
-        commentElement.classList.add("comment   ");
+        commentElement.classList.add("comment");
         commentElement.textContent = comment.username + ' : ' + comment.contenido;
 
         commentsSection.appendChild(commentElement);

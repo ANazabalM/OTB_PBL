@@ -57,11 +57,11 @@ public class Articulo {
     @Column
     private Integer valoracionMedia;
     
-    @ManyToOne (fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
+    @ManyToOne (cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
     @JoinColumn(name = "categoria_ID")
     private Categoria categorias;
 
-    @ManyToOne (fetch = FetchType.EAGER)
+    @ManyToOne (cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     @JoinColumn(name = "usuarios_ID")
     private Usuario usuarios;
 
@@ -80,8 +80,8 @@ public class Articulo {
         articuloValorado.add(valoracion);
         valoracion.setArticulosValorados(this);
     }
-    
-    @ManyToMany(mappedBy = "articulos_leidos")
+
+    @ManyToMany(cascade = CascadeType.PERSIST,mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;
 
     public void addVisualizacion(Usuario usuario, Articulo articulo){
@@ -90,7 +90,7 @@ public class Articulo {
         usuario.addVisualizacion(articulo);
     }
 
-    @ManyToMany(mappedBy = "articulos_favoritos")
+    @ManyToMany(cascade = CascadeType.PERSIST,mappedBy = "articulos_favoritos")
     private List<Usuario> articulos_favoritos_usuarios;
 
     public void addFavorito(Usuario usuario){
@@ -101,7 +101,6 @@ public class Articulo {
         articulos_favoritos_usuarios.remove(usuario);
     }
     
-
     public Articulo(Long articuloId, String titulo, LocalDate fecha_publ, String text, 
                     String alt_img, String src_img)
     {

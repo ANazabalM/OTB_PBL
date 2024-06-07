@@ -44,6 +44,10 @@ public class LoginControlador {
 			if(usuario.getRol() != null && usuario.getRol().equals("administrador"))
 			{
 				session.setAttribute("admin", true);
+			}else if(usuario.getRol() != null && usuario.getRol().equals("avanzado"))
+			{
+				session.setAttribute("avanzado", true);
+
 			}
 			
 			session.setAttribute("userId", String.valueOf(usuario.getId()));

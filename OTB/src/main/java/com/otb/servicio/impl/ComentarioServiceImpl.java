@@ -32,4 +32,9 @@ public class ComentarioServiceImpl implements ComentarioService{
         }
         comentarioRepository.delete(comentario);
     }
+
+    @Override
+    public void borrarTodosLosComentarios(Long articuloId) {
+        comentarioRepository.borrarTodosLosComentarios(articuloId);
+    }
 }
