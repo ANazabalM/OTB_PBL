@@ -315,7 +315,7 @@ footer a:hover {
 .comments-section {
     margin-top: 40px;
 }
-.comment {
+#comment {
     background-color: white;
     border: 1px solid var(--blanco_border);
     border-radius: 5px;
@@ -334,6 +334,7 @@ footer a:hover {
     flex: 1;
     margin-right: 10px;
 }
+
 
 /*CREAR ARTICULO-CATEGORIA-SOLICITUD*/
 .create-header {

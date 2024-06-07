@@ -4,8 +4,11 @@ layout:decorate="layout.html">
 <head>
     <title>OTB - Título del Artículo</title>
     <script src="/Javascript/main.js"></script>
+    <style>
+        
+    </style>
 </head>
-<body th:onload= "init([[${articulo.articuloId}]], [[${currentEmail}]])">
+<body >
 
     <div class="container article-container" layout:fragment="contenido">
         <div class="row">
@@ -46,11 +49,18 @@ layout:decorate="layout.html">
 
         <div>
             <h3>Comentarios</h3>
-            <div id="coments1">
-                <div id="comments">
-                
+            <div class="comments-section">
+                <div class="comment-form">
+                    <div class="comment-text">eider : hjb</div>
+                    <form method="GET" action="/comentario/delete/8">
+                        <button type="submit" class="btn btn-trash">
+                            <i class="fa-solid fa-trash-can" aria-hidden="true"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
+            
+            
             
 
             <form th:action="@{'/comentario/create/' + ${articulo.articuloId}}" method="post" th:object="${comentarioCrear}" class="comment-form">
