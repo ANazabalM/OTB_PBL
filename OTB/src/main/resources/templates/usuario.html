@@ -15,14 +15,14 @@ layout:decorate="layout.html">
                 <div class="profile-info">
                     <div class="profile-name">
                         <span th:text="${usuario.nombre} + ' ' + ${usuario.apellido}">Nombre Apellido</span>
-                        <div class="avanzado-icon" style="margin-left: 10px;">
+                        <div th:if="${usuario.tipo.equals('avanzado')}" class="avanzado-icon" style="margin-left: 10px;">
                             <i class="fa-solid fa-graduation-cap"></i>
                         </div>
                     </div>
                     <div th:if="${usuario.email != null && mismo}" class="email" th:text="${usuario.email}">Email</div>
                     <div class="article-info">
-                        <div class="article-count" th:text="${numeroArticulos}">Numero Articulos</div>
-                        <div class="rating">Valoración: 4.5</div>
+                        <div class="article-count" th:text="'Artículos: ' + ${numeroArticulos}">Numero Articulos</div>
+                        <div class="rating ml-3">Valoración: 4.5</div>
                     </div>
                 </div>
             </div>

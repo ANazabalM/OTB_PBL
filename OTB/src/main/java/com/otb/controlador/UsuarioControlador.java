@@ -66,12 +66,13 @@ public class UsuarioControlador {
             if(!mismo)
             {
                 usuarioVista = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
-                                    usuario.getUsername(), usuario.getDescripcion(), usuario.getImg_src());
+                                    usuario.getUsername(), usuario.getDescripcion(), usuario.getImg_src(), usuario.getTipo());
                 
 
             }else{
                 usuarioVista = new Usuario(Long.parseLong(usuarioId), usuario.getNombre(), usuario.getApellido(),
-                                    usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername(), usuario.getImg_src(), usuario.getFecha_nacimiento());
+                                    usuario.getDescripcion(), usuario.getEmail(), usuario.getUsername(), usuario.getImg_src(), usuario.getFecha_nacimiento(),
+                                    usuario.getTipo());
             }
 
             List <Articulo> listaArticulos = usuario.getUsuariosArticulo();

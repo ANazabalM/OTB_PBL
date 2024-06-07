@@ -180,7 +180,7 @@ public class Usuario {
 	}
 
 	public Usuario(Long usuarioId, String nombre2, String apellido2, String descripcion2, String email2,
-			String username2, String img_src, LocalDate fecha_nacimiento) {
+			String username2, String img_src, LocalDate fecha_nacimiento, String tipo) {
 		super();
 		this.id = usuarioId;
 		this.nombre = nombre2;
@@ -190,15 +190,17 @@ public class Usuario {
 		this.username = username2;
 		this.img_src = img_src;
 		this.fecha_nacimiento = fecha_nacimiento;
+		this.Tipo = tipo;
 	}
 
 	public Usuario(long id, String nombre2, String apellido2, String username2, 
-					String descripcion2, String img_src) {
+					String descripcion2, String img_src, String tipo) {
 		this.id = id;
 		this.nombre = nombre2;
 		this.apellido = apellido2;
 		this.username = username2;
 		this.descripcion = descripcion2;
 		this.img_src = img_src;
+		this.Tipo = tipo;
 	}
 }

@@ -251,12 +251,17 @@ footer a:hover {
     height: 100%;
 }
 .card-img-top{
-    
     height: 180px;
     position:block;
 }
-.card-body {
-    background-color: var(--block_fondo); 
+.card-body, .card-footer {
+    background-color: var(--block_fondo)!important;
+}
+.card-body{
+    border-bottom: 0;
+}
+.card-footer{
+    border-top: 0!important;
 }
 
 /*ARTICULO VIEW*/

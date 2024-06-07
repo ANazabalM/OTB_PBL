@@ -36,16 +36,19 @@
                         <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                             <img th:src="${articulo.src_img}" class="card-img-top" th:alt="${articulo.alt_img}">
                         </a>
-                        <div class="card-body">
+                        <div class="card-body pb-1">
                             <a th:href="@{'/articulo/view/' + ${articulo.articuloId}}">
                                 <h5 class="card-title" th:text="${articulo.titulo}">Título del Artículo</h5>
                             </a>
+                        </div>
+                        <div class="card-footer pt-0">
                             <a th:href="@{'/usuario/view/' + ${articulo.usuarios.id}}">
                                 <p class="card-text" th:text="${articulo.usuarios.nombre} + ' ' + ${articulo.usuarios.apellido} + ' - ' +${articulo.fecha_publ}">
-                                    Autor - Fecha</p>
+                                    Autor - Fecha
+                                </p>
                             </a>
                             <p class="card-text"><span class="star-icon">&#9733;</span> <span class="badge badge-info">3/5</span></p>
-                        </div>  
+                        </div>
                     </div>
                 </div> 
             </div>
