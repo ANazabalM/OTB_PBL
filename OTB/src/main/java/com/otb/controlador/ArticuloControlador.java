@@ -166,7 +166,7 @@ public class ArticuloControlador {
         if(articulo != null)
         {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
-            if((usuario.getRol().equals("administrador")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
+            if((usuario.getTipo().equals("administrador")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
             {
                 
                 //comentarioServicio.borrarTodosLosComentarios(Long.parseLong(articuloId));

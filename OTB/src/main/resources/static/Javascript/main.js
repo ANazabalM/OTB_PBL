@@ -1,6 +1,7 @@
 async function loadComentarios(articuloId, currentUserEmail) {
 
     const response = await fetch("/articulo/" + articuloId + "/comentarios");
+    console.log ( "/articulo/" + articuloId + "/comentarios");
     const comentarios = await response.json();
     console.log(comentarios);
 

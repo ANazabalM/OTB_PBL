@@ -36,7 +36,7 @@ public class UsuarioControlador {
 		String emailAuth = auth.getName();  
         Usuario usuarioLogged = usuarioServicio.buscarPorEmail(emailAuth);
 
-        if(usuarioLogged.getRol().equals("administrador"))
+        if(usuarioLogged.getTipo().equals("administrador"))
         {
             List<Usuario> usuarios = usuarioServicio.getAll();
             model.addAttribute("usuarios", usuarios);
