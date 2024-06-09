@@ -36,7 +36,7 @@ layout:decorate="layout.html">
                                 <option th:value="4" class="star-icon-valoracion">4 &#9733;</option>
                                 <option th:value="5" class="star-icon-valoracion">5 &#9733;</option>
                             </select>
-                            <button  type="submit">VALORAR</button>
+                            <button class="btn-valorar" type="submit">VALORAR</button>
                         </form>                                             
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
                             <button type="submit" class="heart-icon">
