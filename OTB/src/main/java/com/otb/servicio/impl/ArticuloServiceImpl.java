@@ -41,7 +41,9 @@ public class ArticuloServiceImpl implements ArticuloService{
         if (!articuloRepository.existsById(articuloId)) {
             throw new ResourceNotFoundException("Artículo no encontrado");
         }
-        articuloRepository.deleteById(articuloId);
+        articuloRepository.borrarArticuloVisto(articuloId);
+        articuloRepository.borrarArticuloFavorito(articuloId);
+        articuloRepository.borrarArticulo(articuloId);
     }
 
     @Override

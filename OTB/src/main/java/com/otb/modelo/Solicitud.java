@@ -37,8 +37,8 @@ public class Solicitud {
     @Column
     private LocalDate fecha_sol;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "usuario_ID")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
     private Usuario solicitudUsuarios;
 
     public Solicitud(String titulo,String descripcion, Usuario solicitudUsuarios, LocalDate fecha_sol) {

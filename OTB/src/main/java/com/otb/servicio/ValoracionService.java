@@ -10,4 +10,6 @@ public interface ValoracionService {
     public Valoracion cogerValoracion(Long articuloId,Long usuarioId);
 
     public List<Valoracion> cogerLasValoracion(Long articuloId);
+
+    public void borrarLasValoracion(Long articuloId);
 }

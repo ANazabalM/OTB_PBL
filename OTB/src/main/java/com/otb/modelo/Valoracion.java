@@ -30,12 +30,12 @@ public class Valoracion {
 	@Column
     private Integer puntuacion;
     
-    @ManyToOne (cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
-    @JoinColumn(name = "articulo_ID")
+    @ManyToOne (cascade = CascadeType.ALL,fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
+    @JoinColumn(name = "articulo_id")
     private Articulo articulosValorados;
 
-    @ManyToOne (cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-    @JoinColumn(name = "usuarios_ID")
+    @ManyToOne (cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuarios_id")
     private Usuario usuariosValorados;
 
     public Valoracion(Integer puntuacion2, Usuario usuario, Articulo articulo) {

@@ -31,4 +31,10 @@ public class ValoracionServiceImpl implements ValoracionService{
     
         return valoracionRepository.laValoracion(articuloId);
     }
+
+    @Override
+    public void borrarLasValoracion(Long articuloId) {
+    
+        valoracionRepository.borrarArticuloValorado(articuloId);
+    }
 }

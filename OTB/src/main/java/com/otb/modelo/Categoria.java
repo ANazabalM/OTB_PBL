@@ -37,7 +37,7 @@ public class Categoria {
     @Column
     private String icono;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "categorias")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "categorias")
     private List<Articulo> articulosCategoria;
 
     public void addArticulo(Articulo articulo){

@@ -18,4 +18,6 @@ public interface ValoracionRepository extends JpaRepository<Valoracion,Long>{
     @Query(value = "SELECT * FROM valoracion where articulo_id = :articuloID", nativeQuery = true)
     public List<Valoracion> laValoracion(@Param("articuloID") Long articuloID);
 
+    @Query(value = "DELETE FROM valoracion where articulo_id = :articuloId", nativeQuery = true)
+    public Long borrarArticuloValorado(@Param("articuloId") Long articuloId);
 }

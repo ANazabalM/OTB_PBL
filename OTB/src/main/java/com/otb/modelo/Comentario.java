@@ -33,12 +33,12 @@ public class Comentario {
     @Column
     private LocalDate fecha_com;
 
-    @ManyToOne
-    @JoinColumn(name = "articulo_ID")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "articulo_id")
     private Articulo articulosComentarios;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_ID")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "usuario_id")
     private Usuario usuariosComentarios;
 
     public Comentario(String contenido, Usuario id, String apellido) {

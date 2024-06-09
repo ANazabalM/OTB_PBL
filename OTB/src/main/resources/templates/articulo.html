@@ -25,14 +25,19 @@ layout:decorate="layout.html">
                     </a>
                     <p th:text="${articulo.fecha_publ}">Fecha</p>
                     <div class="article-meta-row">
-                        <span class="badge badge-info" th:text="${articulo.valoracionMedia + '/5'}"></span>                                              
-                        <div class="star-container">                            
-                            <span class="star-icon-valoracion">&#9733;</span>
-                            <span class="star-icon-valoracion">&#9733;</span>
-                            <span class="star-icon-valoracion">&#9733;</span>
-                            <span class="star-icon-valoracion">&#9733;</span>
-                            <span class="star-icon-valoracion">&#9733;</span>
-                        </div>
+                        <span class="badge badge-info" th:text="${articulo.valoracionMedia + '/5'}"></span> 
+                        
+                        <form th:action="@{'/valoracion/create/' + ${articulo.articuloId}}" method="post" th:object="${valoracionCrear}">
+                            
+                            <select class="form-control" id="puntuacion" th:field="*{puntuacion}">
+                                <option th:value="1" class="star-icon-valoracion">1 &#9733;</option>
+                                <option th:value="2" class="star-icon-valoracion">2 &#9733;</option>
+                                <option th:value="3" class="star-icon-valoracion">3 &#9733;</option>
+                                <option th:value="4" class="star-icon-valoracion">4 &#9733;</option>
+                                <option th:value="5" class="star-icon-valoracion">5 &#9733;</option>
+                            </select>
+                            <button  type="submit">VALORAR</button>
+                        </form>                                             
                         <form th:action="@{'/listaDeFavoritos/add/' + ${articulo.articuloId}}" method="post">
                             <button type="submit" class="heart-icon">
                                 <i th:class="${articuloCorazon}"></i>

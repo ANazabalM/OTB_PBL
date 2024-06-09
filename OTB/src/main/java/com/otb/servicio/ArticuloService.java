@@ -22,4 +22,6 @@ public interface ArticuloService {
     public List<Articulo> cogerMasVistos();
 
     public List<Articulo> cogerArticulosCategoria(String categoriaId);
+
+    
 }

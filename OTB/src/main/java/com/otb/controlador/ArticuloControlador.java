@@ -42,12 +42,13 @@ public class ArticuloControlador {
 
     @Autowired
     private CategoriaService categoriaServicio;
-    
-    @Autowired
-    private ComentarioService comentarioServicio;
 
     @Autowired
-    private ValoracionService valoracionServicio;
+    private ValoracionService valoracionService;
+
+    @Autowired
+    private ComentarioService comentarioService;
+
     
     @GetMapping("/articulo/view/{articuloId}")
     private String verArticulo(@PathVariable String articuloId, Model model){
@@ -78,7 +79,7 @@ public class ArticuloControlador {
         Categoria categoria = categoriaServicio.getCategoria(catergoriaID.getCategoriaId());
 
         
-            List<Valoracion> listaValoracion = valoracionServicio.cogerLasValoracion(Long.parseLong(articuloId));
+            List<Valoracion> listaValoracion = valoracionService.cogerLasValoracion(Long.parseLong(articuloId));
             int mediaValoracion = 0;
             if(listaValoracion.size()!=0){
                 int i =0 ;
@@ -137,7 +138,6 @@ public class ArticuloControlador {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		String emailAuth = auth.getName();
-
         
         Categoria categoria = articulo.getCategorias();
         Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
@@ -168,8 +168,9 @@ public class ArticuloControlador {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
             if((usuario.getTipo().equals("administrador")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
             {
-                
-                //comentarioServicio.borrarTodosLosComentarios(Long.parseLong(articuloId));
+
+                comentarioService.borrarTodosLosComentarios(Long.parseLong(articuloId));
+                valoracionService.borrarLasValoracion(Long.parseLong(articuloId));
                 articuloServicio.deleteArticulo(Long.parseLong(articuloId));
                 
             }
@@ -202,4 +203,34 @@ public class ArticuloControlador {
         model.addAttribute("error", ex.getMessage());
         return "redirect:/";
     }
+
+    @ModelAttribute("valoracionCrear")
+	public Valoracion retornarNuevValoracion() {
+		return new Valoracion();
+	}
+    
+    @PostMapping("/valoracion/create/{articuloId}")
+    public String crearValoracion(@ModelAttribute("valoracionCrear")
+                                        Valoracion valoracion, HttpSession session,
+                                        @PathVariable("articuloId") String articuloId)
+    {
+        if(articuloId != null)
+        {
+        
+            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+            if(articulo != null)
+            {
+                Usuario usuario = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
+
+                Valoracion valoracionGuardar = new Valoracion(valoracion.getPuntuacion(), usuario, articulo);
+        
+                valoracionService.save(valoracionGuardar);
+                return "redirect:/articulo/view/" + articuloId;
+            }
+        }
+        
+        return "redirect:/";        
+
+    }
+
 }
