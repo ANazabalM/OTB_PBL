@@ -72,13 +72,12 @@ footer a:hover {
 }
 
 /*BOTONES*/
-.btn-primary {
+.btn-primary, .btn-custom, .btn-block, .btn-valorar { 
     background-color: var(--azul);
     border-color: var(--azul);
 }
-.btn-custom, .btn-block { 
-    background-color: var(--azul);
-    border-color: var(--azul);
+.btn-valorar{
+    color: var(--block_fondo);
 }
 .btn-trash { 
     color: var(--rojo);
@@ -108,7 +107,7 @@ footer a:hover {
     color: var(--azul);
 }
 .star-icon-valoracion {
-    font-size: 25px; 
+    font-size: 18px; 
     margin-right: 2px; 
     color: gold; 
 }
