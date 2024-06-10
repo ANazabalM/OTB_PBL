@@ -12,4 +12,6 @@ public interface ValoracionService {
     public List<Valoracion> cogerLasValoracion(Long articuloId);
 
     public void borrarLasValoracion(Long articuloId);
+
+    public void borrarValoracion(Valoracion valoracion);
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.otb.excepciones.ResourceNotFoundException;
 import com.otb.modelo.Valoracion;
 import com.otb.repositorio.ValoracionRepository;
 import com.otb.servicio.ValoracionService;
@@ -30,6 +31,14 @@ public class ValoracionServiceImpl implements ValoracionService{
     public List<Valoracion> cogerLasValoracion(Long articuloId) {
     
         return valoracionRepository.laValoracion(articuloId);
+    }
+
+        @Override
+    public void borrarValoracion(Valoracion valoracion) {
+        if (!valoracionRepository.existsById(valoracion.getValoracion_id())) {
+            throw new ResourceNotFoundException("Valoracion no encontrado");
+        }
+        valoracionRepository.delete(valoracion);
     }
 
     @Override

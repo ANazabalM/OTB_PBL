@@ -62,7 +62,7 @@ public class Usuario {
 	@Column
 	private String rol;
 
-	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuarios")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuarios")
     private List<Articulo> usuariosArticulo;
 
     public void addArticulo(Articulo articulo){
@@ -70,7 +70,7 @@ public class Usuario {
         articulo.setUsuarios(this);
     }
 
-	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuariosComentarios")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosComentarios")
     private List<Comentario> usuariosComentario;
 
     public void addComentario(Comentario comentario){
@@ -78,7 +78,7 @@ public class Usuario {
         comentario.setUsuariosComentarios(this);
     }
 
-	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "solicitudUsuarios")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "solicitudUsuarios")
     private List<Solicitud> usuariosSolicitud;
 
     public void addSolicitud(Solicitud solicitud){
@@ -86,7 +86,7 @@ public class Usuario {
         solicitud.setSolicitudUsuarios(this);
     }
 
-	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "usuariosValorados")  // 1 --> n el foreing key que mandas a otra tabla
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "usuariosValorados")  // 1 --> n el foreing key que mandas a otra tabla
     private List<Valoracion> articuloValorado; // "articuloComentario" hay que cogerlo del MayToOne
 
     public void addValoracion(Valoracion valoracion){ // añadir comentario, en repository
@@ -94,7 +94,7 @@ public class Usuario {
         valoracion.setUsuariosValorados(this);
     }
 	
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "usuarios_roles",
 			joinColumns = @JoinColumn(name = "usuario_id",referencedColumnName = "id"),
@@ -102,7 +102,7 @@ public class Usuario {
 			)
 	private List<Rol> roles;
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	//@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "articulos_leidos",
@@ -115,7 +115,7 @@ public class Usuario {
         articulos_leidos.add(articulo);
     }
 
-	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
 	//@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(
 			name = "articulos_favoritos",

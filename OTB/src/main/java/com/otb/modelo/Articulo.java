@@ -81,7 +81,7 @@ public class Articulo {
         valoracion.setArticulosValorados(this);
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST,mappedBy = "articulos_leidos")
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;
 
     public void addVisualizacion(Usuario usuario, Articulo articulo){
@@ -90,7 +90,7 @@ public class Articulo {
         usuario.addVisualizacion(articulo);
     }
 
-    @ManyToMany(cascade = CascadeType.PERSIST,mappedBy = "articulos_favoritos")
+    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "articulos_favoritos")
     private List<Usuario> articulos_favoritos_usuarios;
 
     public void addFavorito(Usuario usuario){

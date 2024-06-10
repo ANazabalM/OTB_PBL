@@ -5,7 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+//Queriamos implementar lo de los roles con una tabla de roles, pero no nos ha dado tiempo, y de momento esta echo con un atributo dentro de usuarios
 @Entity
 @Table(name = "rol")
 public class Rol {

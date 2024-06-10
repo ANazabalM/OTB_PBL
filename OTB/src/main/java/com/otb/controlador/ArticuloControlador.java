@@ -168,10 +168,16 @@ public class ArticuloControlador {
             Usuario usuario = usuarioServicio.buscarPorEmail(SecurityContextHolder.getContext().getAuthentication().getName());
             if((usuario.getTipo().equals("administrador")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
             {
-
-                valoracionService.borrarLasValoracion(Long.parseLong(articuloId));
-                comentarioService.borrarTodosLosComentarios(Long.parseLong(articuloId));
-                articuloServicio.deleteArticulo(Long.parseLong(articuloId));
+                List<Valoracion> valoraciones = valoracionService.cogerLasValoracion(Long.parseLong(articuloId));
+                for (Valoracion val : valoraciones){
+                    valoracionService.borrarValoracion(val);
+                }
+                List<Comentario> com = comentarioService.cogerLosComentarios(Long.parseLong(articuloId));
+                for (Comentario comm : com){
+                    comentarioService.borrarComentario(comm);
+                }
+                Articulo art = articuloServicio.cojerArticulo(Long.parseLong(articuloId));
+                articuloServicio.deleteArticulo(art);
                 
             }
         }

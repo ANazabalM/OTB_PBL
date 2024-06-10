@@ -9,7 +9,9 @@ public interface ArticuloService {
 
     public Articulo getArticulo(long articuloId);
 
-    public void deleteArticulo(long articuloId);
+    public Articulo cojerArticulo(long articuloId);
+
+    public void deleteArticulo(Articulo art);
 
     public void editarArticulo(long articuloId, Articulo articuloEditado);
 

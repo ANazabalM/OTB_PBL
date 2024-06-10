@@ -30,6 +30,8 @@ public interface ArticuloRepository extends JpaRepository <Articulo, Long>{
     @Query(value = "DELETE FROM articulos_favoritos where articulo_id = :articuloId", nativeQuery = true)
     public Long borrarArticuloFavorito(@Param("articuloId") Long articuloId);
 
+    @Query(value = "SELECT * FROM articulo where articulo_id = :articuloId", nativeQuery = true)
+    public Articulo cojerArticulo(@Param("articuloId") Long articuloId);
     
 
 

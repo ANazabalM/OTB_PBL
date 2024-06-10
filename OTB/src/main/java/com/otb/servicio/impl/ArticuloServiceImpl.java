@@ -37,13 +37,13 @@ public class ArticuloServiceImpl implements ArticuloService{
     }
 
     @Override
-    public void deleteArticulo(long articuloId) {
-        if (!articuloRepository.existsById(articuloId)) {
-            throw new ResourceNotFoundException("Artículo no encontrado");
-        }
-        articuloRepository.borrarArticuloVisto(articuloId);
-        articuloRepository.borrarArticuloFavorito(articuloId);
-        articuloRepository.borrarArticulo(articuloId);
+    public Articulo cojerArticulo(long articuloId) {
+
+        return articuloRepository.cojerArticulo(articuloId);
+    }
+
+    public void deleteArticulo(Articulo art){
+        articuloRepository.delete(art);
     }
 
     @Override
