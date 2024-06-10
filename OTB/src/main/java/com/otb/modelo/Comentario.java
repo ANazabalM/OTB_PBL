@@ -33,11 +33,11 @@ public class Comentario {
     @Column
     private LocalDate fecha_com;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "articulo_id")
     private Articulo articulosComentarios;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "usuario_id")
     private Usuario usuariosComentarios;
 

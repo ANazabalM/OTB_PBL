@@ -57,15 +57,15 @@ public class Articulo {
     @Column
     private Integer valoracionMedia;
     
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
+    @ManyToOne (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)// n --> 1 el foreing key que recibes
     @JoinColumn(name = "categoria_ID")
     private Categoria categorias;
 
-    @ManyToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne (cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     @JoinColumn(name = "usuarios_ID")
     private Usuario usuarios;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulosComentarios")  // 1 --> n el foreing key que mandas a otra tabla
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "articulosComentarios")  // 1 --> n el foreing key que mandas a otra tabla
     private List<Comentario> articuloComentario; // "articuloComentario" hay que cogerlo del MayToOne
 
     public void addComentario(Comentario comentario){ // añadir comentario, en repository
@@ -73,7 +73,7 @@ public class Articulo {
         comentario.setArticulosComentarios(this);
     }
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "articulosValorados")  // 1 --> n el foreing key que mandas a otra tabla
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "articulosValorados")  // 1 --> n el foreing key que mandas a otra tabla
     private List<Valoracion> articuloValorado; // "articuloComentario" hay que cogerlo del MayToOne
 
     public void addValoracion(Valoracion valoracion){ // añadir comentario, en repository
@@ -81,7 +81,7 @@ public class Articulo {
         valoracion.setArticulosValorados(this);
     }
 
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "articulos_leidos")
+    @ManyToMany(cascade = CascadeType.PERSIST,mappedBy = "articulos_leidos")
     private List<Usuario> articulos_leidos_usuarios;
 
     public void addVisualizacion(Usuario usuario, Articulo articulo){
@@ -90,7 +90,7 @@ public class Articulo {
         usuario.addVisualizacion(articulo);
     }
 
-    @ManyToMany(cascade = CascadeType.ALL,mappedBy = "articulos_favoritos")
+    @ManyToMany(cascade = CascadeType.PERSIST,mappedBy = "articulos_favoritos")
     private List<Usuario> articulos_favoritos_usuarios;
 
     public void addFavorito(Usuario usuario){

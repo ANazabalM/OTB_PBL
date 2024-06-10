@@ -169,8 +169,8 @@ public class ArticuloControlador {
             if((usuario.getTipo().equals("administrador")) || (session.getAttribute("email").equals(articulo.getUsuarios().getEmail())))
             {
 
-                comentarioService.borrarTodosLosComentarios(Long.parseLong(articuloId));
                 valoracionService.borrarLasValoracion(Long.parseLong(articuloId));
+                comentarioService.borrarTodosLosComentarios(Long.parseLong(articuloId));
                 articuloServicio.deleteArticulo(Long.parseLong(articuloId));
                 
             }
@@ -214,22 +214,31 @@ public class ArticuloControlador {
                                         Valoracion valoracion, HttpSession session,
                                         @PathVariable("articuloId") String articuloId)
     {
-        if(articuloId != null)
-        {
-        
-            Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
-            if(articulo != null)
-            {
-                Usuario usuario = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
 
-                Valoracion valoracionGuardar = new Valoracion(valoracion.getPuntuacion(), usuario, articulo);
-        
-                valoracionService.save(valoracionGuardar);
-                return "redirect:/articulo/view/" + articuloId;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+		String emailAuth = auth.getName();
+
+        Usuario usuario = usuarioServicio.buscarPorEmail(emailAuth);
+
+        if(usuario != null ){
+            if(articuloId != null)
+            {
+            
+                Articulo articulo = articuloServicio.getArticulo(Long.parseLong(articuloId));
+                if(articulo != null)
+                {
+                    Usuario usuario2 = usuarioServicio.buscarPorEmail((String)session.getAttribute("email"));
+
+                    Valoracion valoracionGuardar = new Valoracion(valoracion.getPuntuacion(), usuario2, articulo);
+            
+                    valoracionService.save(valoracionGuardar);
+                    return "redirect:/articulo/view/" + articuloId;
+                }
             }
         }
         
-        return "redirect:/";        
+    return "redirect:/";        
 
     }
 
